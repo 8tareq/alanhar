@@ -609,13 +609,13 @@
                         <div class="input-group">
                             <label for="usd-debtor">المدين (الخروج) / Borçlu (Çıkış)</label>
                             <div class="label-tr">Çıkan para miktarı</div>
-                            <input type="number" id="usd-debtor" placeholder="أدخل قيمة المدين بالدولار / Dolar cinsinden borçlu değerini girin">
+                            <input type="number" id="usd-debtor" placeholder="أدخل قيمة المدين بالدولار / Dolar cinsinden borçlu değerini girin" step="0.01" min="0">
                         </div>
                         
                         <div class="input-group">
                             <label for="usd-creditor">الدائن (الدخول) / Alacaklı (Giriş)</label>
                             <div class="label-tr">Giren para miktarı</div>
-                            <input type="number" id="usd-creditor" placeholder="أدخل قيمة الدائن بالدولار / Dolar cinsinden alacaklı değerini girin">
+                            <input type="number" id="usd-creditor" placeholder="أدخل قيمة الدائن بالدولار / Dolar cinsinden alacaklı değerini girin" step="0.01" min="0">
                         </div>
                         
                         <div id="usd-surplus" class="result-box">
@@ -633,13 +633,13 @@
                         <div class="input-group">
                             <label for="eur-debtor">المدين (الخروج) / Borçlu (Çıkış)</label>
                             <div class="label-tr">Çıkan para miktarı</div>
-                            <input type="number" id="eur-debtor" placeholder="أدخل قيمة المدين باليورو / Euro cinsinden borçlu değerini girin">
+                            <input type="number" id="eur-debtor" placeholder="أدخل قيمة المدين باليورو / Euro cinsinden borçlu değerini girin" step="0.01" min="0">
                         </div>
                         
                         <div class="input-group">
                             <label for="eur-creditor">الدائن (الدخول) / Alacaklı (Giriş)</label>
                             <div class="label-tr">Giren para miktarı</div>
-                            <input type="number" id="eur-creditor" placeholder="أدخل قيمة الدائن باليورو / Euro cinsinden alacaklı değerini girin">
+                            <input type="number" id="eur-creditor" placeholder="أدخل قيمة الدائن باليورو / Euro cinsinden alacaklı değerini girin" step="0.01" min="0">
                         </div>
                         
                         <div id="eur-surplus" class="result-box">
@@ -657,13 +657,13 @@
                         <div class="input-group">
                             <label for="try-debtor">المدين (الخروج) / Borçlu (Çıkış)</label>
                             <div class="label-tr">Çıkan para miktarı</div>
-                            <input type="number" id="try-debtor" placeholder="أدخل قيمة المدين بالليرة / Lira cinsinden borçlu değerini girin">
+                            <input type="number" id="try-debtor" placeholder="أدخل قيمة المدين بالليرة / Lira cinsinden borçlu değerini girin" step="0.01" min="0">
                         </div>
                         
                         <div class="input-group">
                             <label for="try-creditor">الدائن (الدخول) / Alacaklı (Giriş)</label>
                             <div class="label-tr">Giren para miktarı</div>
-                            <input type="number" id="try-creditor" placeholder="أدخل قيمة الدائن بالليرة / Lira cinsinden alacaklı değerini girin">
+                            <input type="number" id="try-creditor" placeholder="أدخل قيمة الدائن بالليرة / Lira cinsinden alacaklı değerini girin" step="0.01" min="0">
                         </div>
                         
                         <div id="try-surplus" class="result-box">
@@ -686,13 +686,13 @@
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">$</span>
                             <div class="profit-amount">
-                                <input type="number" id="swift-profit-usd" placeholder="أدخل ربح Swift بالدولار" class="profit-input">
+                                <input type="number" id="swift-profit-usd" placeholder="أدخل ربح Swift بالدولار" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
-                                <input type="number" id="swift-profit-eur" placeholder="أدخل ربح Swift باليورو" class="profit-input">
+                                <input type="number" id="swift-profit-eur" placeholder="أدخل ربح Swift باليورو" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -704,13 +704,13 @@
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">$</span>
                             <div class="profit-amount">
-                                <input type="number" id="havala-profit-usd" placeholder="أدخل ربح Havala بالدولار" class="profit-input">
+                                <input type="number" id="havala-profit-usd" placeholder="أدخل ربح Havala بالدولار" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
-                                <input type="number" id="havala-profit-eur" placeholder="أدخل ربح Havala باليورو" class="profit-input">
+                                <input type="number" id="havala-profit-eur" placeholder="أدخل ربح Havala باليورو" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -722,13 +722,13 @@
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">$</span>
                             <div class="profit-amount">
-                                <input type="number" id="silver-profit-usd" placeholder="أدخل ربح الفضة بالدولار" class="profit-input">
+                                <input type="number" id="silver-profit-usd" placeholder="أدخل ربح الفضة بالدولار" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
-                                <input type="number" id="silver-profit-eur" placeholder="أدخل ربح الفضة باليورو" class="profit-input">
+                                <input type="number" id="silver-profit-eur" placeholder="أدخل ربح الفضة باليورو" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -747,9 +747,9 @@
                 </h2>
                 
                 <div id="expenses-container">
-                    <!-- سيتم إضافة مصروفات ديناميكياً هنا -->
-                    <div class="expense-container">
-                        <div class="expense-item">
+                    <div class="expense-container" id="expenses-list">
+                        <!-- سيتم إضافة مصروفات ديناميكياً هنا -->
+                        <div class="expense-item" id="expense-item-1">
                             <div class="input-group">
                                 <label for="expense-name-1">وصف المصروف / Gider Açıklaması</label>
                                 <input type="text" id="expense-name-1" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
@@ -757,7 +757,7 @@
                             
                             <div class="input-group">
                                 <label for="expense-amount-1">القيمة / Tutar</label>
-                                <input type="number" id="expense-amount-1" placeholder="أدخل قيمة المصروف / Gider tutarını girin">
+                                <input type="number" id="expense-amount-1" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0">
                             </div>
                             
                             <div class="input-group">
@@ -768,6 +768,10 @@
                                     <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
                                 </select>
                             </div>
+                            
+                            <button class="btn btn-reset remove-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="1">
+                                <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1038,11 +1042,17 @@
                 });
             });
             
+            // إضافة مستمعي الأحداث لحذف المصروفات
+            setupRemoveExpenseListeners();
+            
             // تحديث الحسابات عند إدخال البيانات
             setupInputListeners();
             
             // تحديث المصروفات عند التحميل
             updateExpensesTotal();
+            
+            // تحديث الحسابات الأولية
+            updateCalculations();
         });
         
         // إعداد مستمعي الإدخال
@@ -1055,6 +1065,26 @@
             document.querySelectorAll('select').forEach(select => {
                 select.addEventListener('change', updateCalculations);
             });
+        }
+        
+        // إعداد مستمعي الأحداث لحذف المصروفات
+        function setupRemoveExpenseListeners() {
+            document.querySelectorAll('.remove-expense-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const expenseId = this.getAttribute('data-id');
+                    removeExpense(expenseId);
+                });
+            });
+        }
+        
+        // حذف مصروف
+        function removeExpense(expenseId) {
+            const expenseItem = document.getElementById(`expense-item-${expenseId}`);
+            if (expenseItem) {
+                expenseItem.remove();
+                updateExpensesTotal();
+                updateCalculations();
+            }
         }
         
         // تحديث الحسابات
@@ -1176,6 +1206,13 @@
                         </div>
                     `;
                 }
+            } else {
+                totalExpenseContainer.innerHTML = `
+                    <div class="expense-total-box">
+                        <div>لا توجد مصروفات مسجلة / Kayıtlı gider yok</div>
+                        <div class="expense-currency">$0.00 / €0.00 / ₺0.00</div>
+                    </div>
+                `;
             }
         }
         
@@ -1183,9 +1220,11 @@
         function addNewExpense() {
             expenseCounter++;
             
-            const expenseContainer = document.createElement('div');
-            expenseContainer.className = 'expense-item';
-            expenseContainer.innerHTML = `
+            const expenseContainer = document.getElementById('expenses-list');
+            const expenseItem = document.createElement('div');
+            expenseItem.className = 'expense-item';
+            expenseItem.id = `expense-item-${expenseCounter}`;
+            expenseItem.innerHTML = `
                 <div class="input-group">
                     <label for="expense-name-${expenseCounter}">وصف المصروف / Gider Açıklaması</label>
                     <input type="text" id="expense-name-${expenseCounter}" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
@@ -1193,7 +1232,7 @@
                 
                 <div class="input-group">
                     <label for="expense-amount-${expenseCounter}">القيمة / Tutar</label>
-                    <input type="number" id="expense-amount-${expenseCounter}" placeholder="أدخل قيمة المصروف / Gider tutarını girin">
+                    <input type="number" id="expense-amount-${expenseCounter}" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0">
                 </div>
                 
                 <div class="input-group">
@@ -1204,14 +1243,26 @@
                         <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
                     </select>
                 </div>
+                
+                <button class="btn btn-reset remove-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="${expenseCounter}">
+                    <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                </button>
             `;
             
-            document.querySelector('.expense-container').appendChild(expenseContainer);
+            expenseContainer.appendChild(expenseItem);
             
             // إضافة مستمعي الأحداث للحقول الجديدة
             document.getElementById(`expense-name-${expenseCounter}`).addEventListener('input', updateExpensesTotal);
             document.getElementById(`expense-amount-${expenseCounter}`).addEventListener('input', updateExpensesTotal);
             document.getElementById(`expense-currency-${expenseCounter}`).addEventListener('change', updateExpensesTotal);
+            
+            // إضافة مستمع للأحداث لحذف المصروف
+            document.querySelector(`.remove-expense-btn[data-id="${expenseCounter}"]`).addEventListener('click', function() {
+                removeExpense(expenseCounter);
+            });
+            
+            // تحديث الحسابات
+            updateExpensesTotal();
         }
         
         // حفظ البيانات
@@ -1232,6 +1283,9 @@
                 
                 alert("تم حفظ بيانات اليوم بنجاح! / Bugünün verileri başarıyla kaydedildi!");
                 loadHistory();
+                
+                // مسح البيانات بعد الحفظ
+                resetData();
             }
         }
         
@@ -1326,6 +1380,17 @@
                 else if (expense.currency === 'TRY') totalExpenseTRY += expense.amount;
             });
             
+            // إذا لم توجد مصروفات
+            if (appData.expenses.length === 0) {
+                expensesReportBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" style="text-align: center; padding: 20px; color: #666;">
+                            لا توجد مصروفات مسجلة / Kayıtlı gider yok
+                        </td>
+                    </tr>
+                `;
+            }
+            
             // عرض إجماليات المصروفات حسب العملة في التقرير
             const reportExpenseTotalContainer = document.getElementById('report-expense-total');
             reportExpenseTotalContainer.innerHTML = '';
@@ -1357,6 +1422,13 @@
                         </div>
                     `;
                 }
+            } else {
+                reportExpenseTotalContainer.innerHTML = `
+                    <div class="expense-total-box">
+                        <div>لا توجد مصروفات مسجلة / Kayıtlı gider yok</div>
+                        <div class="expense-currency">$0.00 / €0.00 / ₺0.00</div>
+                    </div>
+                `;
             }
             
             // التبديل إلى تبويب التقرير
@@ -1372,20 +1444,21 @@
         function resetData() {
             if (confirm("هل تريد مسح جميع بيانات اليوم؟ / Bugünün tüm verilerini temizlemek istiyor musunuz?")) {
                 // مسح حقول الإدخال
-                document.querySelectorAll('input').forEach(input => {
-                    if (input.type === 'number' || input.type === 'text') {
+                document.querySelectorAll('input[type="number"], input[type="text"]').forEach(input => {
+                    if (input.id.includes('profit') || input.id.includes('debtor') || input.id.includes('creditor')) {
                         input.value = '';
                     }
                 });
                 
                 // إعادة تعيين المصروفات
-                const expensesContainer = document.querySelector('.expense-container');
-                expensesContainer.innerHTML = '';
+                const expensesList = document.getElementById('expenses-list');
+                expensesList.innerHTML = '';
                 
                 // إضافة مصروف افتراضي واحد
                 expenseCounter = 1;
                 const expenseItem = document.createElement('div');
                 expenseItem.className = 'expense-item';
+                expenseItem.id = 'expense-item-1';
                 expenseItem.innerHTML = `
                     <div class="input-group">
                         <label for="expense-name-1">وصف المصروف / Gider Açıklaması</label>
@@ -1394,7 +1467,7 @@
                     
                     <div class="input-group">
                         <label for="expense-amount-1">القيمة / Tutar</label>
-                        <input type="number" id="expense-amount-1" placeholder="أدخل قيمة المصروف / Gider tutarını girin">
+                        <input type="number" id="expense-amount-1" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0">
                     </div>
                     
                     <div class="input-group">
@@ -1405,8 +1478,16 @@
                             <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
                         </select>
                     </div>
+                    
+                    <button class="btn btn-reset remove-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="1">
+                        <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                    </button>
                 `;
-                expensesContainer.appendChild(expenseItem);
+                expensesList.appendChild(expenseItem);
+                
+                // إعادة إعداد مستمعي الأحداث
+                setupRemoveExpenseListeners();
+                setupInputListeners();
                 
                 // إعادة تعيين البيانات
                 appData = {
@@ -1426,8 +1507,10 @@
                 // تحديث الحسابات
                 updateCalculations();
                 
-                // إعادة إعداد مستمعي الأحداث
-                setupInputListeners();
+                // تحديث التقرير إذا كان مفتوحاً
+                if (document.getElementById('report').classList.contains('active')) {
+                    generateReport();
+                }
                 
                 alert("تم مسح جميع بيانات اليوم بنجاح! / Bugünün tüm verileri başarıyla temizlendi!");
             }
@@ -1446,7 +1529,11 @@
             noHistoryRow.style.display = 'none';
             historyTableBody.innerHTML = '';
             
-            historyRecords.forEach((record, index) => {
+            // عرض السجلات بترتيب تاريخي (الأحدث أولاً)
+            const sortedRecords = [...historyRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedRecords.forEach((record, index) => {
+                const originalIndex = historyRecords.indexOf(record);
                 const row = document.createElement('tr');
                 
                 // حساب إجمالي المصروفات بالدولار
@@ -1465,6 +1552,7 @@
                 if (totalExpenseUSD > 0) expenseDisplay += `$${totalExpenseUSD.toFixed(2)} `;
                 if (totalExpenseEUR > 0) expenseDisplay += `€${totalExpenseEUR.toFixed(2)} `;
                 if (totalExpenseTRY > 0) expenseDisplay += `₺${totalExpenseTRY.toFixed(2)}`;
+                if (!expenseDisplay) expenseDisplay = '-';
                 
                 // حساب إجمالي الأرباح بالدولار واليورو
                 const totalProfitUSD = record.data.profits.total.usd;
@@ -1486,12 +1574,12 @@
                         ₺${record.data.try.surplus.toFixed(2)}
                     </td>
                     <td>${totalProfitDisplay}</td>
-                    <td>${expenseDisplay || '-'}</td>
+                    <td>${expenseDisplay}</td>
                     <td class="no-print">
-                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="viewRecord(${index})">
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="viewRecord(${originalIndex})">
                             <i class="fas fa-eye"></i> عرض / Görüntüle
                         </button>
-                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem; background: linear-gradient(135deg, #f44336, #c62828);" onclick="deleteRecord(${index})">
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem; background: linear-gradient(135deg, #f44336, #c62828);" onclick="deleteRecord(${originalIndex})">
                             <i class="fas fa-trash"></i> حذف / Sil
                         </button>
                     </td>
@@ -1562,6 +1650,7 @@
             historyTableBody.innerHTML = '';
             
             filteredRecords.forEach((record, index) => {
+                const originalIndex = historyRecords.indexOf(record);
                 const row = document.createElement('tr');
                 
                 // حساب إجمالي المصروفات بالدولار
@@ -1580,6 +1669,7 @@
                 if (totalExpenseUSD > 0) expenseDisplay += `$${totalExpenseUSD.toFixed(2)} `;
                 if (totalExpenseEUR > 0) expenseDisplay += `€${totalExpenseEUR.toFixed(2)} `;
                 if (totalExpenseTRY > 0) expenseDisplay += `₺${totalExpenseTRY.toFixed(2)}`;
+                if (!expenseDisplay) expenseDisplay = '-';
                 
                 // حساب إجمالي الأرباح بالدولار واليورو
                 const totalProfitUSD = record.data.profits.total.usd;
@@ -1601,12 +1691,12 @@
                         ₺${record.data.try.surplus.toFixed(2)}
                     </td>
                     <td>${totalProfitDisplay}</td>
-                    <td>${expenseDisplay || '-'}</td>
+                    <td>${expenseDisplay}</td>
                     <td class="no-print">
-                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="viewRecord(${historyRecords.indexOf(record)})">
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="viewRecord(${originalIndex})">
                             <i class="fas fa-eye"></i> عرض / Görüntüle
                         </button>
-                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem; background: linear-gradient(135deg, #f44336, #c62828);" onclick="deleteRecord(${historyRecords.indexOf(record)})">
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem; background: linear-gradient(135deg, #f44336, #c62828);" onclick="deleteRecord(${originalIndex})">
                             <i class="fas fa-trash"></i> حذف / Sil
                         </button>
                     </td>
