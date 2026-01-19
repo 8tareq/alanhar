@@ -311,6 +311,15 @@
             border-left: 4px solid #ff9800;
         }
         
+        .profit-other-item {
+            flex: 1;
+            min-width: 200px;
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
         .expense-total-container {
             display: flex;
             flex-wrap: wrap;
@@ -328,10 +337,27 @@
             text-align: center;
         }
         
+        .profit-other-total-box {
+            flex: 1;
+            min-width: 200px;
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #4caf50;
+            text-align: center;
+        }
+        
         .expense-currency {
             font-weight: bold;
             font-size: 1.2rem;
             color: #c62828;
+            margin-top: 5px;
+        }
+        
+        .profit-other-currency {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2e7d32;
             margin-top: 5px;
         }
         
@@ -475,7 +501,7 @@
             margin-left: 10px;
         }
         
-        .add-expense-btn {
+        .add-expense-btn, .add-profit-btn {
             background-color: #f0f7ff;
             border: 2px dashed #1a2980;
             color: #1a2980;
@@ -487,7 +513,7 @@
             transition: all 0.3s;
         }
         
-        .add-expense-btn:hover {
+        .add-expense-btn:hover, .add-profit-btn:hover {
             background-color: #e1edff;
         }
         
@@ -671,6 +697,45 @@
                     </div>
                 </div>
                 
+                <!-- قسم الأرباح اليومية الأخرى -->
+                <h3 class="card-title" style="font-size: 1.2rem; margin-top: 25px;">
+                    <span><i class="fas fa-plus-circle"></i> أرباح يومية أخرى / Diğer Günlük Kârlar</span>
+                </h3>
+                
+                <div id="other-profits-container">
+                    <!-- سيتم إضافة أرباح ديناميكياً هنا -->
+                    <div class="profit-container">
+                        <div class="profit-other-item">
+                            <div class="input-group">
+                                <label for="other-profit-name-1">وصف الربح / Kâr Açıklaması</label>
+                                <input type="text" id="other-profit-name-1" placeholder="مثال: ربح صرف عملات / Örnek: Döviz bozma kârı">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="other-profit-amount-1">القيمة / Tutar</label>
+                                <input type="number" id="other-profit-amount-1" placeholder="أدخل قيمة الربح / Kâr tutarını girin">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="other-profit-currency-1">العملة / Para Birimi</label>
+                                <select id="other-profit-currency-1">
+                                    <option value="USD">الدولار الأمريكي ($) / Amerikan Doları</option>
+                                    <option value="EUR">اليورو الأوروبي (€) / Euro</option>
+                                    <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="add-profit-btn no-print" id="add-profit">
+                    <i class="fas fa-plus-circle"></i> إضافة ربح جديد / Yeni Kâr Ekle
+                </div>
+                
+                <div id="total-other-profit" class="expense-total-container">
+                    <!-- إجماليات الأرباح حسب العملة ستظهر هنا -->
+                </div>
+                
                 <div id="total-profit" class="profit-total">
                     إجمالي الربح اليومي / Toplam Günlük Kâr: $0.00
                 </div>
@@ -712,7 +777,7 @@
                 </div>
                 
                 <div id="total-expense" class="expense-total-container">
-                    <!-- إجماليات المصروفات ستظهر هنا حسب العملة -->
+                    <!-- إجماليات المصروفات حسب العملة ستظهر هنا -->
                 </div>
             </div>
             
@@ -793,10 +858,34 @@
                         <h4>ربح الفضة / Gümüş Kârı</h4>
                         <div id="report-silver">$0.00</div>
                     </div>
-                    <div class="profit-item" style="background-color: #e8f5e9;">
-                        <h4>إجمالي الأرباح / Toplam Kâr</h4>
-                        <div id="report-total-profit" style="font-weight: bold; color: #2e7d32; font-size: 1.2rem;">$0.00</div>
-                    </div>
+                </div>
+                
+                <!-- قسم الأرباح اليومية الأخرى في التقرير -->
+                <h3 class="card-title" style="font-size: 1.2rem; margin-top: 25px;">
+                    <span><i class="fas fa-plus-circle"></i> أرباح يومية أخرى / Diğer Günlük Kârlar</span>
+                </h3>
+                <div class="report-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>وصف الربح / Kâr Açıklaması</th>
+                                <th>القيمة / Tutar</th>
+                                <th>العملة / Para Birimi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="other-profits-report-body">
+                            <!-- سيتم ملء الجدول ديناميكياً -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="report-other-profit-total" class="expense-total-container" style="margin-top: 20px;">
+                    <!-- إجماليات الأرباح حسب العملة ستظهر هنا -->
+                </div>
+                
+                <div class="profit-item" style="background-color: #e8f5e9; margin-top: 20px;">
+                    <h4>إجمالي الأرباح / Toplam Kâr</h4>
+                    <div id="report-total-profit" style="font-weight: bold; color: #2e7d32; font-size: 1.2rem;">$0.00</div>
                 </div>
             </div>
             
@@ -823,8 +912,6 @@
                     <!-- إجماليات المصروفات حسب العملة ستظهر هنا -->
                 </div>
             </div>
-            
-            <!-- تم إزالة قسم الإجمالي النهائي -->
             
             <div class="actions no-print" style="margin-top: 30px;">
                 <button class="btn btn-print" id="print-report">
@@ -891,6 +978,7 @@
             eur: { debtor: 0, creditor: 0, surplus: 0 },
             try: { debtor: 0, creditor: 0, surplus: 0 },
             profits: { swift: 0, havana: 0, silver: 0, total: 0 },
+            otherProfits: [], // أرباح أخرى
             expenses: [],
             date: new Date().toISOString().split('T')[0]
         };
@@ -900,6 +988,9 @@
         
         // عداد المصروفات
         let expenseCounter = 1;
+        
+        // عداد الأرباح الأخرى
+        let otherProfitCounter = 1;
         
         // تهيئة التطبيق
         document.addEventListener('DOMContentLoaded', function() {
@@ -912,6 +1003,9 @@
             
             // إضافة مصروف جديد
             document.getElementById('add-expense').addEventListener('click', addNewExpense);
+            
+            // إضافة ربح جديد
+            document.getElementById('add-profit').addEventListener('click', addNewOtherProfit);
             
             // حفظ البيانات
             document.getElementById('save-data').addEventListener('click', saveData);
@@ -947,6 +1041,9 @@
             
             // تحديث المصروفات عند التحميل
             updateExpensesTotal();
+            
+            // تحديث الأرباح الأخرى عند التحميل
+            updateOtherProfitsTotal();
         });
         
         // إعداد مستمعي الإدخال
@@ -993,16 +1090,88 @@
             trySurplusElement.textContent = `الفائض / Kar-Zarar: ₺${trySurplus.toFixed(2)}`;
             trySurplusElement.className = 'result-box ' + (trySurplus >= 0 ? 'positive' : 'negative');
             
-            // تحديث الأرباح
+            // تحديث الأرباح الأساسية
             const swiftProfit = parseFloat(document.getElementById('swift-profit').value) || 0;
             const havanaProfit = parseFloat(document.getElementById('havala-profit').value) || 0;
             const silverProfit = parseFloat(document.getElementById('silver-profit').value) || 0;
-            const totalProfit = swiftProfit + havanaProfit + silverProfit;
-            appData.profits = { swift: swiftProfit, havana: havanaProfit, silver: silverProfit, total: totalProfit };
-            document.getElementById('total-profit').textContent = `إجمالي الربح اليومي / Toplam Günlük Kâr: $${totalProfit.toFixed(2)}`;
+            const baseProfit = swiftProfit + havanaProfit + silverProfit;
+            appData.profits = { swift: swiftProfit, havana: havanaProfit, silver: silverProfit, baseTotal: baseProfit };
             
-            // تحديث المصروفات
+            // تحديث الأرباح الأخرى والمصروفات
+            updateOtherProfitsTotal();
             updateExpensesTotal();
+            
+            // حساب إجمالي الربح (جميع الأرباح)
+            const totalProfit = baseProfit + appData.otherProfitsTotal;
+            appData.profits.total = totalProfit;
+            document.getElementById('total-profit').textContent = `إجمالي الربح اليومي / Toplam Günlük Kâr: $${totalProfit.toFixed(2)}`;
+        }
+        
+        // تحديث إجمالي الأرباح الأخرى حسب العملة
+        function updateOtherProfitsTotal() {
+            let totalProfitUSD = 0;
+            let totalProfitEUR = 0;
+            let totalProfitTRY = 0;
+            
+            appData.otherProfits = [];
+            
+            // جمع جميع الأرباح الأخرى حسب العملة
+            for (let i = 1; i <= otherProfitCounter; i++) {
+                const nameInput = document.getElementById(`other-profit-name-${i}`);
+                const amountInput = document.getElementById(`other-profit-amount-${i}`);
+                const currencySelect = document.getElementById(`other-profit-currency-${i}`);
+                
+                if (nameInput && amountInput && currencySelect) {
+                    const name = nameInput.value;
+                    const amount = parseFloat(amountInput.value) || 0;
+                    const currency = currencySelect.value;
+                    
+                    if (name && amount > 0) {
+                        appData.otherProfits.push({ name, amount, currency });
+                        
+                        // جمع الأرباح حسب العملة
+                        if (currency === 'USD') totalProfitUSD += amount;
+                        else if (currency === 'EUR') totalProfitEUR += amount;
+                        else if (currency === 'TRY') totalProfitTRY += amount;
+                    }
+                }
+            }
+            
+            // حفظ إجمالي الأرباح الأخرى
+            appData.otherProfitsTotal = totalProfitUSD + totalProfitEUR + totalProfitTRY;
+            
+            // عرض إجماليات الأرباح حسب العملة
+            const totalOtherProfitContainer = document.getElementById('total-other-profit');
+            totalOtherProfitContainer.innerHTML = '';
+            
+            if (totalProfitUSD > 0 || totalProfitEUR > 0 || totalProfitTRY > 0) {
+                if (totalProfitUSD > 0) {
+                    totalOtherProfitContainer.innerHTML += `
+                        <div class="profit-other-total-box">
+                            <div>إجمالي أرباح الدولار / Toplam Dolar Kârlar</div>
+                            <div class="profit-other-currency">$${totalProfitUSD.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                
+                if (totalProfitEUR > 0) {
+                    totalOtherProfitContainer.innerHTML += `
+                        <div class="profit-other-total-box">
+                            <div>إجمالي أرباح اليورو / Toplam Euro Kârlar</div>
+                            <div class="profit-other-currency">€${totalProfitEUR.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                
+                if (totalProfitTRY > 0) {
+                    totalOtherProfitContainer.innerHTML += `
+                        <div class="profit-other-total-box">
+                            <div>إجمالي أرباح الليرة / Toplam Lira Kârlar</div>
+                            <div class="profit-other-currency">₺${totalProfitTRY.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+            }
         }
         
         // تحديث إجمالي المصروفات حسب العملة
@@ -1073,9 +1242,10 @@
         function addNewExpense() {
             expenseCounter++;
             
-            const expenseContainer = document.createElement('div');
-            expenseContainer.className = 'expense-item';
-            expenseContainer.innerHTML = `
+            const expenseContainer = document.querySelector('.expense-container');
+            const expenseItem = document.createElement('div');
+            expenseItem.className = 'expense-item';
+            expenseItem.innerHTML = `
                 <div class="input-group">
                     <label for="expense-name-${expenseCounter}">وصف المصروف / Gider Açıklaması</label>
                     <input type="text" id="expense-name-${expenseCounter}" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
@@ -1096,12 +1266,55 @@
                 </div>
             `;
             
-            document.querySelector('.expense-container').appendChild(expenseContainer);
+            expenseContainer.appendChild(expenseItem);
             
             // إضافة مستمعي الأحداث للحقول الجديدة
             document.getElementById(`expense-name-${expenseCounter}`).addEventListener('input', updateExpensesTotal);
             document.getElementById(`expense-amount-${expenseCounter}`).addEventListener('input', updateExpensesTotal);
             document.getElementById(`expense-currency-${expenseCounter}`).addEventListener('change', updateExpensesTotal);
+            
+            updateExpensesTotal();
+        }
+        
+        // إضافة ربح جديد
+        function addNewOtherProfit() {
+            otherProfitCounter++;
+            
+            const profitContainer = document.getElementById('other-profits-container');
+            const profitItem = document.createElement('div');
+            profitItem.className = 'profit-container';
+            profitItem.innerHTML = `
+                <div class="profit-other-item">
+                    <div class="input-group">
+                        <label for="other-profit-name-${otherProfitCounter}">وصف الربح / Kâr Açıklaması</label>
+                        <input type="text" id="other-profit-name-${otherProfitCounter}" placeholder="مثال: ربح صرف عملات / Örnek: Döviz bozma kârı">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="other-profit-amount-${otherProfitCounter}">القيمة / Tutar</label>
+                        <input type="number" id="other-profit-amount-${otherProfitCounter}" placeholder="أدخل قيمة الربح / Kâr tutarını girin">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="other-profit-currency-${otherProfitCounter}">العملة / Para Birimi</label>
+                        <select id="other-profit-currency-${otherProfitCounter}">
+                            <option value="USD">الدولار الأمريكي ($) / Amerikan Doları</option>
+                            <option value="EUR">اليورو الأوروبي (€) / Euro</option>
+                            <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            
+            profitContainer.appendChild(profitItem);
+            
+            // إضافة مستمعي الأحداث للحقول الجديدة
+            document.getElementById(`other-profit-name-${otherProfitCounter}`).addEventListener('input', updateOtherProfitsTotal);
+            document.getElementById(`other-profit-amount-${otherProfitCounter}`).addEventListener('input', updateOtherProfitsTotal);
+            document.getElementById(`other-profit-currency-${otherProfitCounter}`).addEventListener('change', updateOtherProfitsTotal);
+            
+            updateOtherProfitsTotal();
+            updateCalculations();
         }
         
         // حفظ البيانات
@@ -1186,10 +1399,68 @@
                 </tr>
             `;
             
-            // تحديث الأرباح في التقرير
+            // تحديث الأرباح الأساسية في التقرير
             document.getElementById('report-swift').textContent = `$${appData.profits.swift.toFixed(2)}`;
             document.getElementById('report-havala').textContent = `$${appData.profits.havana.toFixed(2)}`;
             document.getElementById('report-silver').textContent = `$${appData.profits.silver.toFixed(2)}`;
+            
+            // تحديث الأرباح الأخرى في التقرير
+            const otherProfitsReportBody = document.getElementById('other-profits-report-body');
+            otherProfitsReportBody.innerHTML = '';
+            
+            let totalOtherProfitUSD = 0;
+            let totalOtherProfitEUR = 0;
+            let totalOtherProfitTRY = 0;
+            
+            appData.otherProfits.forEach(profit => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${profit.name}</td>
+                    <td>${profit.amount.toFixed(2)}</td>
+                    <td>${profit.currency === 'USD' ? '$' : profit.currency === 'EUR' ? '€' : '₺'}</td>
+                `;
+                otherProfitsReportBody.appendChild(row);
+                
+                // جمع الأرباح حسب العملة
+                if (profit.currency === 'USD') totalOtherProfitUSD += profit.amount;
+                else if (profit.currency === 'EUR') totalOtherProfitEUR += profit.amount;
+                else if (profit.currency === 'TRY') totalOtherProfitTRY += profit.amount;
+            });
+            
+            // عرض إجماليات الأرباح الأخرى حسب العملة في التقرير
+            const reportOtherProfitTotalContainer = document.getElementById('report-other-profit-total');
+            reportOtherProfitTotalContainer.innerHTML = '';
+            
+            if (totalOtherProfitUSD > 0 || totalOtherProfitEUR > 0 || totalOtherProfitTRY > 0) {
+                if (totalOtherProfitUSD > 0) {
+                    reportOtherProfitTotalContainer.innerHTML += `
+                        <div class="profit-other-total-box">
+                            <div>إجمالي أرباح الدولار / Toplam Dolar Kârlar</div>
+                            <div class="profit-other-currency">$${totalOtherProfitUSD.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                
+                if (totalOtherProfitEUR > 0) {
+                    reportOtherProfitTotalContainer.innerHTML += `
+                        <div class="profit-other-total-box">
+                            <div>إجمالي أرباح اليورو / Toplam Euro Kârlar</div>
+                            <div class="profit-other-currency">€${totalOtherProfitEUR.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                
+                if (totalOtherProfitTRY > 0) {
+                    reportOtherProfitTotalContainer.innerHTML += `
+                        <div class="profit-other-total-box">
+                            <div>إجمالي أرباح الليرة / Toplam Lira Kârlar</div>
+                            <div class="profit-other-currency">₺${totalOtherProfitTRY.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // تحديث إجمالي الربح في التقرير
             document.getElementById('report-total-profit').textContent = `$${appData.profits.total.toFixed(2)}`;
             
             // تحديث المصروفات في التقرير
@@ -1271,6 +1542,10 @@
                 const expensesContainer = document.querySelector('.expense-container');
                 expensesContainer.innerHTML = '';
                 
+                // إعادة تعيين الأرباح الأخرى
+                const otherProfitsContainer = document.getElementById('other-profits-container');
+                otherProfitsContainer.innerHTML = '';
+                
                 // إضافة مصروف افتراضي واحد
                 expenseCounter = 1;
                 const expenseItem = document.createElement('div');
@@ -1297,12 +1572,42 @@
                 `;
                 expensesContainer.appendChild(expenseItem);
                 
+                // إضافة ربح افتراضي واحد
+                otherProfitCounter = 1;
+                const profitContainer = document.createElement('div');
+                profitContainer.className = 'profit-container';
+                profitContainer.innerHTML = `
+                    <div class="profit-other-item">
+                        <div class="input-group">
+                            <label for="other-profit-name-1">وصف الربح / Kâr Açıklaması</label>
+                            <input type="text" id="other-profit-name-1" placeholder="مثال: ربح صرف عملات / Örnek: Döviz bozma kârı">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="other-profit-amount-1">القيمة / Tutar</label>
+                            <input type="number" id="other-profit-amount-1" placeholder="أدخل قيمة الربح / Kâr tutarını girin">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="other-profit-currency-1">العملة / Para Birimi</label>
+                            <select id="other-profit-currency-1">
+                                <option value="USD">الدولار الأمريكي ($) / Amerikan Doları</option>
+                                <option value="EUR">اليورو الأوروبي (€) / Euro</option>
+                                <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+                otherProfitsContainer.appendChild(profitContainer);
+                
                 // إعادة تعيين البيانات
                 appData = {
                     usd: { debtor: 0, creditor: 0, surplus: 0 },
                     eur: { debtor: 0, creditor: 0, surplus: 0 },
                     try: { debtor: 0, creditor: 0, surplus: 0 },
                     profits: { swift: 0, havana: 0, silver: 0, total: 0 },
+                    otherProfits: [],
+                    otherProfitsTotal: 0,
                     expenses: [],
                     date: new Date().toISOString().split('T')[0]
                 };
@@ -1333,7 +1638,7 @@
             historyRecords.forEach((record, index) => {
                 const row = document.createElement('tr');
                 
-                // حساب إجمالي المصروفات بالدولار
+                // حساب إجمالي المصروفات
                 let totalExpenseUSD = 0;
                 let totalExpenseEUR = 0;
                 let totalExpenseTRY = 0;
@@ -1343,6 +1648,19 @@
                     else if (expense.currency === 'EUR') totalExpenseEUR += expense.amount;
                     else if (expense.currency === 'TRY') totalExpenseTRY += expense.amount;
                 });
+                
+                // حساب إجمالي الأرباح الأخرى
+                let totalOtherProfitUSD = 0;
+                let totalOtherProfitEUR = 0;
+                let totalOtherProfitTRY = 0;
+                
+                if (record.data.otherProfits) {
+                    record.data.otherProfits.forEach(profit => {
+                        if (profit.currency === 'USD') totalOtherProfitUSD += profit.amount;
+                        else if (profit.currency === 'EUR') totalOtherProfitEUR += profit.amount;
+                        else if (profit.currency === 'TRY') totalOtherProfitTRY += profit.amount;
+                    });
+                }
                 
                 // عرض المصروفات بالعملات المختلفة
                 let expenseDisplay = '';
@@ -1391,6 +1709,9 @@
             document.getElementById('havala-profit').value = record.data.profits.havana;
             document.getElementById('silver-profit').value = record.data.profits.silver;
             
+            // تحميل المصروفات
+            // (لاحظ: هذا يتطلب تحسينات إضافية لتحميل المصروفات والأرباح الأخرى بشكل ديناميكي)
+            
             // تحديث الحسابات
             updateCalculations();
             
@@ -1435,7 +1756,7 @@
             filteredRecords.forEach((record, index) => {
                 const row = document.createElement('tr');
                 
-                // حساب إجمالي المصروفات بالدولار
+                // حساب إجمالي المصروفات
                 let totalExpenseUSD = 0;
                 let totalExpenseEUR = 0;
                 let totalExpenseTRY = 0;
@@ -1445,6 +1766,19 @@
                     else if (expense.currency === 'EUR') totalExpenseEUR += expense.amount;
                     else if (expense.currency === 'TRY') totalExpenseTRY += expense.amount;
                 });
+                
+                // حساب إجمالي الأرباح الأخرى
+                let totalOtherProfitUSD = 0;
+                let totalOtherProfitEUR = 0;
+                let totalOtherProfitTRY = 0;
+                
+                if (record.data.otherProfits) {
+                    record.data.otherProfits.forEach(profit => {
+                        if (profit.currency === 'USD') totalOtherProfitUSD += profit.amount;
+                        else if (profit.currency === 'EUR') totalOtherProfitEUR += profit.amount;
+                        else if (profit.currency === 'TRY') totalOtherProfitTRY += profit.amount;
+                    });
+                }
                 
                 // عرض المصروفات بالعملات المختلفة
                 let expenseDisplay = '';
