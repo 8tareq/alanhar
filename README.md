@@ -288,6 +288,10 @@
             background: linear-gradient(135deg, #ff9800, #ef6c00);
         }
         
+        .btn-monthly {
+            background: linear-gradient(135deg, #9c27b0, #6a1b9a);
+        }
+        
         .actions {
             display: flex;
             gap: 15px;
@@ -554,6 +558,199 @@
             color: #2e7d32;
             border: 1px solid #4caf50;
         }
+        
+        /* تصميم التقرير الشهري */
+        .monthly-header {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(255, 152, 0, 0.2);
+        }
+        
+        .monthly-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .monthly-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #ff9800;
+        }
+        
+        .monthly-card-title {
+            font-size: 1.4rem;
+            color: #ff9800;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ffecb3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .monthly-card-title i {
+            margin-left: 10px;
+            color: #ff9800;
+        }
+        
+        .monthly-summary-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+        }
+        
+        .monthly-summary-box.usd {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+        }
+        
+        .monthly-summary-box.eur {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+        }
+        
+        .monthly-summary-box.try {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+        }
+        
+        .monthly-expense-item {
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .monthly-total-box {
+            background-color: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ff9800;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #ff6f00;
+        }
+        
+        .monthly-net-profit {
+            background-color: #e8f5e9;
+            padding: 25px;
+            border-radius: 10px;
+            border: 3px solid #4caf50;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-top: 20px;
+        }
+        
+        .monthly-report-table th {
+            background-color: #ff9800;
+        }
+        
+        .monthly-actions .btn {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+        }
+        
+        .monthly-selection {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .monthly-selection .input-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .monthly-result {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+        }
+        
+        /* تبويبات السجلات */
+        .history-tabs {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .history-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .history-tab:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .history-tab.active {
+            color: #ff9800;
+            border-bottom: 3px solid #ff9800;
+            background-color: #fff3e0;
+        }
+        
+        .history-section {
+            display: none;
+        }
+        
+        .history-section.active {
+            display: block;
+        }
+        
+        /* تحسينات الطباعة الشهرية */
+        @media print {
+            .monthly-header {
+                background: white !important;
+                color: black !important;
+                border: 2px solid #ff9800;
+            }
+            
+            .monthly-card {
+                border: 1px solid #ddd;
+            }
+            
+            .monthly-card-title {
+                color: #ff9800;
+            }
+            
+            .monthly-result {
+                background: #f0f0f0 !important;
+                color: black !important;
+            }
+            
+            .monthly-net-profit {
+                background: white !important;
+                color: black !important;
+                border: 2px solid #4caf50;
+            }
+        }
     </style>
 </head>
 <body>
@@ -575,6 +772,9 @@
             </div>
             <div class="tab" data-tab="report">
                 <i class="fas fa-chart-line"></i> التقرير اليومي / Günlük Rapor
+            </div>
+            <div class="tab" data-tab="monthly">
+                <i class="fas fa-calendar-alt"></i> التقرير الشهري / Aylık Rapor
             </div>
             <div class="tab" data-tab="history">
                 <i class="fas fa-history"></i> السجلات السابقة / Önceki Kayıtlar
@@ -748,7 +948,6 @@
                 
                 <div id="expenses-container">
                     <div class="expense-container" id="expenses-list">
-                        <!-- سيتم إضافة مصروفات ديناميكياً هنا -->
                         <div class="expense-item" id="expense-item-1">
                             <div class="input-group">
                                 <label for="expense-name-1">وصف المصروف / Gider Açıklaması</label>
@@ -931,6 +1130,227 @@
             </div>
         </div>
         
+        <!-- قسم التقرير الشهري -->
+        <div id="monthly" class="content-section">
+            <div class="monthly-header">
+                <h2>التقرير الشهري - نظام ALANHAR</h2>
+                <div class="subtitle">تحليل شامل للأرباح والمصروفات الشهرية</div>
+                <div class="subtitle-tr">Aylık Kâr ve Gider Analizi - ALANHAR Sistemi</div>
+            </div>
+            
+            <div class="monthly-card">
+                <h2 class="monthly-card-title">
+                    <span><i class="fas fa-calendar-check"></i> تحديد الفترة الشهرية / Ay Seçimi</span>
+                </h2>
+                
+                <div class="monthly-selection">
+                    <div class="input-group">
+                        <label for="month-select">اختر الشهر / Ay Seçin</label>
+                        <select id="month-select">
+                            <option value="1">يناير / Ocak</option>
+                            <option value="2">فبراير / Şubat</option>
+                            <option value="3">مارس / Mart</option>
+                            <option value="4">أبريل / Nisan</option>
+                            <option value="5">مايو / Mayıs</option>
+                            <option value="6">يونيو / Haziran</option>
+                            <option value="7">يوليو / Temmuz</option>
+                            <option value="8">أغسطس / Ağustos</option>
+                            <option value="9">سبتمبر / Eylül</option>
+                            <option value="10">أكتوبر / Ekim</option>
+                            <option value="11">نوفمبر / Kasım</option>
+                            <option value="12">ديسمبر / Aralık</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="year-select">اختر السنة / Yıl Seçin</label>
+                        <select id="year-select">
+                            <option value="2023">2023</option>
+                            <option value="2024" selected>2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-monthly" id="load-monthly-data">
+                        <i class="fas fa-search"></i> تحميل بيانات الشهر / Ay Verilerini Yükle
+                    </button>
+                </div>
+            </div>
+            
+            <div class="monthly-card">
+                <h2 class="monthly-card-title">
+                    <span><i class="fas fa-chart-pie"></i> إجمالي الأرباح الشهرية / Aylık Toplam Kârlar</span>
+                </h2>
+                
+                <div class="currency-container">
+                    <!-- الدولار الأمريكي -->
+                    <div class="currency-box">
+                        <div class="currency-title">
+                            <div class="currency-icon">$</div>
+                            <div>الدولار الأمريكي (USD) / Amerikan Doları</div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-usd-debtor">إجمالي المدين الشهري / Aylık Toplam Borçlu</label>
+                            <input type="number" id="monthly-usd-debtor" placeholder="أدخل إجمالي المدين بالدولار" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-usd-creditor">إجمالي الدائن الشهري / Aylık Toplam Alacaklı</label>
+                            <input type="number" id="monthly-usd-creditor" placeholder="أدخل إجمالي الدائن بالدولار" step="0.01" min="0">
+                        </div>
+                        
+                        <div id="monthly-usd-net" class="monthly-result">
+                            صافي الربح الشهري / Aylık Net Kâr: $0.00
+                        </div>
+                    </div>
+                    
+                    <!-- اليورو -->
+                    <div class="currency-box">
+                        <div class="currency-title">
+                            <div class="currency-icon">€</div>
+                            <div>اليورو الأوروبي (EUR) / Euro</div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-eur-debtor">إجمالي المدين الشهري / Aylık Toplam Borçlu</label>
+                            <input type="number" id="monthly-eur-debtor" placeholder="أدخل إجمالي المدين باليورو" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-eur-creditor">إجمالي الدائن الشهري / Aylık Toplam Alacaklı</label>
+                            <input type="number" id="monthly-eur-creditor" placeholder="أدخل إجمالي الدائن باليورو" step="0.01" min="0">
+                        </div>
+                        
+                        <div id="monthly-eur-net" class="monthly-result">
+                            صافي الربح الشهري / Aylık Net Kâr: €0.00
+                        </div>
+                    </div>
+                    
+                    <!-- الليرة التركية -->
+                    <div class="currency-box">
+                        <div class="currency-title">
+                            <div class="currency-icon">₺</div>
+                            <div>الليرة التركية (TRY) / Türk Lirası</div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-try-debtor">إجمالي المدين الشهري / Aylık Toplam Borçlu</label>
+                            <input type="number" id="monthly-try-debtor" placeholder="أدخل إجمالي المدين بالليرة" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-try-creditor">إجمالي الدائن الشهري / Aylık Toplam Alacaklı</label>
+                            <input type="number" id="monthly-try-creditor" placeholder="أدخل إجمالي الدائن بالليرة" step="0.01" min="0">
+                        </div>
+                        
+                        <div id="monthly-try-net" class="monthly-result">
+                            صافي الربح الشهري / Aylık Net Kâr: ₺0.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monthly-card">
+                <h2 class="monthly-card-title">
+                    <span><i class="fas fa-receipt"></i> المصروفات الشهرية / Aylık Giderler</span>
+                </h2>
+                
+                <div id="monthly-expenses-container">
+                    <div class="expense-container" id="monthly-expenses-list">
+                        <div class="monthly-expense-item" id="monthly-expense-item-1">
+                            <div class="input-group">
+                                <label for="monthly-expense-name-1">وصف المصروف الشهري / Aylık Gider Açıklaması</label>
+                                <input type="text" id="monthly-expense-name-1" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="monthly-expense-amount-1">القيمة الشهرية / Aylık Tutar</label>
+                                <input type="number" id="monthly-expense-amount-1" placeholder="أدخل قيمة المصروف الشهري" step="0.01" min="0">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="monthly-expense-currency-1">العملة / Para Birimi</label>
+                                <select id="monthly-expense-currency-1">
+                                    <option value="USD">الدولار الأمريكي ($) / Amerikan Doları</option>
+                                    <option value="EUR">اليورو الأوروبي (€) / Euro</option>
+                                    <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="monthly-expense-type-1">نوع المصروف / Gider Türü</label>
+                                <select id="monthly-expense-type-1">
+                                    <option value="rent">إيجار / Kira</option>
+                                    <option value="electricity">كهرباء / Elektrik</option>
+                                    <option value="water">ماء / Su</option>
+                                    <option value="salary">رواتب / Maaşlar</option>
+                                    <option value="food">أكل ومعيشة / Yemek ve Yaşam</option>
+                                    <option value="other">أخرى / Diğer</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-reset remove-monthly-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="1">
+                                <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="add-expense-btn no-print" id="add-monthly-expense">
+                    <i class="fas fa-plus-circle"></i> إضافة مصروف شهري جديد / Yeni Aylık Gider Ekle
+                </div>
+                
+                <div id="monthly-total-expense" class="expense-total-container" style="margin-top: 20px;">
+                    <!-- إجماليات المصروفات الشهرية ستظهر هنا حسب العملة -->
+                </div>
+            </div>
+            
+            <div class="monthly-card">
+                <h2 class="monthly-card-title">
+                    <span><i class="fas fa-calculator"></i> التقرير الشهري النهائي / Aylık Nihai Rapor</span>
+                </h2>
+                
+                <div class="report-container">
+                    <table class="report-table monthly-report-table">
+                        <thead>
+                            <tr>
+                                <th>العملة / Para Birimi</th>
+                                <th>إجمالي الربح الشهري / Aylık Toplam Kâr</th>
+                                <th>إجمالي المصروفات الشهرية / Aylık Toplam Gider</th>
+                                <th>الصافي النهائي / Net Sonuç</th>
+                                <th>الحالة / Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthly-report-table-body">
+                            <!-- سيتم ملء الجدول ديناميكياً -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="monthly-net-profit" class="monthly-net-profit">
+                    <div>إجمالي صافي الربح الشهري / Aylık Toplam Net Kâr</div>
+                    <div><strong id="monthly-total-net">$0.00 / €0.00 / ₺0.00</strong></div>
+                </div>
+            </div>
+            
+            <div class="actions monthly-actions no-print">
+                <button class="btn btn-save" id="save-monthly-data">
+                    <i class="fas fa-save"></i> حفظ التقرير الشهري / Aylık Raporu Kaydet
+                </button>
+                <button class="btn btn-print" id="print-monthly-report">
+                    <i class="fas fa-print"></i> طباعة التقرير الشهري / Aylık Raporu Yazdır
+                </button>
+                <button class="btn btn-reset" id="reset-monthly-data">
+                    <i class="fas fa-redo"></i> مسح البيانات الشهرية / Aylık Verileri Temizle
+                </button>
+                <button class="btn" id="generate-monthly-summary">
+                    <i class="fas fa-file-alt"></i> توليد ملخص شهري / Aylık Özet Oluştur
+                </button>
+            </div>
+        </div>
+        
         <!-- قسم السجلات السابقة -->
         <div id="history" class="content-section">
             <div class="card">
@@ -938,44 +1358,90 @@
                     <span><i class="fas fa-history"></i> سجلات الأيام السابقة / Önceki Gün Kayıtları</span>
                 </h2>
                 
-                <div class="input-group no-print" style="max-width: 300px; margin-bottom: 20px;">
-                    <label for="filter-date">فلترة حسب التاريخ / Tarihe Göre Filtrele</label>
-                    <input type="date" id="filter-date">
+                <div class="history-tabs no-print">
+                    <div class="history-tab active" data-history-type="daily">
+                        السجلات اليومية / Günlük Kayıtlar
+                    </div>
+                    <div class="history-tab" data-history-type="monthly">
+                        السجلات الشهرية / Aylık Kayıtlar
+                    </div>
                 </div>
                 
-                <div class="report-container">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th>التاريخ / Tarih</th>
-                                <th>فائض الدولار / Dolar Kar-Zarar</th>
-                                <th>فائض اليورو / Euro Kar-Zarar</th>
-                                <th>فائض الليرة / Lira Kar-Zarar</th>
-                                <th>إجمالي الأرباح / Toplam Kâr</th>
-                                <th>المصروفات / Giderler</th>
-                                <th class="no-print">الإجراءات / İşlemler</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-table-body">
-                            <!-- سيتم ملء الجدول ديناميكياً -->
-                            <tr id="no-history">
-                                <td colspan="7" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div id="daily-history-section" class="history-section active">
+                    <div class="input-group no-print" style="max-width: 300px; margin-bottom: 20px;">
+                        <label for="filter-date">فلترة حسب التاريخ / Tarihe Göre Filtrele</label>
+                        <input type="date" id="filter-date">
+                    </div>
+                    
+                    <div class="report-container">
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th>التاريخ / Tarih</th>
+                                    <th>فائض الدولار / Dolar Kar-Zarar</th>
+                                    <th>فائض اليورو / Euro Kar-Zarar</th>
+                                    <th>فائض الليرة / Lira Kar-Zarar</th>
+                                    <th>إجمالي الأرباح / Toplam Kâr</th>
+                                    <th>المصروفات / Giderler</th>
+                                    <th class="no-print">الإجراءات / İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- سيتم ملء الجدول ديناميكياً -->
+                                <tr id="no-history">
+                                    <td colspan="7" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="actions no-print" style="margin-top: 30px;">
+                        <button class="btn btn-reset" id="clear-history">
+                            <i class="fas fa-trash-alt"></i> مسح السجلات اليومية / Günlük Kayıtları Temizle
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="actions no-print" style="margin-top: 30px;">
-                    <button class="btn btn-reset" id="clear-history">
-                        <i class="fas fa-trash-alt"></i> مسح السجلات / Kayıtları Temizle
-                    </button>
+                <div id="monthly-history-section" class="history-section">
+                    <div class="input-group no-print" style="max-width: 300px; margin-bottom: 20px;">
+                        <label for="filter-month">فلترة حسب الشهر / Aya Göre Filtrele</label>
+                        <input type="month" id="filter-month">
+                    </div>
+                    
+                    <div class="report-container">
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th>الشهر / Ay</th>
+                                    <th>صافي ربح الدولار / Dolar Net Kâr</th>
+                                    <th>صافي ربح اليورو / Euro Net Kâr</th>
+                                    <th>صافي ربح الليرة / Lira Net Kâr</th>
+                                    <th>إجمالي المصروفات / Toplam Gider</th>
+                                    <th>الصافي النهائي / Net Sonuç</th>
+                                    <th class="no-print">الإجراءات / İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="monthly-history-table-body">
+                                <!-- سيتم ملء الجدول ديناميكياً -->
+                                <tr id="no-monthly-history">
+                                    <td colspan="7" style="text-align: center; padding: 30px;">لا توجد سجلات شهرية. ابدأ بإدخال بيانات شهرية. / Aylık kayıt yok. Aylık verileri girmeye başlayın.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="actions no-print" style="margin-top: 30px;">
+                        <button class="btn btn-reset" id="clear-monthly-history">
+                            <i class="fas fa-trash-alt"></i> مسح السجلات الشهرية / Aylık Kayıtları Temizle
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         
         <footer class="no-print">
-            <p>نظام ALANHAR لإدارة محلات الصرافة والحوالات &copy; 2023</p>
-            <p>ALANHAR Sistemi - Döviz ve Havale Yönetimi &copy; 2023</p>
+            <p>نظام ALANHAR لإدارة محلات الصرافة والحوالات &copy; 2024</p>
+            <p>ALANHAR Sistemi - Döviz ve Havale Yönetimi &copy; 2024</p>
         </footer>
     </div>
 
@@ -995,35 +1461,69 @@
             date: new Date().toISOString().split('T')[0]
         };
 
+        // بيانات التقرير الشهري
+        let monthlyData = {
+            month: new Date().getMonth() + 1,
+            year: new Date().getFullYear(),
+            usd: { debtor: 0, creditor: 0, net: 0 },
+            eur: { debtor: 0, creditor: 0, net: 0 },
+            try: { debtor: 0, creditor: 0, net: 0 },
+            expenses: [],
+            totalExpenses: { usd: 0, eur: 0, try: 0 },
+            netProfit: { usd: 0, eur: 0, try: 0 }
+        };
+        
         // سجلات الأيام السابقة
         let historyRecords = JSON.parse(localStorage.getItem('alanhar_history')) || [];
         
+        // سجلات التقارير الشهرية
+        let monthlyHistoryRecords = JSON.parse(localStorage.getItem('alanhar_monthly_history')) || [];
+        
         // عداد المصروفات
         let expenseCounter = 1;
+        let monthlyExpenseCounter = 1;
         
         // تهيئة التطبيق
         document.addEventListener('DOMContentLoaded', function() {
+            console.log("تم تحميل البرنامج بنجاح!");
+            
             // تعيين تاريخ اليوم
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('report-date').textContent = `التاريخ: ${formatDate(today)} / Tarih: ${formatDate(today)}`;
             
             // تحميل السجلات السابقة
             loadHistory();
+            loadMonthlyHistory();
             
             // إضافة مصروف جديد
             document.getElementById('add-expense').addEventListener('click', addNewExpense);
             
+            // إضافة مصروف شهري جديد
+            document.getElementById('add-monthly-expense').addEventListener('click', addNewMonthlyExpense);
+            
             // حفظ البيانات
             document.getElementById('save-data').addEventListener('click', saveData);
+            
+            // حفظ البيانات الشهرية
+            document.getElementById('save-monthly-data').addEventListener('click', saveMonthlyData);
             
             // توليد التقرير
             document.getElementById('generate-report').addEventListener('click', generateReport);
             
+            // توليد الملخص الشهري
+            document.getElementById('generate-monthly-summary').addEventListener('click', generateMonthlySummary);
+            
             // طباعة التقرير
             document.getElementById('print-report').addEventListener('click', printReport);
             
+            // طباعة التقرير الشهري
+            document.getElementById('print-monthly-report').addEventListener('click', printMonthlyReport);
+            
             // مسح البيانات
             document.getElementById('reset-data').addEventListener('click', resetData);
+            
+            // مسح البيانات الشهرية
+            document.getElementById('reset-monthly-data').addEventListener('click', resetMonthlyData);
             
             // العودة للإدخال
             document.getElementById('back-to-input').addEventListener('click', () => switchTab('input'));
@@ -1031,39 +1531,90 @@
             // مسح السجلات
             document.getElementById('clear-history').addEventListener('click', clearHistory);
             
-            // فلترة السجلات حسب التاريخ
+            // مسح السجلات الشهرية
+            document.getElementById('clear-monthly-history').addEventListener('click', clearMonthlyHistory);
+            
+            // فلترة السجلس حسب التاريخ
             document.getElementById('filter-date').addEventListener('change', filterHistory);
             
-            // تبديل التبويبات
+            // فلترة السجلات الشهرية
+            document.getElementById('filter-month').addEventListener('change', filterMonthlyHistory);
+            
+            // تحميل بيانات الشهر
+            document.getElementById('load-monthly-data').addEventListener('click', loadMonthlyData);
+            
+            // تبديل التبويبات الرئيسية
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
+                    console.log("نقر على تبويب:", tabId);
                     switchTab(tabId);
+                });
+            });
+            
+            // تبديل نوع السجلات
+            document.querySelectorAll('.history-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const historyType = this.getAttribute('data-history-type');
+                    console.log("نقر على تبويب السجلات:", historyType);
+                    switchHistoryType(historyType);
                 });
             });
             
             // إضافة مستمعي الأحداث لحذف المصروفات
             setupRemoveExpenseListeners();
+            setupRemoveMonthlyExpenseListeners();
             
             // تحديث الحسابات عند إدخال البيانات
             setupInputListeners();
+            setupMonthlyInputListeners();
             
             // تحديث المصروفات عند التحميل
             updateExpensesTotal();
+            updateMonthlyExpensesTotal();
             
             // تحديث الحسابات الأولية
             updateCalculations();
+            updateMonthlyCalculations();
+            
+            // تعيين الشهر والسنة الحاليين
+            const currentMonth = new Date().getMonth() + 1;
+            const currentYear = new Date().getFullYear();
+            document.getElementById('month-select').value = currentMonth;
+            document.getElementById('year-select').value = currentYear;
+            
+            console.log("تمت تهيئة التطبيق بنجاح!");
         });
         
         // إعداد مستمعي الإدخال
         function setupInputListeners() {
             // تحديث الفائض عند إدخال المدين والدائن
             document.querySelectorAll('input[type="number"]').forEach(input => {
-                input.addEventListener('input', updateCalculations);
+                if (!input.id.includes('monthly')) {
+                    input.addEventListener('input', updateCalculations);
+                }
             });
             
             document.querySelectorAll('select').forEach(select => {
-                select.addEventListener('change', updateCalculations);
+                if (!select.id.includes('monthly')) {
+                    select.addEventListener('change', updateCalculations);
+                }
+            });
+        }
+        
+        // إعداد مستمعي الإدخال الشهري
+        function setupMonthlyInputListeners() {
+            // تحديث الحسابات الشهرية
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                if (input.id.includes('monthly')) {
+                    input.addEventListener('input', updateMonthlyCalculations);
+                }
+            });
+            
+            document.querySelectorAll('select').forEach(select => {
+                if (select.id.includes('monthly')) {
+                    select.addEventListener('change', updateMonthlyCalculations);
+                }
             });
         }
         
@@ -1077,6 +1628,16 @@
             });
         }
         
+        // إعداد مستمعي الأحداث لحذف المصروفات الشهرية
+        function setupRemoveMonthlyExpenseListeners() {
+            document.querySelectorAll('.remove-monthly-expense-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const expenseId = this.getAttribute('data-id');
+                    removeMonthlyExpense(expenseId);
+                });
+            });
+        }
+        
         // حذف مصروف
         function removeExpense(expenseId) {
             const expenseItem = document.getElementById(`expense-item-${expenseId}`);
@@ -1084,6 +1645,16 @@
                 expenseItem.remove();
                 updateExpensesTotal();
                 updateCalculations();
+            }
+        }
+        
+        // حذف مصروف شهري
+        function removeMonthlyExpense(expenseId) {
+            const expenseItem = document.getElementById(`monthly-expense-item-${expenseId}`);
+            if (expenseItem) {
+                expenseItem.remove();
+                updateMonthlyExpensesTotal();
+                updateMonthlyCalculations();
             }
         }
         
@@ -1143,6 +1714,42 @@
             
             // تحديث المصروفات
             updateExpensesTotal();
+        }
+        
+        // تحديث الحسابات الشهرية
+        function updateMonthlyCalculations() {
+            // تحديث صافي ربح الدولار الشهري
+            const usdDebtor = parseFloat(document.getElementById('monthly-usd-debtor').value) || 0;
+            const usdCreditor = parseFloat(document.getElementById('monthly-usd-creditor').value) || 0;
+            const usdNet = usdDebtor - usdCreditor;
+            monthlyData.usd = { debtor: usdDebtor, creditor: usdCreditor, net: usdNet };
+            
+            const usdNetElement = document.getElementById('monthly-usd-net');
+            usdNetElement.textContent = `صافي الربح الشهري / Aylık Net Kâr: $${usdNet.toFixed(2)}`;
+            
+            // تحديث صافي ربح اليورو الشهري
+            const eurDebtor = parseFloat(document.getElementById('monthly-eur-debtor').value) || 0;
+            const eurCreditor = parseFloat(document.getElementById('monthly-eur-creditor').value) || 0;
+            const eurNet = eurDebtor - eurCreditor;
+            monthlyData.eur = { debtor: eurDebtor, creditor: eurCreditor, net: eurNet };
+            
+            const eurNetElement = document.getElementById('monthly-eur-net');
+            eurNetElement.textContent = `صافي الربح الشهري / Aylık Net Kâr: €${eurNet.toFixed(2)}`;
+            
+            // تحديث صافي ربح الليرة الشهرية
+            const tryDebtor = parseFloat(document.getElementById('monthly-try-debtor').value) || 0;
+            const tryCreditor = parseFloat(document.getElementById('monthly-try-creditor').value) || 0;
+            const tryNet = tryDebtor - tryCreditor;
+            monthlyData.try = { debtor: tryDebtor, creditor: tryCreditor, net: tryNet };
+            
+            const tryNetElement = document.getElementById('monthly-try-net');
+            tryNetElement.textContent = `صافي الربح الشهري / Aylık Net Kâr: ₺${tryNet.toFixed(2)}`;
+            
+            // تحديث المصروفات الشهرية
+            updateMonthlyExpensesTotal();
+            
+            // تحديث التقرير الشهري
+            updateMonthlyReport();
         }
         
         // تحديث إجمالي المصروفات حسب العملة
@@ -1216,6 +1823,139 @@
             }
         }
         
+        // تحديث إجمالي المصروفات الشهرية
+        function updateMonthlyExpensesTotal() {
+            let totalExpenseUSD = 0;
+            let totalExpenseEUR = 0;
+            let totalExpenseTRY = 0;
+            
+            monthlyData.expenses = [];
+            
+            // جمع جميع المصروفات الشهرية حسب العملة
+            for (let i = 1; i <= monthlyExpenseCounter; i++) {
+                const nameInput = document.getElementById(`monthly-expense-name-${i}`);
+                const amountInput = document.getElementById(`monthly-expense-amount-${i}`);
+                const currencySelect = document.getElementById(`monthly-expense-currency-${i}`);
+                const typeSelect = document.getElementById(`monthly-expense-type-${i}`);
+                
+                if (nameInput && amountInput && currencySelect && typeSelect) {
+                    const name = nameInput.value;
+                    const amount = parseFloat(amountInput.value) || 0;
+                    const currency = currencySelect.value;
+                    const type = typeSelect.value;
+                    
+                    if (name && amount > 0) {
+                        monthlyData.expenses.push({ name, amount, currency, type });
+                        
+                        // جمع المصروفات حسب العملة
+                        if (currency === 'USD') totalExpenseUSD += amount;
+                        else if (currency === 'EUR') totalExpenseEUR += amount;
+                        else if (currency === 'TRY') totalExpenseTRY += amount;
+                    }
+                }
+            }
+            
+            monthlyData.totalExpenses = { usd: totalExpenseUSD, eur: totalExpenseEUR, try: totalExpenseTRY };
+            
+            // عرض إجماليات المصروفات الشهرية حسب العملة
+            const totalExpenseContainer = document.getElementById('monthly-total-expense');
+            totalExpenseContainer.innerHTML = '';
+            
+            if (totalExpenseUSD > 0 || totalExpenseEUR > 0 || totalExpenseTRY > 0) {
+                if (totalExpenseUSD > 0) {
+                    totalExpenseContainer.innerHTML += `
+                        <div class="expense-total-box">
+                            <div>إجمالي مصروفات الدولار الشهرية / Aylık Toplam Dolar Giderler</div>
+                            <div class="expense-currency">$${totalExpenseUSD.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                
+                if (totalExpenseEUR > 0) {
+                    totalExpenseContainer.innerHTML += `
+                        <div class="expense-total-box">
+                            <div>إجمالي مصروفات اليورو الشهرية / Aylık Toplam Euro Giderler</div>
+                            <div class="expense-currency">€${totalExpenseEUR.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                
+                if (totalExpenseTRY > 0) {
+                    totalExpenseContainer.innerHTML += `
+                        <div class="expense-total-box">
+                            <div>إجمالي مصروفات الليرة الشهرية / Aylık Toplam Lira Giderler</div>
+                            <div class="expense-currency">₺${totalExpenseTRY.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+            } else {
+                totalExpenseContainer.innerHTML = `
+                    <div class="expense-total-box">
+                        <div>لا توجد مصروفات شهرية مسجلة / Kayıtlı aylık gider yok</div>
+                        <div class="expense-currency">$0.00 / €0.00 / ₺0.00</div>
+                    </div>
+                `;
+            }
+        }
+        
+        // تحديث التقرير الشهري
+        function updateMonthlyReport() {
+            // حساب الصافي النهائي لكل عملة
+            const usdNetProfit = monthlyData.usd.net - monthlyData.totalExpenses.usd;
+            const eurNetProfit = monthlyData.eur.net - monthlyData.totalExpenses.eur;
+            const tryNetProfit = monthlyData.try.net - monthlyData.totalExpenses.try;
+            
+            monthlyData.netProfit = { usd: usdNetProfit, eur: eurNetProfit, try: tryNetProfit };
+            
+            // تحديث جدول التقرير الشهري
+            const monthlyTableBody = document.getElementById('monthly-report-table-body');
+            monthlyTableBody.innerHTML = `
+                <tr>
+                    <td>الدولار الأمريكي (USD) / Amerikan Doları</td>
+                    <td>$${monthlyData.usd.net.toFixed(2)}</td>
+                    <td>$${monthlyData.totalExpenses.usd.toFixed(2)}</td>
+                    <td style="color: ${usdNetProfit >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        $${usdNetProfit.toFixed(2)}
+                    </td>
+                    <td>
+                        <span style="color: ${usdNetProfit >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                            ${usdNetProfit >= 0 ? 'ربح / Kâr' : 'خسارة / Zarar'}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>اليورو الأوروبي (EUR) / Euro</td>
+                    <td>€${monthlyData.eur.net.toFixed(2)}</td>
+                    <td>€${monthlyData.totalExpenses.eur.toFixed(2)}</td>
+                    <td style="color: ${eurNetProfit >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        €${eurNetProfit.toFixed(2)}
+                    </td>
+                    <td>
+                        <span style="color: ${eurNetProfit >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                            ${eurNetProfit >= 0 ? 'ربح / Kâr' : 'خسارة / Zarar'}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>الليرة التركية (TRY) / Türk Lirası</td>
+                    <td>₺${monthlyData.try.net.toFixed(2)}</td>
+                    <td>₺${monthlyData.totalExpenses.try.toFixed(2)}</td>
+                    <td style="color: ${tryNetProfit >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        ₺${tryNetProfit.toFixed(2)}
+                    </td>
+                    <td>
+                        <span style="color: ${tryNetProfit >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                            ${tryNetProfit >= 0 ? 'ربح / Kâr' : 'خسارة / Zarar'}
+                        </span>
+                    </td>
+                </tr>
+            `;
+            
+            // تحديث إجمالي الصافي النهائي
+            document.getElementById('monthly-total-net').textContent = 
+                `$${usdNetProfit.toFixed(2)} / €${eurNetProfit.toFixed(2)} / ₺${tryNetProfit.toFixed(2)}`;
+        }
+        
         // إضافة مصروف جديد
         function addNewExpense() {
             expenseCounter++;
@@ -1265,6 +2005,69 @@
             updateExpensesTotal();
         }
         
+        // إضافة مصروف شهري جديد
+        function addNewMonthlyExpense() {
+            monthlyExpenseCounter++;
+            
+            const expenseContainer = document.getElementById('monthly-expenses-list');
+            const expenseItem = document.createElement('div');
+            expenseItem.className = 'monthly-expense-item';
+            expenseItem.id = `monthly-expense-item-${monthlyExpenseCounter}`;
+            expenseItem.innerHTML = `
+                <div class="input-group">
+                    <label for="monthly-expense-name-${monthlyExpenseCounter}">وصف المصروف الشهري / Aylık Gider Açıklaması</label>
+                    <input type="text" id="monthly-expense-name-${monthlyExpenseCounter}" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
+                </div>
+                
+                <div class="input-group">
+                    <label for="monthly-expense-amount-${monthlyExpenseCounter}">القيمة الشهرية / Aylık Tutar</label>
+                    <input type="number" id="monthly-expense-amount-${monthlyExpenseCounter}" placeholder="أدخل قيمة المصروف الشهري" step="0.01" min="0">
+                </div>
+                
+                <div class="input-group">
+                    <label for="monthly-expense-currency-${monthlyExpenseCounter}">العملة / Para Birimi</label>
+                    <select id="monthly-expense-currency-${monthlyExpenseCounter}">
+                        <option value="USD">الدولار الأمريكي ($) / Amerikan Doları</option>
+                        <option value="EUR">اليورو الأوروبي (€) / Euro</option>
+                        <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="monthly-expense-type-${monthlyExpenseCounter}">نوع المصروف / Gider Türü</label>
+                    <select id="monthly-expense-type-${monthlyExpenseCounter}">
+                        <option value="rent">إيجار / Kira</option>
+                        <option value="electricity">كهرباء / Elektrik</option>
+                        <option value="water">ماء / Su</option>
+                        <option value="salary">رواتب / Maaşlar</option>
+                        <option value="food">أكل ومعيشة / Yemek ve Yaşam</option>
+                        <option value="other">أخرى / Diğer</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-reset remove-monthly-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="${monthlyExpenseCounter}">
+                    <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                </button>
+            `;
+            
+            expenseContainer.appendChild(expenseItem);
+            
+            // إضافة مستمعي الأحداث للحقول الجديدة
+            document.getElementById(`monthly-expense-name-${monthlyExpenseCounter}`).addEventListener('input', updateMonthlyExpensesTotal);
+            document.getElementById(`monthly-expense-amount-${monthlyExpenseCounter}`).addEventListener('input', updateMonthlyExpensesTotal);
+            document.getElementById(`monthly-expense-currency-${monthlyExpenseCounter}`).addEventListener('change', updateMonthlyExpensesTotal);
+            document.getElementById(`monthly-expense-type-${monthlyExpenseCounter}`).addEventListener('change', updateMonthlyExpensesTotal);
+            
+            // إضافة مستمع للأحداث لحذف المصروف
+            document.querySelector(`.remove-monthly-expense-btn[data-id="${monthlyExpenseCounter}"]`).addEventListener('click', function() {
+                removeMonthlyExpense(monthlyExpenseCounter);
+            });
+            
+            // تحديث الحسابات
+            updateMonthlyExpensesTotal();
+            updateMonthlyCalculations();
+        }
+        
         // حفظ البيانات
         function saveData() {
             updateCalculations();
@@ -1289,8 +2092,38 @@
             }
         }
         
+        // حفظ البيانات الشهرية
+        function saveMonthlyData() {
+            updateMonthlyCalculations();
+            
+            // تحديث الشهر والسنة في البيانات
+            monthlyData.month = parseInt(document.getElementById('month-select').value);
+            monthlyData.year = parseInt(document.getElementById('year-select').value);
+            
+            // تأكيد الحفظ
+            if (confirm("هل تريد حفظ التقرير الشهري؟ / Aylık raporu kaydetmek istiyor musunuz?")) {
+                // إضافة إلى السجلات الشهرية
+                const record = {
+                    month: monthlyData.month,
+                    year: monthlyData.year,
+                    data: { ...monthlyData },
+                    timestamp: new Date().toISOString()
+                };
+                
+                monthlyHistoryRecords.push(record);
+                localStorage.setItem('alanhar_monthly_history', JSON.stringify(monthlyHistoryRecords));
+                
+                alert("تم حفظ التقرير الشهري بنجاح! / Aylık rapor başarıyla kaydedildi!");
+                loadMonthlyHistory();
+                
+                // مسح البيانات بعد الحفظ
+                resetMonthlyData();
+            }
+        }
+        
         // توليد التقرير
         function generateReport() {
+            console.log("توليد التقرير...");
             updateCalculations();
             
             // تحديث عرض التقرير
@@ -1433,10 +2266,31 @@
             
             // التبديل إلى تبويب التقرير
             switchTab('report');
+            console.log("تم توليد التقرير بنجاح!");
+        }
+        
+        // توليد الملخص الشهري
+        function generateMonthlySummary() {
+            console.log("توليد الملخص الشهري...");
+            updateMonthlyCalculations();
+            
+            // التبديل إلى تبويب التقرير الشهري
+            switchTab('monthly');
+            
+            alert("تم توليد التقرير الشهري بنجاح! / Aylık rapor başarıyla oluşturuldu!");
         }
         
         // طباعة التقرير
         function printReport() {
+            window.print();
+        }
+        
+        // طباعة التقرير الشهري
+        function printMonthlyReport() {
+            // تحديث التقرير أولاً
+            updateMonthlyCalculations();
+            
+            // طباعة التقرير الشهري
             window.print();
         }
         
@@ -1516,6 +2370,172 @@
             }
         }
         
+        // مسح البيانات الشهرية
+        function resetMonthlyData() {
+            if (confirm("هل تريد مسح جميع بيانات الشهر الحالي؟ / Mevcut ayın tüm verilerini temizlemek istiyor musunuz?")) {
+                // مسح حقول الإدخال الشهرية
+                document.getElementById('monthly-usd-debtor').value = '';
+                document.getElementById('monthly-usd-creditor').value = '';
+                document.getElementById('monthly-eur-debtor').value = '';
+                document.getElementById('monthly-eur-creditor').value = '';
+                document.getElementById('monthly-try-debtor').value = '';
+                document.getElementById('monthly-try-creditor').value = '';
+                
+                // إعادة تعيين المصروفات الشهرية
+                const expensesList = document.getElementById('monthly-expenses-list');
+                expensesList.innerHTML = '';
+                
+                // إضافة مصروف افتراضي واحد
+                monthlyExpenseCounter = 1;
+                const expenseItem = document.createElement('div');
+                expenseItem.className = 'monthly-expense-item';
+                expenseItem.id = 'monthly-expense-item-1';
+                expenseItem.innerHTML = `
+                    <div class="input-group">
+                        <label for="monthly-expense-name-1">وصف المصروف الشهري / Aylık Gider Açıklaması</label>
+                        <input type="text" id="monthly-expense-name-1" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="monthly-expense-amount-1">القيمة الشهرية / Aylık Tutar</label>
+                        <input type="number" id="monthly-expense-amount-1" placeholder="أدخل قيمة المصروف الشهري" step="0.01" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="monthly-expense-currency-1">العملة / Para Birimi</label>
+                        <select id="monthly-expense-currency-1">
+                            <option value="USD">الدولار الأمريكي ($) / Amerikan Doları</option>
+                            <option value="EUR">اليورو الأوروبي (€) / Euro</option>
+                            <option value="TRY">الليرة التركية (₺) / Türk Lirası</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="monthly-expense-type-1">نوع المصروف / Gider Türü</label>
+                        <select id="monthly-expense-type-1">
+                            <option value="rent">إيجار / Kira</option>
+                            <option value="electricity">كهرباء / Elektrik</option>
+                            <option value="water">ماء / Su</option>
+                            <option value="salary">رواتب / Maaşlar</option>
+                            <option value="food">أكل ومعيشة / Yemek ve Yaşam</option>
+                            <option value="other">أخرى / Diğer</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-reset remove-monthly-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="1">
+                        <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                    </button>
+                `;
+                expensesList.appendChild(expenseItem);
+                
+                // إعادة إعداد مستمعي الأحداث
+                setupRemoveMonthlyExpenseListeners();
+                setupMonthlyInputListeners();
+                
+                // إعادة تعيين البيانات
+                monthlyData = {
+                    month: new Date().getMonth() + 1,
+                    year: new Date().getFullYear(),
+                    usd: { debtor: 0, creditor: 0, net: 0 },
+                    eur: { debtor: 0, creditor: 0, net: 0 },
+                    try: { debtor: 0, creditor: 0, net: 0 },
+                    expenses: [],
+                    totalExpenses: { usd: 0, eur: 0, try: 0 },
+                    netProfit: { usd: 0, eur: 0, try: 0 }
+                };
+                
+                // تحديث الحسابات
+                updateMonthlyCalculations();
+                
+                alert("تم مسح جميع بيانات الشهر بنجاح! / Ayın tüm verileri başarıyla temizlendi!");
+            }
+        }
+        
+        // تحميل بيانات الشهر
+        function loadMonthlyData() {
+            const month = document.getElementById('month-select').value;
+            const year = document.getElementById('year-select').value;
+            
+            // البحث عن سجل لهذا الشهر
+            const existingRecord = monthlyHistoryRecords.find(record => 
+                record.month == month && record.year == year
+            );
+            
+            if (existingRecord) {
+                // تحميل البيانات الموجودة
+                monthlyData = { ...existingRecord.data };
+                
+                // تعبئة حقول الإدخال
+                document.getElementById('monthly-usd-debtor').value = monthlyData.usd.debtor;
+                document.getElementById('monthly-usd-creditor').value = monthlyData.usd.creditor;
+                document.getElementById('monthly-eur-debtor').value = monthlyData.eur.debtor;
+                document.getElementById('monthly-eur-creditor').value = monthlyData.eur.creditor;
+                document.getElementById('monthly-try-debtor').value = monthlyData.try.debtor;
+                document.getElementById('monthly-try-creditor').value = monthlyData.try.creditor;
+                
+                // مسح المصروفات الحالية وإضافة المصروفات المحفوظة
+                const expensesList = document.getElementById('monthly-expenses-list');
+                expensesList.innerHTML = '';
+                monthlyExpenseCounter = 0;
+                
+                monthlyData.expenses.forEach((expense, index) => {
+                    monthlyExpenseCounter++;
+                    const expenseItem = document.createElement('div');
+                    expenseItem.className = 'monthly-expense-item';
+                    expenseItem.id = `monthly-expense-item-${monthlyExpenseCounter}`;
+                    expenseItem.innerHTML = `
+                        <div class="input-group">
+                            <label for="monthly-expense-name-${monthlyExpenseCounter}">وصف المصروف الشهري / Aylık Gider Açıklaması</label>
+                            <input type="text" id="monthly-expense-name-${monthlyExpenseCounter}" value="${expense.name}">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-expense-amount-${monthlyExpenseCounter}">القيمة الشهرية / Aylık Tutar</label>
+                            <input type="number" id="monthly-expense-amount-${monthlyExpenseCounter}" value="${expense.amount}" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-expense-currency-${monthlyExpenseCounter}">العملة / Para Birimi</label>
+                            <select id="monthly-expense-currency-${monthlyExpenseCounter}">
+                                <option value="USD" ${expense.currency === 'USD' ? 'selected' : ''}>الدولار الأمريكي ($) / Amerikan Doları</option>
+                                <option value="EUR" ${expense.currency === 'EUR' ? 'selected' : ''}>اليورو الأوروبي (€) / Euro</option>
+                                <option value="TRY" ${expense.currency === 'TRY' ? 'selected' : ''}>الليرة التركية (₺) / Türk Lirası</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-expense-type-${monthlyExpenseCounter}">نوع المصروف / Gider Türü</label>
+                            <select id="monthly-expense-type-${monthlyExpenseCounter}">
+                                <option value="rent" ${expense.type === 'rent' ? 'selected' : ''}>إيجار / Kira</option>
+                                <option value="electricity" ${expense.type === 'electricity' ? 'selected' : ''}>كهرباء / Elektrik</option>
+                                <option value="water" ${expense.type === 'water' ? 'selected' : ''}>ماء / Su</option>
+                                <option value="salary" ${expense.type === 'salary' ? 'selected' : ''}>رواتب / Maaşlar</option>
+                                <option value="food" ${expense.type === 'food' ? 'selected' : ''}>أكل ومعيشة / Yemek ve Yaşam</option>
+                                <option value="other" ${expense.type === 'other' ? 'selected' : ''}>أخرى / Diğer</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-reset remove-monthly-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="${monthlyExpenseCounter}">
+                            <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                        </button>
+                    `;
+                    expensesList.appendChild(expenseItem);
+                });
+                
+                // إعادة إعداد مستمعي الأحداث
+                setupRemoveMonthlyExpenseListeners();
+                setupMonthlyInputListeners();
+                
+                // تحديث الحسابات
+                updateMonthlyExpensesTotal();
+                updateMonthlyCalculations();
+                
+                alert(`تم تحميل بيانات ${getMonthName(month)} ${year} بنجاح! / ${getMonthName(month)} ${year} verileri başarıyla yüklendi!`);
+            } else {
+                alert(`لا توجد بيانات محفوظة لشهر ${getMonthName(month)} ${year}. يمكنك إدخال بيانات جديدة. / ${getMonthName(month)} ${year} için kayıtlı veri yok. Yeni veri girebilirsiniz.`);
+            }
+        }
+        
         // تحميل السجلات السابقة
         function loadHistory() {
             const historyTableBody = document.getElementById('history-table-body');
@@ -1529,7 +2549,7 @@
             noHistoryRow.style.display = 'none';
             historyTableBody.innerHTML = '';
             
-            // عرض السجلات بترتيب تاريخي (الأحدث أولاً)
+            // عرض السجلس بترتيب تاريخي (الأحدث أولاً)
             const sortedRecords = [...historyRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
             
             sortedRecords.forEach((record, index) => {
@@ -1588,6 +2608,78 @@
             });
         }
         
+        // تحميل السجلات الشهرية
+        function loadMonthlyHistory() {
+            const monthlyHistoryTableBody = document.getElementById('monthly-history-table-body');
+            const noMonthlyHistoryRow = document.getElementById('no-monthly-history');
+            
+            if (monthlyHistoryRecords.length === 0) {
+                noMonthlyHistoryRow.style.display = '';
+                return;
+            }
+            
+            noMonthlyHistoryRow.style.display = 'none';
+            monthlyHistoryTableBody.innerHTML = '';
+            
+            // عرض السجلس بترتيب تاريخي (الأحدث أولاً)
+            const sortedRecords = [...monthlyHistoryRecords].sort((a, b) => {
+                const dateA = new Date(a.year, a.month - 1);
+                const dateB = new Date(b.year, b.month - 1);
+                return dateB - dateA;
+            });
+            
+            sortedRecords.forEach((record, index) => {
+                const originalIndex = monthlyHistoryRecords.indexOf(record);
+                const row = document.createElement('tr');
+                
+                // حساب إجمالي المصروفات بالدولار
+                const totalExpenseUSD = record.data.totalExpenses.usd;
+                const totalExpenseEUR = record.data.totalExpenses.eur;
+                const totalExpenseTRY = record.data.totalExpenses.try;
+                
+                // عرض المصروفات بالعملات المختلفة
+                let expenseDisplay = '';
+                if (totalExpenseUSD > 0) expenseDisplay += `$${totalExpenseUSD.toFixed(2)} `;
+                if (totalExpenseEUR > 0) expenseDisplay += `€${totalExpenseEUR.toFixed(2)} `;
+                if (totalExpenseTRY > 0) expenseDisplay += `₺${totalExpenseTRY.toFixed(2)}`;
+                if (!expenseDisplay) expenseDisplay = '-';
+                
+                // حساب الصافي النهائي
+                const usdNet = record.data.netProfit.usd;
+                const eurNet = record.data.netProfit.eur;
+                const tryNet = record.data.netProfit.try;
+                
+                let netDisplay = '';
+                if (usdNet !== 0) netDisplay += `$${usdNet.toFixed(2)} `;
+                if (eurNet !== 0) netDisplay += `€${eurNet.toFixed(2)} `;
+                if (tryNet !== 0) netDisplay += `₺${tryNet.toFixed(2)}`;
+                
+                row.innerHTML = `
+                    <td>${getMonthName(record.month)} ${record.year}</td>
+                    <td style="color: ${record.data.netProfit.usd >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        $${record.data.netProfit.usd.toFixed(2)}
+                    </td>
+                    <td style="color: ${record.data.netProfit.eur >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        €${record.data.netProfit.eur.toFixed(2)}
+                    </td>
+                    <td style="color: ${record.data.netProfit.try >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        ₺${record.data.netProfit.try.toFixed(2)}
+                    </td>
+                    <td>${expenseDisplay}</td>
+                    <td>${netDisplay}</td>
+                    <td class="no-print">
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="viewMonthlyRecord(${originalIndex})">
+                            <i class="fas fa-eye"></i> عرض / Görüntüle
+                        </button>
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem; background: linear-gradient(135deg, #f44336, #c62828);" onclick="deleteMonthlyRecord(${originalIndex})">
+                            <i class="fas fa-trash"></i> حذف / Sil
+                        </button>
+                    </td>
+                `;
+                monthlyHistoryTableBody.appendChild(row);
+            });
+        }
+        
         // عرض سجل محدد
         function viewRecord(index) {
             const record = historyRecords[index];
@@ -1617,6 +2709,23 @@
             alert("تم تحميل بيانات السجل المحدد. يمكنك تعديلها وتوليد تقرير جديد. / Seçilen kayıt verileri yüklendi. Düzenleyebilir ve yeni rapor oluşturabilirsiniz.");
         }
         
+        // عرض سجل شهري محدد
+        function viewMonthlyRecord(index) {
+            const record = monthlyHistoryRecords[index];
+            
+            // تعيين الشهر والسنة
+            document.getElementById('month-select').value = record.month;
+            document.getElementById('year-select').value = record.year;
+            
+            // تحميل البيانات
+            loadMonthlyData();
+            
+            // التبديل إلى تبويب التقرير الشهري
+            switchTab('monthly');
+            
+            alert("تم تحميل التقرير الشهري المحدد. / Seçilen aylık rapor yüklendi.");
+        }
+        
         // حذف سجل
         function deleteRecord(index) {
             if (confirm("هل تريد حذف هذا السجل؟ / Bu kaydı silmek istiyor musunuz?")) {
@@ -1627,7 +2736,17 @@
             }
         }
         
-        // فلترة السجلات حسب التاريخ
+        // حذف سجل شهري
+        function deleteMonthlyRecord(index) {
+            if (confirm("هل تريد حذف هذا السجل الشهري؟ / Bu aylık kaydı silmek istiyor musunuz?")) {
+                monthlyHistoryRecords.splice(index, 1);
+                localStorage.setItem('alanhar_monthly_history', JSON.stringify(monthlyHistoryRecords));
+                loadMonthlyHistory();
+                alert("تم حذف السجل الشهري بنجاح! / Aylık kayıt başarıyla silindi!");
+            }
+        }
+        
+        // فلترة السجلس حسب التاريخ
         function filterHistory() {
             const filterDate = document.getElementById('filter-date').value;
             
@@ -1705,18 +2824,108 @@
             });
         }
         
-        // مسح جميع السجلات
+        // فلترة السجلات الشهرية
+        function filterMonthlyHistory() {
+            const filterMonth = document.getElementById('filter-month').value;
+            
+            if (!filterMonth) {
+                loadMonthlyHistory();
+                return;
+            }
+            
+            const [year, month] = filterMonth.split('-');
+            const filteredRecords = monthlyHistoryRecords.filter(record => 
+                record.year == year && record.month == month
+            );
+            
+            const monthlyHistoryTableBody = document.getElementById('monthly-history-table-body');
+            const noMonthlyHistoryRow = document.getElementById('no-monthly-history');
+            
+            if (filteredRecords.length === 0) {
+                noMonthlyHistoryRow.style.display = '';
+                noMonthlyHistoryRow.innerHTML = `<td colspan="7" style="text-align: center; padding: 30px;">لا توجد سجلات لشهر ${getMonthName(month)} ${year} / ${getMonthName(month)} ${year} için kayıt bulunamadı.</td>`;
+                return;
+            }
+            
+            noMonthlyHistoryRow.style.display = 'none';
+            monthlyHistoryTableBody.innerHTML = '';
+            
+            filteredRecords.forEach((record, index) => {
+                const originalIndex = monthlyHistoryRecords.indexOf(record);
+                const row = document.createElement('tr');
+                
+                // حساب إجمالي المصروفات بالدولار
+                const totalExpenseUSD = record.data.totalExpenses.usd;
+                const totalExpenseEUR = record.data.totalExpenses.eur;
+                const totalExpenseTRY = record.data.totalExpenses.try;
+                
+                // عرض المصروفات بالعملات المختلفة
+                let expenseDisplay = '';
+                if (totalExpenseUSD > 0) expenseDisplay += `$${totalExpenseUSD.toFixed(2)} `;
+                if (totalExpenseEUR > 0) expenseDisplay += `€${totalExpenseEUR.toFixed(2)} `;
+                if (totalExpenseTRY > 0) expenseDisplay += `₺${totalExpenseTRY.toFixed(2)}`;
+                if (!expenseDisplay) expenseDisplay = '-';
+                
+                // حساب الصافي النهائي
+                const usdNet = record.data.netProfit.usd;
+                const eurNet = record.data.netProfit.eur;
+                const tryNet = record.data.netProfit.try;
+                
+                let netDisplay = '';
+                if (usdNet !== 0) netDisplay += `$${usdNet.toFixed(2)} `;
+                if (eurNet !== 0) netDisplay += `€${eurNet.toFixed(2)} `;
+                if (tryNet !== 0) netDisplay += `₺${tryNet.toFixed(2)}`;
+                
+                row.innerHTML = `
+                    <td>${getMonthName(record.month)} ${record.year}</td>
+                    <td style="color: ${record.data.netProfit.usd >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        $${record.data.netProfit.usd.toFixed(2)}
+                    </td>
+                    <td style="color: ${record.data.netProfit.eur >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        €${record.data.netProfit.eur.toFixed(2)}
+                    </td>
+                    <td style="color: ${record.data.netProfit.try >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
+                        ₺${record.data.netProfit.try.toFixed(2)}
+                    </td>
+                    <td>${expenseDisplay}</td>
+                    <td>${netDisplay}</td>
+                    <td class="no-print">
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="viewMonthlyRecord(${originalIndex})">
+                            <i class="fas fa-eye"></i> عرض / Görüntüle
+                        </button>
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.9rem; background: linear-gradient(135deg, #f44336, #c62828);" onclick="deleteMonthlyRecord(${originalIndex})">
+                            <i class="fas fa-trash"></i> حذف / Sil
+                        </button>
+                    </td>
+                `;
+                monthlyHistoryTableBody.appendChild(row);
+            });
+        }
+        
+        // مسح جميع السجلس
         function clearHistory() {
-            if (confirm("هل تريد مسح جميع السجلات السابقة؟ لا يمكن التراجع عن هذا الإجراء. / Tüm önceki kayıtları temizlemek istiyor musunuz? Bu işlem geri alınamaz.")) {
+            if (confirm("هل تريد مسح جميع السجلس السابقة؟ لا يمكن التراجع عن هذا الإجراء. / Tüm önceki kayıtları temizlemek istiyor musunuz? Bu işlem geri alınamaz.")) {
                 historyRecords = [];
                 localStorage.removeItem('alanhar_history');
                 loadHistory();
-                alert("تم مسح جميع السجلات بنجاح! / Tüm kayıtlar başarıyla temizlendi!");
+                alert("تم مسح جميع السجلس بنجاح! / Tüm kayıtlar başarıyla temizlendi!");
+            }
+        }
+        
+        // مسح جميع السجلات الشهرية
+        function clearMonthlyHistory() {
+            if (confirm("هل تريد مسح جميع السجلات الشهرية؟ لا يمكن التراجع عن هذا الإجراء. / Tüm aylık kayıtları temizlemek istiyor musunuz? Bu işlem geri alınamaz.")) {
+                monthlyHistoryRecords = [];
+                localStorage.removeItem('alanhar_monthly_history');
+                loadMonthlyHistory();
+                alert("تم مسح جميع السجلات الشهرية بنجاح! / Tüm aylık kayıtlar başarıyla temizlendi!");
             }
         }
         
         // تبديل التبويبات
         function switchTab(tabId) {
+            console.log("تبديل إلى تبويب:", tabId);
+            
             // إخفاء جميع الأقسام
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
@@ -1728,15 +2937,46 @@
             });
             
             // إظهار القسم المحدد
-            document.getElementById(tabId).classList.add('active');
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            } else {
+                console.error("القسم غير موجود:", tabId);
+            }
             
             // تفعيل التبويب المحدد
-            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            const targetTab = document.querySelector(`[data-tab="${tabId}"]`);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
             
             // إذا كان التبويب هو التقرير، قم بتوليد التقرير تلقائياً
             if (tabId === 'report') {
                 generateReport();
             }
+            
+            // إذا كان التبويب هو التقرير الشهري، قم بتحديث الحسابات
+            if (tabId === 'monthly') {
+                updateMonthlyCalculations();
+            }
+        }
+        
+        // تبديل نوع السجلات
+        function switchHistoryType(type) {
+            // إخفاء جميع أقسام السجلات
+            document.getElementById('daily-history-section').classList.remove('active');
+            document.getElementById('monthly-history-section').classList.remove('active');
+            
+            // إزالة النشاط من جميع تبويبات السجلات
+            document.querySelectorAll('.history-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // إظهار القسم المحدد
+            document.getElementById(`${type}-history-section`).classList.add('active');
+            
+            // تفعيل التبويب المحدد
+            document.querySelector(`[data-history-type="${type}"]`).classList.add('active');
         }
         
         // تنسيق التاريخ
@@ -1747,6 +2987,15 @@
                 month: 'long',
                 day: 'numeric'
             });
+        }
+        
+        // الحصول على اسم الشهر
+        function getMonthName(monthNumber) {
+            const months = [
+                'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+                'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+            ];
+            return months[monthNumber - 1] || '';
         }
     </script>
 </body>
