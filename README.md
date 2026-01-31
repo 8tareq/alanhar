@@ -434,13 +434,6 @@
                 background: white;
             }
             
-            .container {
-                width: 100%;
-                max-width: 100%;
-                padding: 0;
-                margin: 0;
-            }
-            
             .no-print {
                 display: none !important;
             }
@@ -1533,8 +1526,13 @@
             </div>
         </div>
         
-        <!-- محتوى طباعة التقرير (مخفى في العرض العادي) -->
+        <!-- محتوى طباعة التقرير اليومي (مخفى في العرض العادي) -->
         <div id="print-report-content" style="display: none;">
+            <!-- سيتم ملؤه ديناميكياً عند الطباعة -->
+        </div>
+        
+        <!-- محتوى طباعة التقرير الشهري (مخفى في العرض العادي) -->
+        <div id="print-monthly-report-content" style="display: none;">
             <!-- سيتم ملؤه ديناميكياً عند الطباعة -->
         </div>
         
@@ -1615,8 +1613,8 @@
             // توليد التقرير
             document.getElementById('generate-report').addEventListener('click', generateReport);
             
-            // طباعة التقرير
-            document.getElementById('print-report').addEventListener('click', printReportHandler);
+            // طباعة التقرير اليومي
+            document.getElementById('print-report').addEventListener('click', printDailyReport);
             
             // طباعة التقرير الشهري
             document.getElementById('print-monthly-report').addEventListener('click', printMonthlyReport);
@@ -2405,9 +2403,9 @@
             console.log("تم توليد التقرير بنجاح!");
         }
         
-        // طباعة التقرير
-        function printReportHandler() {
-            console.log("بدء عملية الطباعة...");
+        // طباعة التقرير اليومي
+        function printDailyReport() {
+            console.log("بدء عملية الطباعة اليومية...");
             
             // تحديث التقرير أولاً
             generateReport();
@@ -2618,15 +2616,12 @@
                 </footer>
             `;
             
-            // عرض محتوى الطباعة
-            printContent.style.display = 'block';
-            
             // طباعة المحتوى
             const printWindow = window.open('', '_blank');
             printWindow.document.write(`
                 <html>
                 <head>
-                    <title>طباعة تقرير ALANHAR</title>
+                    <title>طباعة تقرير ALANHAR اليومي</title>
                     <style>
                         @media print {
                             body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -2661,15 +2656,293 @@
                 printWindow.close();
             }, 500);
             
-            // إخفاء محتوى الطباعة بعد الطباعة
-            printContent.style.display = 'none';
-            
-            console.log("تم إعداد الطباعة بنجاح!");
+            console.log("تم إعداد الطباعة اليومية بنجاح!");
         }
         
         // طباعة التقرير الشهري
         function printMonthlyReport() {
-            window.print();
+            console.log("بدء عملية الطباعة الشهرية...");
+            
+            // تحديث الحسابات أولاً
+            updateMonthlyCalculations();
+            
+            // إنشاء محتوى الطباعة الشهرية
+            const printContent = document.getElementById('print-monthly-report-content');
+            printContent.innerHTML = '';
+            
+            // جمع البيانات الشهرية
+            const month = document.getElementById('month-select').value;
+            const year = document.getElementById('year-select').value;
+            const monthName = getMonthName(month);
+            
+            // جمع بيانات التقرير الشهري
+            const usdNet = document.getElementById('monthly-usd-net').textContent;
+            const eurNet = document.getElementById('monthly-eur-net').textContent;
+            const tryNet = document.getElementById('monthly-try-net').textContent;
+            
+            // جمع بيانات الأرباح الإضافية
+            const swiftUSD = document.getElementById('monthly-swift-profit-usd').value || '0.00';
+            const swiftEUR = document.getElementById('monthly-swift-profit-eur').value || '0.00';
+            const havalaUSD = document.getElementById('monthly-havala-profit-usd').value || '0.00';
+            const havalaEUR = document.getElementById('monthly-havala-profit-eur').value || '0.00';
+            const silverUSD = document.getElementById('monthly-silver-profit-usd').value || '0.00';
+            const silverEUR = document.getElementById('monthly-silver-profit-eur').value || '0.00';
+            
+            const totalProfitUSD = (parseFloat(swiftUSD) + parseFloat(havalaUSD) + parseFloat(silverUSD)).toFixed(2);
+            const totalProfitEUR = (parseFloat(swiftEUR) + parseFloat(havalaEUR) + parseFloat(silverEUR)).toFixed(2);
+            
+            // جمع بيانات المصروفات الشهرية
+            const expensesRows = [];
+            let totalExpenseUSD = 0;
+            let totalExpenseEUR = 0;
+            let totalExpenseTRY = 0;
+            
+            for (let i = 1; i <= monthlyExpenseCounter; i++) {
+                const nameInput = document.getElementById(`monthly-expense-name-${i}`);
+                const amountInput = document.getElementById(`monthly-expense-amount-${i}`);
+                const currencySelect = document.getElementById(`monthly-expense-currency-${i}`);
+                const typeSelect = document.getElementById(`monthly-expense-type-${i}`);
+                
+                if (nameInput && amountInput && currencySelect && typeSelect) {
+                    const name = nameInput.value;
+                    const amount = parseFloat(amountInput.value) || 0;
+                    const currency = currencySelect.value;
+                    const type = typeSelect.value;
+                    
+                    if (name && amount > 0) {
+                        expensesRows.push({ name, amount, currency, type });
+                        
+                        if (currency === 'USD') totalExpenseUSD += amount;
+                        else if (currency === 'EUR') totalExpenseEUR += amount;
+                        else if (currency === 'TRY') totalExpenseTRY += amount;
+                    }
+                }
+            }
+            
+            // حساب الصافي النهائي
+            const usdFinal = monthlyData.netProfit.usd;
+            const eurFinal = monthlyData.netProfit.eur;
+            const tryFinal = monthlyData.netProfit.try;
+            
+            // بناء محتوى الطباعة الشهرية
+            printContent.innerHTML = `
+                <div class="report-header">
+                    <h2>تقرير شهري - نظام ALANHAR</h2>
+                    <div class="date">شهر ${monthName} ${year} / ${monthName} ${year} Ayı</div>
+                    <div class="subtitle-tr">Aylık Rapor - ALANHAR Sistemi</div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <span><i class="fas fa-chart-pie"></i> إجمالي الأرباح الأساسية الشهرية / Aylık Temel Kârlar</span>
+                    </h3>
+                    <div class="report-summary">
+                        <div class="summary-box usd">
+                            <div class="summary-label">الدولار الأمريكي / Amerikan Doları</div>
+                            <div class="summary-value">${usdNet}</div>
+                            <div>صافي الربح الأساسي / Temel Net Kâr</div>
+                        </div>
+                        
+                        <div class="summary-box eur">
+                            <div class="summary-label">اليورو الأوروبي / Euro</div>
+                            <div class="summary-value">${eurNet}</div>
+                            <div>صافي الربح الأساسي / Temel Net Kâr</div>
+                        </div>
+                        
+                        <div class="summary-box try">
+                            <div class="summary-label">الليرة التركية / Türk Lirası</div>
+                            <div class="summary-value">${tryNet}</div>
+                            <div>صافي الربح الأساسي / Temel Net Kâr</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <span><i class="fas fa-coins"></i> الأرباح الإضافية الشهرية / Aylık Ek Kârlar</span>
+                    </h3>
+                    <div class="profit-container">
+                        <div class="profit-item">
+                            <h4>ربح Swift الشهري / Aylık Swift Kârı</h4>
+                            <div class="profit-display">
+                                <span>$</span>
+                                <span>${swiftUSD}</span>
+                            </div>
+                            <div class="profit-display">
+                                <span>€</span>
+                                <span>${swiftEUR}</span>
+                            </div>
+                        </div>
+                        <div class="profit-item">
+                            <h4>ربح Havala الشهري / Aylık Havale Kârı</h4>
+                            <div class="profit-display">
+                                <span>$</span>
+                                <span>${havalaUSD}</span>
+                            </div>
+                            <div class="profit-display">
+                                <span>€</span>
+                                <span>${havalaEUR}</span>
+                            </div>
+                        </div>
+                        <div class="profit-item">
+                            <h4>ربح الفضة الشهري / Aylık Gümüş Kârı</h4>
+                            <div class="profit-display">
+                                <span>$</span>
+                                <span>${silverUSD}</span>
+                            </div>
+                            <div class="profit-display">
+                                <span>€</span>
+                                <span>${silverEUR}</span>
+                            </div>
+                        </div>
+                        <div class="profit-item" style="background-color: #e8f5e9;">
+                            <h4>إجمالي الأرباح الإضافية / Toplam Ek Kâr</h4>
+                            <div class="profit-display profit-display-total">
+                                <span><strong>$</strong></span>
+                                <span style="font-weight: bold; color: #2e7d32;">${totalProfitUSD}</span>
+                            </div>
+                            <div class="profit-display profit-display-total">
+                                <span><strong>€</strong></span>
+                                <span style="font-weight: bold; color: #2e7d32;">${totalProfitEUR}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <span><i class="fas fa-receipt"></i> المصروفات الشهرية / Aylık Giderler</span>
+                    </h3>
+                    <div class="report-container">
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th>وصف المصروف / Gider Açıklaması</th>
+                                    <th>النوع / Tür</th>
+                                    <th>القيمة / Tutar</th>
+                                    <th>العملة / Para Birimi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${expensesRows.length > 0 ? 
+                                    expensesRows.map(expense => `
+                                        <tr>
+                                            <td>${expense.name}</td>
+                                            <td>${getExpenseTypeName(expense.type)}</td>
+                                            <td>${expense.amount.toFixed(2)}</td>
+                                            <td>${expense.currency === 'USD' ? '$' : expense.currency === 'EUR' ? '€' : '₺'}</td>
+                                        </tr>
+                                    `).join('') : 
+                                    `<tr><td colspan="4" style="text-align: center; padding: 20px; color: #666;">لا توجد مصروفات شهرية مسجلة / Kayıtlı aylık gider yok</td></tr>`
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="expense-total-container" style="margin-top: 20px;">
+                        ${totalExpenseUSD > 0 ? `
+                            <div class="expense-total-box">
+                                <div>إجمالي مصروفات الدولار الشهرية / Aylık Toplam Dolar Giderler</div>
+                                <div class="expense-currency">$${totalExpenseUSD.toFixed(2)}</div>
+                            </div>
+                        ` : ''}
+                        ${totalExpenseEUR > 0 ? `
+                            <div class="expense-total-box">
+                                <div>إجمالي مصروفات اليورو الشهرية / Aylık Toplam Euro Giderler</div>
+                                <div class="expense-currency">€${totalExpenseEUR.toFixed(2)}</div>
+                            </div>
+                        ` : ''}
+                        ${totalExpenseTRY > 0 ? `
+                            <div class="expense-total-box">
+                                <div>إجمالي مصروفات الليرة الشهرية / Aylık Toplam Lira Giderler</div>
+                                <div class="expense-currency">₺${totalExpenseTRY.toFixed(2)}</div>
+                            </div>
+                        ` : ''}
+                        ${totalExpenseUSD === 0 && totalExpenseEUR === 0 && totalExpenseTRY === 0 ? `
+                            <div class="expense-total-box">
+                                <div>لا توجد مصروفات شهرية مسجلة / Kayıtlı aylık gider yok</div>
+                                <div class="expense-currency">$0.00 / €0.00 / ₺0.00</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <span><i class="fas fa-calculator"></i> التقرير الشهري النهائي / Aylık Nihai Rapor</span>
+                    </h3>
+                    <div class="report-container">
+                        <table class="report-table monthly-report-table">
+                            <thead>
+                                <tr>
+                                    <th>العملة / Para Birimi</th>
+                                    <th>صافي الربح الأساسي / Temel Net Kâr</th>
+                                    <th>الأرباح الإضافية / Ek Kârlar</th>
+                                    <th>إجمالي المصروفات / Toplam Gider</th>
+                                    <th>الصافي النهائي / Net Sonuç</th>
+                                    <th>الحالة / Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${document.getElementById('monthly-report-table-body').innerHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="monthly-net-profit">
+                        <div>إجمالي صافي الربح الشهري / Aylık Toplam Net Kâr</div>
+                        <div><strong id="monthly-total-net">$${usdFinal.toFixed(2)} / €${eurFinal.toFixed(2)} / ₺${tryFinal.toFixed(2)}</strong></div>
+                    </div>
+                </div>
+                
+                <footer style="text-align: center; margin-top: 40px; padding: 20px; color: #666; border-top: 1px solid #eee; font-size: 0.9rem;">
+                    <p>نظام ALANHAR لإدارة محلات الصرافة والحوالات &copy; 2024</p>
+                    <p>ALANHAR Sistemi - Döviz ve Havale Yönetimi &copy; 2024</p>
+                </footer>
+            `;
+            
+            // طباعة المحتوى
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>طباعة تقرير ALANHAR الشهري</title>
+                    <style>
+                        @media print {
+                            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+                            .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; }
+                            .report-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+                            .report-table th { background-color: #ff9800; color: white; padding: 10px; text-align: right; }
+                            .report-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                            .report-summary { display: flex; gap: 15px; margin-bottom: 20px; }
+                            .summary-box { flex: 1; padding: 15px; border-radius: 8px; text-align: center; }
+                            .summary-box.usd { background-color: #f0f7ff; border: 1px solid #1a2980; }
+                            .summary-box.eur { background-color: #e8f5e9; border: 1px solid #004d40; }
+                            .summary-box.try { background-color: #ffebee; border: 1px solid #b71c1c; }
+                            .expense-total-box { border: 1px solid #f44336; padding: 10px; margin: 5px; text-align: center; }
+                            .profit-container { display: flex; gap: 10px; margin-bottom: 15px; }
+                            .profit-item { flex: 1; border: 1px solid #26d0ce; padding: 10px; }
+                            .profit-display { display: flex; justify-content: space-between; margin: 5px 0; }
+                            .report-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #ff9800; padding-bottom: 10px; }
+                            .monthly-net-profit { background-color: #e8f5e9; padding: 20px; border: 2px solid #4caf50; text-align: center; margin-top: 20px; }
+                        }
+                    </style>
+                </head>
+                <body dir="rtl">
+                    ${printContent.innerHTML}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            
+            // تأخير الطباعة لضمان تحميل المحتوى
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 500);
+            
+            console.log("تم إعداد الطباعة الشهرية بنجاح!");
         }
         
         // توليد الملخص الشهري
@@ -3453,6 +3726,19 @@
                 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
             ];
             return months[monthNumber - 1] || '';
+        }
+        
+        // الحصول على اسم نوع المصروف
+        function getExpenseTypeName(type) {
+            const types = {
+                'rent': 'إيجار',
+                'electricity': 'كهرباء',
+                'water': 'ماء',
+                'salary': 'رواتب',
+                'food': 'أكل ومعيشة',
+                'other': 'أخرى'
+            };
+            return types[type] || type;
         }
     </script>
 </body>
