@@ -455,100 +455,6 @@
             .logo i {
                 color: #1a2980;
             }
-            
-            /* تصميم طباعة التقرير الشهري */
-            .monthly-print-only {
-                display: block !important;
-            }
-            
-            .monthly-print-header {
-                text-align: center;
-                border-bottom: 3px solid #ff9800;
-                padding-bottom: 15px;
-                margin-bottom: 20px;
-                page-break-after: avoid;
-            }
-            
-            .monthly-print-header h2 {
-                color: #ff9800;
-                font-size: 24px;
-                margin-bottom: 10px;
-            }
-            
-            .monthly-print-summary {
-                display: flex;
-                justify-content: space-around;
-                margin: 20px 0;
-                page-break-inside: avoid;
-            }
-            
-            .monthly-print-currency-box {
-                text-align: center;
-                border: 2px solid #ff9800;
-                border-radius: 10px;
-                padding: 15px;
-                min-width: 200px;
-            }
-            
-            .monthly-print-currency-value {
-                font-size: 22px;
-                font-weight: bold;
-                margin: 10px 0;
-            }
-            
-            .monthly-print-profit-section {
-                margin: 25px 0;
-                page-break-inside: avoid;
-            }
-            
-            .monthly-print-profit-box {
-                background: #f9f9f9;
-                border-left: 5px solid #4caf50;
-                padding: 15px;
-                margin: 10px 0;
-                border-radius: 5px;
-            }
-            
-            .monthly-print-expenses-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-                page-break-inside: avoid;
-            }
-            
-            .monthly-print-expenses-table th {
-                background-color: #ff9800;
-                color: white;
-                padding: 10px;
-                text-align: right;
-            }
-            
-            .monthly-print-expenses-table td {
-                padding: 8px 10px;
-                border-bottom: 1px solid #ddd;
-            }
-            
-            .monthly-print-total-box {
-                background: #e8f5e9;
-                border: 3px solid #4caf50;
-                padding: 20px;
-                text-align: center;
-                font-size: 20px;
-                font-weight: bold;
-                margin: 30px 0;
-                page-break-inside: avoid;
-                border-radius: 10px;
-            }
-            
-            .monthly-print-footer {
-                text-align: center;
-                margin-top: 40px;
-                padding-top: 20px;
-                border-top: 1px solid #ddd;
-                font-size: 12px;
-                color: #666;
-                page-break-before: avoid;
-            }
         }
         
         footer {
@@ -1426,6 +1332,10 @@
                     <button class="btn btn-monthly" id="load-monthly-data">
                         <i class="fas fa-search"></i> تحميل بيانات الشهر / Ay Verilerini Yükle
                     </button>
+                    
+                    <button class="btn" id="auto-calc-profits" style="background: linear-gradient(135deg, #9c27b0, #6a1b9a);">
+                        <i class="fas fa-calculator"></i> حساب الأرباح من السجلات / Kayıtlardan Kâr Hesapla
+                    </button>
                 </div>
             </div>
             
@@ -1512,17 +1422,18 @@
                     <div class="profit-item">
                         <div class="input-group">
                             <label>ربح Swift الشهري / Aylık Swift Kârı</label>
+                            <div class="label-tr">(يتم حسابه تلقائياً من السجلات)</div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">$</span>
                             <div class="profit-amount">
-                                <input type="number" id="monthly-swift-profit-usd" placeholder="أدخل ربح Swift الشهري بالدولار" class="profit-input" step="0.01" min="0">
+                                <input type="number" id="monthly-swift-profit-usd" placeholder="يتم حسابه تلقائياً" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
-                                <input type="number" id="monthly-swift-profit-eur" placeholder="أدخل ربح Swift الشهري باليورو" class="profit-input" step="0.01" min="0">
+                                <input type="number" id="monthly-swift-profit-eur" placeholder="يتم حسابه تلقائياً" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -1530,17 +1441,18 @@
                     <div class="profit-item">
                         <div class="input-group">
                             <label>ربح Havala الشهري / Aylık Havale Kârı</label>
+                            <div class="label-tr">(يتم حسابه تلقائياً من السجلات)</div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">$</span>
                             <div class="profit-amount">
-                                <input type="number" id="monthly-havala-profit-usd" placeholder="أدخل ربح Havala الشهري بالدولار" class="profit-input" step="0.01" min="0">
+                                <input type="number" id="monthly-havala-profit-usd" placeholder="يتم حسابه تلقائياً" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
-                                <input type="number" id="monthly-havala-profit-eur" placeholder="أدخل ربح Havala الشهري باليورو" class="profit-input" step="0.01" min="0">
+                                <input type="number" id="monthly-havala-profit-eur" placeholder="يتم حسابه تلقائياً" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -1548,17 +1460,18 @@
                     <div class="profit-item">
                         <div class="input-group">
                             <label>ربح الفضة الشهري / Aylık Gümüş Kârı</label>
+                            <div class="label-tr">(يتم حسابه تلقائياً من السجلات)</div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">$</span>
                             <div class="profit-amount">
-                                <input type="number" id="monthly-silver-profit-usd" placeholder="أدخل ربح الفضة الشهري بالدولار" class="profit-input" step="0.01" min="0">
+                                <input type="number" id="monthly-silver-profit-usd" placeholder="يتم حسابه تلقائياً" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                         <div class="profit-currency-row">
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
-                                <input type="number" id="monthly-silver-profit-eur" placeholder="أدخل ربح الفضة الشهري باليورو" class="profit-input" step="0.01" min="0">
+                                <input type="number" id="monthly-silver-profit-eur" placeholder="يتم حسابه تلقائياً" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -1920,6 +1833,9 @@
             // تحميل بيانات الشهر
             document.getElementById('load-monthly-data').addEventListener('click', loadMonthlyData);
             
+            // حساب الأرباح من السجلات
+            document.getElementById('auto-calc-profits').addEventListener('click', calculateMonthlyProfitsFromHistory);
+            
             // تبديل التبويبات الرئيسية
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
@@ -2220,6 +2136,8 @@
                     </div>
                 `;
             }
+            
+            return { usd: totalExpenseUSD, eur: totalExpenseEUR, try: totalExpenseTRY };
         }
         
         // تحديث إجمالي المصروفات الشهرية
@@ -2630,34 +2548,35 @@
             const reportExpenseTotalContainer = document.getElementById('report-expense-total');
             reportExpenseTotalContainer.innerHTML = '';
             
-            if (totalExpenseUSD > 0 || totalExpenseEUR > 0 || totalExpenseTRY > 0) {
-                if (totalExpenseUSD > 0) {
-                    reportExpenseTotalContainer.innerHTML += `
-                        <div class="expense-total-box">
-                            <div>إجمالي مصروفات الدولار / Toplam Dolar Giderler</div>
-                            <div class="expense-currency">$${totalExpenseUSD.toFixed(2)}</div>
-                        </div>
-                    `;
-                }
-                
-                if (totalExpenseEUR > 0) {
-                    reportExpenseTotalContainer.innerHTML += `
-                        <div class="expense-total-box">
-                            <div>إجمالي مصروفات اليورو / Toplam Euro Giderler</div>
-                            <div class="expense-currency">€${totalExpenseEUR.toFixed(2)}</div>
-                        </div>
-                    `;
-                }
-                
-                if (totalExpenseTRY > 0) {
-                    reportExpenseTotalContainer.innerHTML += `
-                        <div class="expense-total-box">
-                            <div>إجمالي مصروفات الليرة / Toplam Lira Giderler</div>
-                            <div class="expense-currency">₺${totalExpenseTRY.toFixed(2)}</div>
-                        </div>
-                    `;
-                }
-            } else {
+            // إصلاح مشكلة عرض المصروفات - عرض كل عملة في صندوق منفصل
+            if (totalExpenseUSD > 0) {
+                reportExpenseTotalContainer.innerHTML += `
+                    <div class="expense-total-box">
+                        <div>إجمالي مصروفات الدولار / Toplam Dolar Giderler</div>
+                        <div class="expense-currency">$${totalExpenseUSD.toFixed(2)}</div>
+                    </div>
+                `;
+            }
+            
+            if (totalExpenseEUR > 0) {
+                reportExpenseTotalContainer.innerHTML += `
+                    <div class="expense-total-box">
+                        <div>إجمالي مصروفات اليورو / Toplam Euro Giderler</div>
+                        <div class="expense-currency">€${totalExpenseEUR.toFixed(2)}</div>
+                    </div>
+                `;
+            }
+            
+            if (totalExpenseTRY > 0) {
+                reportExpenseTotalContainer.innerHTML += `
+                    <div class="expense-total-box">
+                        <div>إجمالي مصروفات الليرة / Toplam Lira Giderler</div>
+                        <div class="expense-currency">₺${totalExpenseTRY.toFixed(2)}</div>
+                    </div>
+                `;
+            }
+            
+            if (totalExpenseUSD === 0 && totalExpenseEUR === 0 && totalExpenseTRY === 0) {
                 reportExpenseTotalContainer.innerHTML = `
                     <div class="expense-total-box">
                         <div>لا توجد مصروفات مسجلة / Kayıtlı gider yok</div>
@@ -2806,6 +2725,52 @@
                 'other': 'أخرى / Diğer'
             };
             return types[type] || type;
+        }
+        
+        // حساب الأرباح الشهرية من السجلات اليومية
+        function calculateMonthlyProfitsFromHistory() {
+            const month = parseInt(document.getElementById('month-select').value);
+            const year = parseInt(document.getElementById('year-select').value);
+            
+            console.log(`جمع الأرباح الشهرية من السجلات لشهر ${month} سنة ${year}`);
+            
+            let monthlyProfits = {
+                swift: { usd: 0, eur: 0 },
+                havana: { usd: 0, eur: 0 },
+                silver: { usd: 0, eur: 0 },
+                total: { usd: 0, eur: 0 }
+            };
+            
+            // فلترة السجلس للشهر والسنة المحددين
+            historyRecords.forEach(record => {
+                const recordDate = new Date(record.date);
+                const recordMonth = recordDate.getMonth() + 1;
+                const recordYear = recordDate.getFullYear();
+                
+                if (recordMonth == month && recordYear == year) {
+                    monthlyProfits.swift.usd += record.data.profits.swift.usd;
+                    monthlyProfits.swift.eur += record.data.profits.swift.eur;
+                    monthlyProfits.havana.usd += record.data.profits.havana.usd;
+                    monthlyProfits.havana.eur += record.data.profits.havana.eur;
+                    monthlyProfits.silver.usd += record.data.profits.silver.usd;
+                    monthlyProfits.silver.eur += record.data.profits.silver.eur;
+                }
+            });
+            
+            // تحديث الحقول بالأرباح المحسوبة
+            document.getElementById('monthly-swift-profit-usd').value = monthlyProfits.swift.usd.toFixed(2);
+            document.getElementById('monthly-swift-profit-eur').value = monthlyProfits.swift.eur.toFixed(2);
+            document.getElementById('monthly-havala-profit-usd').value = monthlyProfits.havana.usd.toFixed(2);
+            document.getElementById('monthly-havala-profit-eur').value = monthlyProfits.havana.eur.toFixed(2);
+            document.getElementById('monthly-silver-profit-usd').value = monthlyProfits.silver.usd.toFixed(2);
+            document.getElementById('monthly-silver-profit-eur').value = monthlyProfits.silver.eur.toFixed(2);
+            
+            // تحديث الحسابات الشهرية
+            updateMonthlyCalculations();
+            
+            // عرض رسالة نجاح
+            const monthName = getMonthName(month);
+            alert(`تم جمع الأرباح الشهرية من سجلات ${monthName} ${year} بنجاح!\n\nإجمالي الأرباح:\n- Swift: $${monthlyProfits.swift.usd.toFixed(2)} / €${monthlyProfits.swift.eur.toFixed(2)}\n- Havala: $${monthlyProfits.havana.usd.toFixed(2)} / €${monthlyProfits.havana.eur.toFixed(2)}\n- الفضة: $${monthlyProfits.silver.usd.toFixed(2)} / €${monthlyProfits.silver.eur.toFixed(2)}\n\nالإجمالي: $${(monthlyProfits.swift.usd + monthlyProfits.havana.usd + monthlyProfits.silver.usd).toFixed(2)} / €${(monthlyProfits.swift.eur + monthlyProfits.havana.eur + monthlyProfits.silver.eur).toFixed(2)}`);
         }
         
         // مسح البيانات
