@@ -1087,6 +1087,66 @@
             color: #8e24aa;
             margin-bottom: 5px;
         }
+        
+        /* قسم تلقائي لتجميع الأرباح */
+        .auto-collect-section {
+            background: linear-gradient(135deg, #bbdefb, #90caf9);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px solid #2196f3;
+        }
+        
+        .auto-collect-title {
+            color: #0d47a1;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #64b5f6;
+            display: flex;
+            align-items: center;
+        }
+        
+        .auto-collect-title i {
+            margin-left: 10px;
+        }
+        
+        .auto-collect-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-right: 4px solid #2196f3;
+        }
+        
+        .auto-collect-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .collect-stat-item {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #2196f3;
+        }
+        
+        .collect-stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            margin: 10px 0;
+        }
+        
+        .collect-stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -1480,10 +1540,15 @@
                 <strong>ملاحظة / Not:</strong> أدخل بيانات المدين والدائن يدوياً، وسيتم جمع أرباح Swift والفضة والحوالة تلقائياً من السجلات السابقة. المصاريف والأرباح التلقائية للمعلومية فقط ولا تزيد أو تنقص من الفائض. / Borçlu ve Alacaklı verilerini elle girin, Swift, Gümüş ve Havale kârları otomatik olarak önceki kayıtlardan toplanacaktır. Giderler ve otomatik kârlar sadece bilgi amaçlıdır ve kar-zarardan eklenmez veya çıkarılmaz.
             </div>
             
-            <!-- نموذج إدخال البيانات الشهرية (للاستخدام على الشاشة) -->
-            <div class="monthly-section no-print">
-                <div class="monthly-section-title">
-                    <i class="fas fa-calendar"></i> تحديد الفترة الزمنية / Zaman Aralığı Seçimi
+            <!-- قسم التجميع التلقائي للأرباح -->
+            <div class="auto-collect-section">
+                <div class="auto-collect-title">
+                    <i class="fas fa-calculator"></i> التجميع التلقائي للأرباح / Otomatik Kâr Toplama
+                </div>
+                
+                <div class="auto-collect-info">
+                    <p><strong>تفسير:</strong> سيتم تجميع جميع عمليات الربح (Swift، Havala، الفضة) تلقائياً عند اختيار الفترة الزمنية. كل عملية حفظ يومية يتم تجميعها مع العمليات السابقة.</p>
+                    <p><strong>Açıklama:</strong> Tüm kâr işlemleri (Swift, Havale, Gümüş) otomatik olarak zaman aralığı seçildiğinde toplanacaktır. Her günlük kayıt işlemi, önceki işlemlerle toplanır.</p>
                 </div>
                 
                 <div class="date-range-selector">
@@ -1495,7 +1560,7 @@
                     </div>
                     
                     <div style="display: flex; align-items: center; padding-top: 20px;">
-                        <i class="fas fa-arrow-left" style="font-size: 1.5rem; color: #8e24aa;"></i>
+                        <i class="fas fa-arrow-left" style="font-size: 1.5rem; color: #2196f3;"></i>
                     </div>
                     
                     <div class="date-range-box">
@@ -1509,27 +1574,22 @@
                 <div id="date-range-info" class="date-range-info">
                     <!-- سيتم عرض معلومات الفترة الزمنية هنا -->
                 </div>
+                
+                <div id="auto-collect-stats" class="auto-collect-stats">
+                    <!-- ستظهر إحصائيات التجميع التلقائي هنا -->
+                </div>
             </div>
             
             <!-- قسم تفاصيل الأرباح اليومية المجمعة -->
-            <div class="detailed-profit-section no-print">
+            <div class="detailed-profit-section">
                 <div class="detailed-profit-title">
                     <i class="fas fa-coins"></i> تفاصيل الأرباح اليومية المجمعة / Günlük Kârların Detaylı Özeti
-                </div>
-                
-                <div class="actions no-print" style="margin-bottom: 20px;">
-                    <button class="btn btn-monthly" id="load-detailed-profits">
-                        <i class="fas fa-sync-alt"></i> تحميل تفاصيل الأرباح / Kâr Detaylarını Yükle
-                    </button>
-                    <button class="btn btn-reset" id="clear-daily-profits" style="background: linear-gradient(135deg, #f44336, #c62828);">
-                        <i class="fas fa-trash-alt"></i> مسح سجلات الأرباح / Kâr Kayıtlarını Temizle
-                    </button>
                 </div>
                 
                 <div id="detailed-profits-container">
                     <!-- سيتم عرض تفاصيل الأرباح هنا -->
                     <div style="text-align: center; padding: 20px; color: #666;">
-                        قم بتحديد الفترة الزمنية ثم اضغط على "تحميل تفاصيل الأرباح" / Zaman aralığını seçin ve "Kâr Detaylarını Yükle" butonuna tıklayın.
+                        قم بتحديد الفترة الزمنية لعرض الأرباح المجمعة / Zaman aralığını seçerek toplanan kârları görüntüleyin.
                     </div>
                 </div>
                 
@@ -1540,6 +1600,7 @@
                         <span id="total-monthly-profit-eur">€0.00</span>
                     </div>
                     <div>من <span id="profit-days-count">0</span> يوم / <span id="profit-days-count-tr">0</span> gün</div>
+                    <div>عدد العمليات: <span id="profit-operations-count">0</span> / İşlem Sayısı: <span id="profit-operations-count-tr">0</span></div>
                 </div>
             </div>
             
@@ -1630,15 +1691,9 @@
                     <i class="fas fa-coins"></i> الأرباح التلقائية من السجلات السابقة / Önceki Kayıtlardan Otomatik Kârlar
                 </div>
                 
-                <div class="actions no-print" style="margin-bottom: 20px;">
-                    <button class="btn btn-monthly" id="load-auto-profits">
-                        <i class="fas fa-sync-alt"></i> تحميل الأرباح التلقائية / Otomatik Kârları Yükle
-                    </button>
-                </div>
-                
                 <div class="profit-container">
                     <div class="profit-item monthly-profit-item">
-                        <h4>ربح Swift التلقائي / Otomatik Swift Kârı</h4>
+                        <h4>ربح Swift المجمع / Toplanan Swift Kârı</h4>
                         <div class="summary-row">
                             <span>من <span id="auto-swift-start">--</span> إلى <span id="auto-swift-end">--</span></span>
                         </div>
@@ -1652,7 +1707,7 @@
                         </div>
                     </div>
                     <div class="profit-item monthly-profit-item">
-                        <h4>ربح Havala التلقائي / Otomatik Havale Kârı</h4>
+                        <h4>ربح Havala المجمع / Toplanan Havale Kârı</h4>
                         <div class="summary-row">
                             <span>من <span id="auto-havala-start">--</span> إلى <span id="auto-havala-end">--</span></span>
                         </div>
@@ -1666,7 +1721,7 @@
                         </div>
                     </div>
                     <div class="profit-item monthly-profit-item">
-                        <h4>ربح الفضة التلقائي / Otomatik Gümüş Kârı</h4>
+                        <h4>ربح الفضة المجمع / Toplanan Gümüş Kârı</h4>
                         <div class="summary-row">
                             <span>من <span id="auto-silver-start">--</span> إلى <span id="auto-silver-end">--</span></span>
                         </div>
@@ -1850,9 +1905,6 @@
                 <button class="btn btn-print" id="print-monthly-report">
                     <i class="fas fa-print"></i> طباعة التقرير الشهري / Aylık Raporu Yazdır
                 </button>
-                <button class="btn btn-monthly" id="generate-monthly-report">
-                    <i class="fas fa-file-alt"></i> معاينة التقرير / Raporu Önizle
-                </button>
                 <button class="btn btn-save" id="save-monthly-data">
                     <i class="fas fa-save"></i> حفظ البيانات / Verileri Kaydet
                 </button>
@@ -1923,7 +1975,8 @@
                 total: { usd: 0, eur: 0 }
             },
             expenses: [],
-            date: new Date().toISOString().split('T')[0]
+            date: new Date().toISOString().split('T')[0],
+            timestamp: new Date().getTime() // إضافة الطابع الزمني
         };
 
         // بيانات التقرير الشهري
@@ -1939,7 +1992,7 @@
                 silver: { usd: 0, eur: 0 }
             },
             monthlyExpenses: [],
-            detailedProfits: [] // جديد: تخزين تفاصيل الأرباح اليومية
+            detailedProfits: [] // تخزين تفاصيل الأرباح اليومية
         };
 
         // سجلات الأيام السابقة
@@ -1948,8 +2001,8 @@
         // سجلات التقارير الشهرية
         let monthlyRecords = JSON.parse(localStorage.getItem('alanhar_monthly')) || [];
         
-        // سجلات الأرباح اليومية (جديد)
-        let dailyProfitsRecords = JSON.parse(localStorage.getItem('alanhar_daily_profits')) || [];
+        // سجلات الأرباح اليومية (كل عملية حفظ)
+        let dailyProfitOperations = JSON.parse(localStorage.getItem('alanhar_daily_profit_operations')) || [];
         
         // عداد المصروفات
         let expenseCounter = 1;
@@ -1993,23 +2046,11 @@
             // توليد التقرير
             document.getElementById('generate-report').addEventListener('click', generateReport);
             
-            // تحميل الأرباح التلقائية
-            document.getElementById('load-auto-profits').addEventListener('click', loadAutoProfits);
-            
-            // تحميل تفاصيل الأرباح
-            document.getElementById('load-detailed-profits').addEventListener('click', loadDetailedProfits);
-            
-            // مسح سجلات الأرباح اليومية
-            document.getElementById('clear-daily-profits').addEventListener('click', clearDailyProfits);
-            
             // معاينة التقرير الشهري
-            document.getElementById('generate-monthly-report').addEventListener('click', generateMonthlyReport);
+            document.getElementById('print-monthly-report').addEventListener('click', printMonthlyReport);
             
             // طباعة التقرير
             document.getElementById('print-report').addEventListener('click', printReport);
-            
-            // طباعة التقرير الشهري
-            document.getElementById('print-monthly-report').addEventListener('click', printMonthlyReport);
             
             // حفظ التقرير الشهري
             document.getElementById('save-monthly-data').addEventListener('click', saveMonthlyData);
@@ -2055,13 +2096,20 @@
             // تحديث الحسابات الشهرية
             setupMonthlyInputListeners();
             
+            // تحديث التجميع التلقائي عند تغيير التاريخ
+            document.getElementById('monthly-start-date').addEventListener('change', autoCollectProfits);
+            document.getElementById('monthly-end-date').addEventListener('change', autoCollectProfits);
+            
             // عرض عدد سجلات الأرباح اليومية
             updateDailyProfitsCount();
+            
+            // تشغيل التجميع التلقائي عند التحميل
+            setTimeout(autoCollectProfits, 500);
         });
         
         // تحديث عدد سجلات الأرباح اليومية
         function updateDailyProfitsCount() {
-            console.log(`عدد سجلات الأرباح اليومية: ${dailyProfitsRecords.length}`);
+            console.log(`عدد عمليات الربح اليومية: ${dailyProfitOperations.length}`);
         }
         
         // إعداد مستمعي الإدخال للبيانات الشهرية
@@ -2073,17 +2121,6 @@
             document.getElementById('monthly-eur-creditor').addEventListener('input', updateMonthlyCalculations);
             document.getElementById('monthly-try-debtor').addEventListener('input', updateMonthlyCalculations);
             document.getElementById('monthly-try-creditor').addEventListener('input', updateMonthlyCalculations);
-            
-            // تحديث تواريخ الفترة الزمنية
-            document.getElementById('monthly-start-date').addEventListener('change', function() {
-                monthlyData.startDate = this.value;
-                updateDateRangeInfo();
-            });
-            
-            document.getElementById('monthly-end-date').addEventListener('change', function() {
-                monthlyData.endDate = this.value;
-                updateDateRangeInfo();
-            });
         }
         
         // تحديث معلومات الفترة الزمنية
@@ -2366,23 +2403,28 @@
             }
         }
         
-        // تحميل تفاصيل الأرباح اليومية
-        function loadDetailedProfits() {
-            const startDate = monthlyData.startDate;
-            const endDate = monthlyData.endDate;
+        // التجميع التلقائي للأرباح
+        function autoCollectProfits() {
+            const startDate = document.getElementById('monthly-start-date').value;
+            const endDate = document.getElementById('monthly-end-date').value;
             
             if (!startDate || !endDate) {
-                alert("يرجى تحديد تاريخ البداية والنهاية أولاً. / Lütfen önce başlangıç ve bitiş tarihlerini seçin.");
                 return;
             }
             
-            // فلترة سجلات الأرباح حسب الفترة الزمنية
-            const filteredProfits = dailyProfitsRecords.filter(record => {
-                const recordDate = record.date;
-                return recordDate >= startDate && recordDate <= endDate;
+            monthlyData.startDate = startDate;
+            monthlyData.endDate = endDate;
+            
+            // تحديث معلومات الفترة الزمنية
+            updateDateRangeInfo();
+            
+            // فلترة عمليات الربح حسب الفترة الزمنية
+            const filteredOperations = dailyProfitOperations.filter(operation => {
+                const operationDate = operation.date;
+                return operationDate >= startDate && operationDate <= endDate;
             });
             
-            if (filteredProfits.length === 0) {
+            if (filteredOperations.length === 0) {
                 document.getElementById('detailed-profits-container').innerHTML = `
                     <div style="text-align: center; padding: 30px; color: #666;">
                         <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i><br>
@@ -2390,12 +2432,23 @@
                         ${formatDate(startDate)} - ${formatDate(endDate)} tarihleri arasında kâr kaydı bulunamadı.
                     </div>
                 `;
+                
                 document.getElementById('profit-summary').style.display = 'none';
+                document.getElementById('auto-collect-stats').innerHTML = '';
+                
+                // إعادة تعيين الأرباح التلقائية
+                monthlyData.autoProfits = {
+                    swift: { usd: 0, eur: 0 },
+                    havana: { usd: 0, eur: 0 },
+                    silver: { usd: 0, eur: 0 }
+                };
+                
+                updateAutoProfitsDisplay();
                 return;
             }
             
-            // ترتيب السجلات حسب التاريخ (من الأقدم للأحدث)
-            filteredProfits.sort((a, b) => new Date(a.date) - new Date(b.date));
+            // ترتيب العمليات حسب التاريخ والوقت (من الأقدم للأحدث)
+            filteredOperations.sort((a, b) => a.timestamp - b.timestamp);
             
             // حساب الإجماليات
             let totalSwiftUSD = 0, totalSwiftEUR = 0;
@@ -2405,49 +2458,81 @@
             
             // بناء عرض تفاصيل الأرباح
             let detailsHtml = '';
+            let operationsByDate = {};
             
-            filteredProfits.forEach((record, index) => {
-                const recordSwiftUSD = record.profits.swift.usd || 0;
-                const recordSwiftEUR = record.profits.swift.eur || 0;
-                const recordHavanaUSD = record.profits.havana.usd || 0;
-                const recordHavanaEUR = record.profits.havana.eur || 0;
-                const recordSilverUSD = record.profits.silver.usd || 0;
-                const recordSilverEUR = record.profits.silver.eur || 0;
+            // تجميع العمليات حسب التاريخ
+            filteredOperations.forEach((operation, index) => {
+                const date = operation.date;
+                if (!operationsByDate[date]) {
+                    operationsByDate[date] = [];
+                }
+                operationsByDate[date].push(operation);
+            });
+            
+            // عرض العمليات حسب التاريخ
+            Object.keys(operationsByDate).sort().forEach(date => {
+                const dateOperations = operationsByDate[date];
+                let dateTotalUSD = 0;
+                let dateTotalEUR = 0;
+                let dateSwiftUSD = 0, dateSwiftEUR = 0;
+                let dateHavanaUSD = 0, dateHavanaEUR = 0;
+                let dateSilverUSD = 0, dateSilverEUR = 0;
                 
-                const recordTotalUSD = recordSwiftUSD + recordHavanaUSD + recordSilverUSD;
-                const recordTotalEUR = recordSwiftEUR + recordHavanaEUR + recordSilverEUR;
+                dateOperations.forEach(operation => {
+                    const opSwiftUSD = operation.profits.swift.usd || 0;
+                    const opSwiftEUR = operation.profits.swift.eur || 0;
+                    const opHavanaUSD = operation.profits.havana.usd || 0;
+                    const opHavanaEUR = operation.profits.havana.eur || 0;
+                    const opSilverUSD = operation.profits.silver.usd || 0;
+                    const opSilverEUR = operation.profits.silver.eur || 0;
+                    
+                    dateSwiftUSD += opSwiftUSD;
+                    dateSwiftEUR += opSwiftEUR;
+                    dateHavanaUSD += opHavanaUSD;
+                    dateHavanaEUR += opHavanaEUR;
+                    dateSilverUSD += opSilverUSD;
+                    dateSilverEUR += opSilverEUR;
+                    
+                    dateTotalUSD += opSwiftUSD + opHavanaUSD + opSilverUSD;
+                    dateTotalEUR += opSwiftEUR + opHavanaEUR + opSilverEUR;
+                });
                 
-                // تحديث الإجماليات
-                totalSwiftUSD += recordSwiftUSD;
-                totalSwiftEUR += recordSwiftEUR;
-                totalHavanaUSD += recordHavanaUSD;
-                totalHavanaEUR += recordHavanaEUR;
-                totalSilverUSD += recordSilverUSD;
-                totalSilverEUR += recordSilverEUR;
-                grandTotalUSD += recordTotalUSD;
-                grandTotalEUR += recordTotalEUR;
+                // تحديث الإجماليات الكلية
+                totalSwiftUSD += dateSwiftUSD;
+                totalSwiftEUR += dateSwiftEUR;
+                totalHavanaUSD += dateHavanaUSD;
+                totalHavanaEUR += dateHavanaEUR;
+                totalSilverUSD += dateSilverUSD;
+                totalSilverEUR += dateSilverEUR;
+                grandTotalUSD += dateTotalUSD;
+                grandTotalEUR += dateTotalEUR;
+                
+                const time = new Date(dateOperations[0].timestamp).toLocaleTimeString('ar-EG', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
                 
                 detailsHtml += `
                     <div class="day-profit-item">
                         <div class="day-profit-header">
-                            <div class="day-profit-date">${formatDate(record.date)}</div>
-                            <div class="day-profit-total">$${recordTotalUSD.toFixed(2)} / €${recordTotalEUR.toFixed(2)}</div>
+                            <div class="day-profit-date">${formatDate(date)} (${dateOperations.length} عملية)</div>
+                            <div class="day-profit-total">$${dateTotalUSD.toFixed(2)} / €${dateTotalEUR.toFixed(2)}</div>
                         </div>
                         <div class="day-profit-details">
                             <div class="profit-type-item">
                                 <div class="profit-type-title">ربح Swift</div>
-                                <div>$${recordSwiftUSD.toFixed(2)}</div>
-                                <div>€${recordSwiftEUR.toFixed(2)}</div>
+                                <div>$${dateSwiftUSD.toFixed(2)}</div>
+                                <div>€${dateSwiftEUR.toFixed(2)}</div>
                             </div>
                             <div class="profit-type-item">
                                 <div class="profit-type-title">ربح Havala</div>
-                                <div>$${recordHavanaUSD.toFixed(2)}</div>
-                                <div>€${recordHavanaEUR.toFixed(2)}</div>
+                                <div>$${dateHavanaUSD.toFixed(2)}</div>
+                                <div>€${dateHavanaEUR.toFixed(2)}</div>
                             </div>
                             <div class="profit-type-item">
                                 <div class="profit-type-title">ربح الفضة</div>
-                                <div>$${recordSilverUSD.toFixed(2)}</div>
-                                <div>€${recordSilverEUR.toFixed(2)}</div>
+                                <div>$${dateSilverUSD.toFixed(2)}</div>
+                                <div>€${dateSilverEUR.toFixed(2)}</div>
                             </div>
                         </div>
                     </div>
@@ -2459,12 +2544,18 @@
             // تحديث مربع الملخص
             document.getElementById('total-monthly-profit-usd').textContent = `$${grandTotalUSD.toFixed(2)}`;
             document.getElementById('total-monthly-profit-eur').textContent = `€${grandTotalEUR.toFixed(2)}`;
-            document.getElementById('profit-days-count').textContent = filteredProfits.length;
-            document.getElementById('profit-days-count-tr').textContent = filteredProfits.length;
+            
+            const uniqueDates = Object.keys(operationsByDate).length;
+            document.getElementById('profit-days-count').textContent = uniqueDates;
+            document.getElementById('profit-days-count-tr').textContent = uniqueDates;
+            
+            document.getElementById('profit-operations-count').textContent = filteredOperations.length;
+            document.getElementById('profit-operations-count-tr').textContent = filteredOperations.length;
+            
             document.getElementById('profit-summary').style.display = 'block';
             
             // تخزين البيانات للمراجعة لاحقاً
-            monthlyData.detailedProfits = filteredProfits;
+            monthlyData.detailedProfits = filteredOperations;
             monthlyData.autoProfits = {
                 swift: { usd: totalSwiftUSD, eur: totalSwiftEUR },
                 havana: { usd: totalHavanaUSD, eur: totalHavanaEUR },
@@ -2474,8 +2565,32 @@
             // تحديث قسم الأرباح التلقائية
             updateAutoProfitsDisplay();
             
-            // عرض رسالة نجاح
-            alert(`تم تحميل ${filteredProfits.length} يوم من سجلات الأرباح بنجاح! / ${filteredProfits.length} günlük kâr kaydı başarıyla yüklendi!`);
+            // تحديث إحصائيات التجميع التلقائي
+            updateAutoCollectStats(filteredOperations.length, uniqueDates, grandTotalUSD, grandTotalEUR);
+        }
+        
+        // تحديث إحصائيات التجميع التلقائي
+        function updateAutoCollectStats(operationsCount, daysCount, totalUSD, totalEUR) {
+            const statsHtml = `
+                <div class="collect-stat-item">
+                    <div class="collect-stat-label">عدد العمليات / İşlem Sayısı</div>
+                    <div class="collect-stat-value">${operationsCount}</div>
+                </div>
+                <div class="collect-stat-item">
+                    <div class="collect-stat-label">عدد الأيام / Gün Sayısı</div>
+                    <div class="collect-stat-value">${daysCount}</div>
+                </div>
+                <div class="collect-stat-item">
+                    <div class="collect-stat-label">إجمالي USD / Toplam USD</div>
+                    <div class="collect-stat-value">$${totalUSD.toFixed(2)}</div>
+                </div>
+                <div class="collect-stat-item">
+                    <div class="collect-stat-label">إجمالي EUR / Toplam EUR</div>
+                    <div class="collect-stat-value">€${totalEUR.toFixed(2)}</div>
+                </div>
+            `;
+            
+            document.getElementById('auto-collect-stats').innerHTML = statsHtml;
         }
         
         // تحديث عرض الأرباح التلقائية
@@ -2491,30 +2606,11 @@
             updateCompactMonthlyReport();
         }
         
-        // تحميل الأرباح التلقائية من السجلات السابقة
-        function loadAutoProfits() {
-            const startDate = monthlyData.startDate;
-            const endDate = monthlyData.endDate;
-            
-            if (!startDate || !endDate) {
-                alert("يرجى تحديد تاريخ البداية والنهاية أولاً. / Lütfen önce başlangıç ve bitiş tarihlerini seçin.");
-                return;
-            }
-            
-            // استخدام سجلات الأرباح اليومية المخزنة
-            if (dailyProfitsRecords.length === 0) {
-                alert("لا توجد سجلات للأرباح اليومية. قم بحفظ البيانات اليومية أولاً. / Günlük kâr kaydı yok. Önce günlük verileri kaydedin.");
-                return;
-            }
-            
-            loadDetailedProfits(); // استدعاء نفس الدالة لتحميل التفاصيل
-        }
-        
-        // حفظ بيانات الأرباح اليومية
+        // حفظ بيانات الأرباح اليومية (كل عملية حفظ)
         function saveDailyProfits() {
             const today = new Date().toISOString().split('T')[0];
             
-            // التحقق من وجود أرباح ليتم حفظها
+            // الحصول على قيم الأرباح الحالية
             const swiftProfitUSD = parseFloat(document.getElementById('swift-profit-usd').value) || 0;
             const swiftProfitEUR = parseFloat(document.getElementById('swift-profit-eur').value) || 0;
             const havanaProfitUSD = parseFloat(document.getElementById('havala-profit-usd').value) || 0;
@@ -2525,13 +2621,14 @@
             const totalProfit = swiftProfitUSD + swiftProfitEUR + havanaProfitUSD + havanaProfitEUR + silverProfitUSD + silverProfitEUR;
             
             if (totalProfit === 0) {
-                console.log("لا توجد أرباح ليتم حفظها اليوم.");
+                console.log("لا توجد أرباح ليتم حفظها في هذه العملية.");
                 return;
             }
             
-            // إنشاء سجل الأرباح اليومية
-            const profitRecord = {
+            // إنشاء سجل عملية الربح
+            const profitOperation = {
                 date: today,
+                timestamp: new Date().getTime(),
                 profits: {
                     swift: { usd: swiftProfitUSD, eur: swiftProfitEUR },
                     havana: { usd: havanaProfitUSD, eur: havanaProfitEUR },
@@ -2540,56 +2637,23 @@
                         usd: swiftProfitUSD + havanaProfitUSD + silverProfitUSD, 
                         eur: swiftProfitEUR + havanaProfitEUR + silverProfitEUR 
                     }
-                },
-                timestamp: new Date().toISOString()
+                }
             };
             
-            // التحقق مما إذا كان هناك سجل لهذا اليوم
-            const existingIndex = dailyProfitsRecords.findIndex(record => record.date === today);
-            
-            if (existingIndex !== -1) {
-                // تحديث السجل الموجود
-                dailyProfitsRecords[existingIndex] = profitRecord;
-                console.log("تم تحديث سجل الأرباح اليومية:", profitRecord);
-            } else {
-                // إضافة سجل جديد
-                dailyProfitsRecords.push(profitRecord);
-                console.log("تم إضافة سجل جديد للأرباح اليومية:", profitRecord);
-            }
+            // إضافة العملية إلى السجلات
+            dailyProfitOperations.push(profitOperation);
             
             // حفظ في localStorage
-            localStorage.setItem('alanhar_daily_profits', JSON.stringify(dailyProfitsRecords));
+            localStorage.setItem('alanhar_daily_profit_operations', JSON.stringify(dailyProfitOperations));
             
             // تحديث العداد
             updateDailyProfitsCount();
             
-            console.log("تم حفظ الأرباح اليومية بنجاح. إجمالي السجلات:", dailyProfitsRecords.length);
-        }
-        
-        // مسح سجلات الأرباح اليومية
-        function clearDailyProfits() {
-            if (confirm("هل تريد مسح جميع سجلات الأرباح اليومية؟ هذا الإجراء لا يمكن التراجع عنه. / Tüm günlük kâr kayıtlarını temizlemek istiyor musunuz? Bu işlem geri alınamaz.")) {
-                dailyProfitsRecords = [];
-                localStorage.removeItem('alanhar_daily_profits');
-                updateDailyProfitsCount();
-                
-                // إعادة تعيين عرض التفاصيل
-                document.getElementById('detailed-profits-container').innerHTML = `
-                    <div style="text-align: center; padding: 20px; color: #666;">
-                        قم بتحديد الفترة الزمنية ثم اضغط على "تحميل تفاصيل الأرباح" / Zaman aralığını seçin ve "Kâr Detaylarını Yükle" butonuna tıklayın.
-                    </div>
-                `;
-                document.getElementById('profit-summary').style.display = 'none';
-                
-                // إعادة تعيين الأرباح التلقائية
-                monthlyData.autoProfits = {
-                    swift: { usd: 0, eur: 0 },
-                    havana: { usd: 0, eur: 0 },
-                    silver: { usd: 0, eur: 0 }
-                };
-                updateAutoProfitsDisplay();
-                
-                alert("تم مسح جميع سجلات الأرباح اليومية بنجاح! / Tüm günlük kâr kayıtları başarıyla temizlendi!");
+            console.log("تم حفظ عملية الربح بنجاح. إجمالي العمليات:", dailyProfitOperations.length);
+            
+            // تحديث التجميع التلقائي إذا كان المستخدم في قسم التقرير الشهري
+            if (document.getElementById('monthly').classList.contains('active')) {
+                autoCollectProfits();
             }
         }
         
@@ -3053,14 +3117,14 @@
             
             // تأكيد الحفظ
             if (confirm("هل تريد حفظ بيانات اليوم؟ / Bugünün verilerini kaydetmek istiyor musunuz?")) {
-                // حفظ الأرباح اليومية أولاً
+                // حفظ الأرباح اليومية أولاً (كل عملية حفظ)
                 saveDailyProfits();
                 
                 // إضافة إلى السجلات اليومية الكاملة
                 const record = {
                     date: appData.date,
-                    data: { ...appData },
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().getTime(),
+                    data: { ...appData }
                 };
                 
                 historyRecords.push(record);
@@ -3286,7 +3350,8 @@
                         total: { usd: 0, eur: 0 }
                     },
                     expenses: [],
-                    date: new Date().toISOString().split('T')[0]
+                    date: new Date().toISOString().split('T')[0],
+                    timestamp: new Date().getTime()
                 };
                 
                 // تحديث الحسابات
@@ -3389,7 +3454,7 @@
                 // إعادة تعيين عرض التفاصيل
                 document.getElementById('detailed-profits-container').innerHTML = `
                     <div style="text-align: center; padding: 20px; color: #666;">
-                        قم بتحديد الفترة الزمنية ثم اضغط على "تحميل تفاصيل الأرباح" / Zaman aralığını seçin ve "Kâr Detaylarını Yükle" butonuna tıklayın.
+                        قم بتحديد الفترة الزمنية لعرض الأرباح المجمعة / Zaman aralığını seçerek toplanan kârları görüntüleyin.
                     </div>
                 `;
                 document.getElementById('profit-summary').style.display = 'none';
@@ -3415,7 +3480,7 @@
             historyTableBody.innerHTML = '';
             
             // عرض السجلات بترتيب تاريخي (الأحدث أولاً)
-            const sortedRecords = [...historyRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedRecords = [...historyRecords].sort((a, b) => b.timestamp - a.timestamp);
             
             sortedRecords.forEach((record, index) => {
                 const originalIndex = historyRecords.indexOf(record);
@@ -3628,6 +3693,8 @@
                 updateDateRangeInfo();
                 // إخفاء التقرير المختصر عند التبديل إلى التبويب
                 document.getElementById('compact-monthly-report').style.display = 'none';
+                // تشغيل التجميع التلقائي
+                setTimeout(autoCollectProfits, 100);
             }
         }
         
