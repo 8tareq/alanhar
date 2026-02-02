@@ -983,6 +983,110 @@
                 display: block;
             }
         }
+        
+        /* قسم تفاصيل الأرباح اليومية المجمعة */
+        .detailed-profit-section {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px solid #4caf50;
+        }
+        
+        .detailed-profit-title {
+            color: #2e7d32;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #a5d6a7;
+            display: flex;
+            align-items: center;
+        }
+        
+        .detailed-profit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .detailed-profit-table th {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px;
+            text-align: right;
+        }
+        
+        .detailed-profit-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #c8e6c9;
+        }
+        
+        .detailed-profit-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .profit-summary-box {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .profit-summary-value {
+            font-size: 2rem;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .day-profit-item {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #8e24aa;
+        }
+        
+        .day-profit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ce93d8;
+        }
+        
+        .day-profit-date {
+            font-weight: bold;
+            color: #8e24aa;
+            font-size: 1.1rem;
+        }
+        
+        .day-profit-total {
+            font-weight: bold;
+            color: #4caf50;
+        }
+        
+        .day-profit-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .profit-type-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .profit-type-title {
+            font-weight: bold;
+            color: #8e24aa;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -1407,6 +1511,38 @@
                 </div>
             </div>
             
+            <!-- قسم تفاصيل الأرباح اليومية المجمعة -->
+            <div class="detailed-profit-section no-print">
+                <div class="detailed-profit-title">
+                    <i class="fas fa-coins"></i> تفاصيل الأرباح اليومية المجمعة / Günlük Kârların Detaylı Özeti
+                </div>
+                
+                <div class="actions no-print" style="margin-bottom: 20px;">
+                    <button class="btn btn-monthly" id="load-detailed-profits">
+                        <i class="fas fa-sync-alt"></i> تحميل تفاصيل الأرباح / Kâr Detaylarını Yükle
+                    </button>
+                    <button class="btn btn-reset" id="clear-daily-profits" style="background: linear-gradient(135deg, #f44336, #c62828);">
+                        <i class="fas fa-trash-alt"></i> مسح سجلات الأرباح / Kâr Kayıtlarını Temizle
+                    </button>
+                </div>
+                
+                <div id="detailed-profits-container">
+                    <!-- سيتم عرض تفاصيل الأرباح هنا -->
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        قم بتحديد الفترة الزمنية ثم اضغط على "تحميل تفاصيل الأرباح" / Zaman aralığını seçin ve "Kâr Detaylarını Yükle" butonuna tıklayın.
+                    </div>
+                </div>
+                
+                <div id="profit-summary" class="profit-summary-box" style="display: none;">
+                    <div class="summary-label">إجمالي الأرباح المجمعة / Toplam Birikmiş Kâr</div>
+                    <div class="profit-summary-value">
+                        <span id="total-monthly-profit-usd">$0.00</span> /
+                        <span id="total-monthly-profit-eur">€0.00</span>
+                    </div>
+                    <div>من <span id="profit-days-count">0</span> يوم / <span id="profit-days-count-tr">0</span> gün</div>
+                </div>
+            </div>
+            
             <!-- نموذج إدخال بيانات المدين والدائن الشهرية -->
             <div class="monthly-data-section no-print">
                 <div class="monthly-data-title">
@@ -1802,7 +1938,8 @@
                 havana: { usd: 0, eur: 0 },
                 silver: { usd: 0, eur: 0 }
             },
-            monthlyExpenses: []
+            monthlyExpenses: [],
+            detailedProfits: [] // جديد: تخزين تفاصيل الأرباح اليومية
         };
 
         // سجلات الأيام السابقة
@@ -1810,6 +1947,9 @@
         
         // سجلات التقارير الشهرية
         let monthlyRecords = JSON.parse(localStorage.getItem('alanhar_monthly')) || [];
+        
+        // سجلات الأرباح اليومية (جديد)
+        let dailyProfitsRecords = JSON.parse(localStorage.getItem('alanhar_daily_profits')) || [];
         
         // عداد المصروفات
         let expenseCounter = 1;
@@ -1855,6 +1995,12 @@
             
             // تحميل الأرباح التلقائية
             document.getElementById('load-auto-profits').addEventListener('click', loadAutoProfits);
+            
+            // تحميل تفاصيل الأرباح
+            document.getElementById('load-detailed-profits').addEventListener('click', loadDetailedProfits);
+            
+            // مسح سجلات الأرباح اليومية
+            document.getElementById('clear-daily-profits').addEventListener('click', clearDailyProfits);
             
             // معاينة التقرير الشهري
             document.getElementById('generate-monthly-report').addEventListener('click', generateMonthlyReport);
@@ -1908,7 +2054,15 @@
             
             // تحديث الحسابات الشهرية
             setupMonthlyInputListeners();
+            
+            // عرض عدد سجلات الأرباح اليومية
+            updateDailyProfitsCount();
         });
+        
+        // تحديث عدد سجلات الأرباح اليومية
+        function updateDailyProfitsCount() {
+            console.log(`عدد سجلات الأرباح اليومية: ${dailyProfitsRecords.length}`);
+        }
         
         // إعداد مستمعي الإدخال للبيانات الشهرية
         function setupMonthlyInputListeners() {
@@ -2212,6 +2366,131 @@
             }
         }
         
+        // تحميل تفاصيل الأرباح اليومية
+        function loadDetailedProfits() {
+            const startDate = monthlyData.startDate;
+            const endDate = monthlyData.endDate;
+            
+            if (!startDate || !endDate) {
+                alert("يرجى تحديد تاريخ البداية والنهاية أولاً. / Lütfen önce başlangıç ve bitiş tarihlerini seçin.");
+                return;
+            }
+            
+            // فلترة سجلات الأرباح حسب الفترة الزمنية
+            const filteredProfits = dailyProfitsRecords.filter(record => {
+                const recordDate = record.date;
+                return recordDate >= startDate && recordDate <= endDate;
+            });
+            
+            if (filteredProfits.length === 0) {
+                document.getElementById('detailed-profits-container').innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: #666;">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i><br>
+                        لا توجد سجلات للأرباح للفترة من ${formatDate(startDate)} إلى ${formatDate(endDate)}<br>
+                        ${formatDate(startDate)} - ${formatDate(endDate)} tarihleri arasında kâr kaydı bulunamadı.
+                    </div>
+                `;
+                document.getElementById('profit-summary').style.display = 'none';
+                return;
+            }
+            
+            // ترتيب السجلات حسب التاريخ (من الأقدم للأحدث)
+            filteredProfits.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            // حساب الإجماليات
+            let totalSwiftUSD = 0, totalSwiftEUR = 0;
+            let totalHavanaUSD = 0, totalHavanaEUR = 0;
+            let totalSilverUSD = 0, totalSilverEUR = 0;
+            let grandTotalUSD = 0, grandTotalEUR = 0;
+            
+            // بناء عرض تفاصيل الأرباح
+            let detailsHtml = '';
+            
+            filteredProfits.forEach((record, index) => {
+                const recordSwiftUSD = record.profits.swift.usd || 0;
+                const recordSwiftEUR = record.profits.swift.eur || 0;
+                const recordHavanaUSD = record.profits.havana.usd || 0;
+                const recordHavanaEUR = record.profits.havana.eur || 0;
+                const recordSilverUSD = record.profits.silver.usd || 0;
+                const recordSilverEUR = record.profits.silver.eur || 0;
+                
+                const recordTotalUSD = recordSwiftUSD + recordHavanaUSD + recordSilverUSD;
+                const recordTotalEUR = recordSwiftEUR + recordHavanaEUR + recordSilverEUR;
+                
+                // تحديث الإجماليات
+                totalSwiftUSD += recordSwiftUSD;
+                totalSwiftEUR += recordSwiftEUR;
+                totalHavanaUSD += recordHavanaUSD;
+                totalHavanaEUR += recordHavanaEUR;
+                totalSilverUSD += recordSilverUSD;
+                totalSilverEUR += recordSilverEUR;
+                grandTotalUSD += recordTotalUSD;
+                grandTotalEUR += recordTotalEUR;
+                
+                detailsHtml += `
+                    <div class="day-profit-item">
+                        <div class="day-profit-header">
+                            <div class="day-profit-date">${formatDate(record.date)}</div>
+                            <div class="day-profit-total">$${recordTotalUSD.toFixed(2)} / €${recordTotalEUR.toFixed(2)}</div>
+                        </div>
+                        <div class="day-profit-details">
+                            <div class="profit-type-item">
+                                <div class="profit-type-title">ربح Swift</div>
+                                <div>$${recordSwiftUSD.toFixed(2)}</div>
+                                <div>€${recordSwiftEUR.toFixed(2)}</div>
+                            </div>
+                            <div class="profit-type-item">
+                                <div class="profit-type-title">ربح Havala</div>
+                                <div>$${recordHavanaUSD.toFixed(2)}</div>
+                                <div>€${recordHavanaEUR.toFixed(2)}</div>
+                            </div>
+                            <div class="profit-type-item">
+                                <div class="profit-type-title">ربح الفضة</div>
+                                <div>$${recordSilverUSD.toFixed(2)}</div>
+                                <div>€${recordSilverEUR.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('detailed-profits-container').innerHTML = detailsHtml;
+            
+            // تحديث مربع الملخص
+            document.getElementById('total-monthly-profit-usd').textContent = `$${grandTotalUSD.toFixed(2)}`;
+            document.getElementById('total-monthly-profit-eur').textContent = `€${grandTotalEUR.toFixed(2)}`;
+            document.getElementById('profit-days-count').textContent = filteredProfits.length;
+            document.getElementById('profit-days-count-tr').textContent = filteredProfits.length;
+            document.getElementById('profit-summary').style.display = 'block';
+            
+            // تخزين البيانات للمراجعة لاحقاً
+            monthlyData.detailedProfits = filteredProfits;
+            monthlyData.autoProfits = {
+                swift: { usd: totalSwiftUSD, eur: totalSwiftEUR },
+                havana: { usd: totalHavanaUSD, eur: totalHavanaEUR },
+                silver: { usd: totalSilverUSD, eur: totalSilverEUR }
+            };
+            
+            // تحديث قسم الأرباح التلقائية
+            updateAutoProfitsDisplay();
+            
+            // عرض رسالة نجاح
+            alert(`تم تحميل ${filteredProfits.length} يوم من سجلات الأرباح بنجاح! / ${filteredProfits.length} günlük kâr kaydı başarıyla yüklendi!`);
+        }
+        
+        // تحديث عرض الأرباح التلقائية
+        function updateAutoProfitsDisplay() {
+            document.getElementById('auto-swift-usd').textContent = monthlyData.autoProfits.swift.usd.toFixed(2);
+            document.getElementById('auto-swift-eur').textContent = monthlyData.autoProfits.swift.eur.toFixed(2);
+            document.getElementById('auto-havala-usd').textContent = monthlyData.autoProfits.havana.usd.toFixed(2);
+            document.getElementById('auto-havala-eur').textContent = monthlyData.autoProfits.havana.eur.toFixed(2);
+            document.getElementById('auto-silver-usd').textContent = monthlyData.autoProfits.silver.usd.toFixed(2);
+            document.getElementById('auto-silver-eur').textContent = monthlyData.autoProfits.silver.eur.toFixed(2);
+            
+            // تحديث التقرير المختصر
+            updateCompactMonthlyReport();
+        }
+        
         // تحميل الأرباح التلقائية من السجلات السابقة
         function loadAutoProfits() {
             const startDate = monthlyData.startDate;
@@ -2222,44 +2501,96 @@
                 return;
             }
             
-            // فلترة السجلات حسب الفترة الزمنية
-            const filteredRecords = historyRecords.filter(record => {
-                const recordDate = record.date;
-                return recordDate >= startDate && recordDate <= endDate;
-            });
-            
-            if (filteredRecords.length === 0) {
-                alert(`لا توجد سجلات للفترة من ${formatDate(startDate)} إلى ${formatDate(endDate)} / ${formatDate(startDate)} - ${formatDate(endDate)} tarihleri arasında kayıt bulunamadı.`);
+            // استخدام سجلات الأرباح اليومية المخزنة
+            if (dailyProfitsRecords.length === 0) {
+                alert("لا توجد سجلات للأرباح اليومية. قم بحفظ البيانات اليومية أولاً. / Günlük kâr kaydı yok. Önce günlük verileri kaydedin.");
                 return;
             }
             
-            // إعادة تعيين الأرباح التلقائية
-            monthlyData.autoProfits = {
-                swift: { usd: 0, eur: 0 },
-                havana: { usd: 0, eur: 0 },
-                silver: { usd: 0, eur: 0 }
+            loadDetailedProfits(); // استدعاء نفس الدالة لتحميل التفاصيل
+        }
+        
+        // حفظ بيانات الأرباح اليومية
+        function saveDailyProfits() {
+            const today = new Date().toISOString().split('T')[0];
+            
+            // التحقق من وجود أرباح ليتم حفظها
+            const swiftProfitUSD = parseFloat(document.getElementById('swift-profit-usd').value) || 0;
+            const swiftProfitEUR = parseFloat(document.getElementById('swift-profit-eur').value) || 0;
+            const havanaProfitUSD = parseFloat(document.getElementById('havala-profit-usd').value) || 0;
+            const havanaProfitEUR = parseFloat(document.getElementById('havala-profit-eur').value) || 0;
+            const silverProfitUSD = parseFloat(document.getElementById('silver-profit-usd').value) || 0;
+            const silverProfitEUR = parseFloat(document.getElementById('silver-profit-eur').value) || 0;
+            
+            const totalProfit = swiftProfitUSD + swiftProfitEUR + havanaProfitUSD + havanaProfitEUR + silverProfitUSD + silverProfitEUR;
+            
+            if (totalProfit === 0) {
+                console.log("لا توجد أرباح ليتم حفظها اليوم.");
+                return;
+            }
+            
+            // إنشاء سجل الأرباح اليومية
+            const profitRecord = {
+                date: today,
+                profits: {
+                    swift: { usd: swiftProfitUSD, eur: swiftProfitEUR },
+                    havana: { usd: havanaProfitUSD, eur: havanaProfitEUR },
+                    silver: { usd: silverProfitUSD, eur: silverProfitEUR },
+                    total: { 
+                        usd: swiftProfitUSD + havanaProfitUSD + silverProfitUSD, 
+                        eur: swiftProfitEUR + havanaProfitEUR + silverProfitEUR 
+                    }
+                },
+                timestamp: new Date().toISOString()
             };
             
-            // جمع الأرباح من السجلات
-            filteredRecords.forEach(record => {
-                monthlyData.autoProfits.swift.usd += record.data.profits.swift.usd;
-                monthlyData.autoProfits.swift.eur += record.data.profits.swift.eur;
-                monthlyData.autoProfits.havana.usd += record.data.profits.havana.usd;
-                monthlyData.autoProfits.havana.eur += record.data.profits.havana.eur;
-                monthlyData.autoProfits.silver.usd += record.data.profits.silver.usd;
-                monthlyData.autoProfits.silver.eur += record.data.profits.silver.eur;
-            });
+            // التحقق مما إذا كان هناك سجل لهذا اليوم
+            const existingIndex = dailyProfitsRecords.findIndex(record => record.date === today);
             
-            // تحديث العرض
-            document.getElementById('auto-swift-usd').textContent = monthlyData.autoProfits.swift.usd.toFixed(2);
-            document.getElementById('auto-swift-eur').textContent = monthlyData.autoProfits.swift.eur.toFixed(2);
-            document.getElementById('auto-havala-usd').textContent = monthlyData.autoProfits.havana.usd.toFixed(2);
-            document.getElementById('auto-havala-eur').textContent = monthlyData.autoProfits.havana.eur.toFixed(2);
-            document.getElementById('auto-silver-usd').textContent = monthlyData.autoProfits.silver.usd.toFixed(2);
-            document.getElementById('auto-silver-eur').textContent = monthlyData.autoProfits.silver.eur.toFixed(2);
+            if (existingIndex !== -1) {
+                // تحديث السجل الموجود
+                dailyProfitsRecords[existingIndex] = profitRecord;
+                console.log("تم تحديث سجل الأرباح اليومية:", profitRecord);
+            } else {
+                // إضافة سجل جديد
+                dailyProfitsRecords.push(profitRecord);
+                console.log("تم إضافة سجل جديد للأرباح اليومية:", profitRecord);
+            }
             
-            // عرض رسالة نجاح
-            alert(`تم تحميل الأرباح التلقائية بنجاح! \nعدد الأيام: ${filteredRecords.length} يوم\nإجمالي الأرباح التلقائية: $${monthlyData.autoProfits.swift.usd.toFixed(2)} / €${monthlyData.autoProfits.swift.eur.toFixed(2)} (Swift) - $${monthlyData.autoProfits.havana.usd.toFixed(2)} / €${monthlyData.autoProfits.havana.eur.toFixed(2)} (Havala) - $${monthlyData.autoProfits.silver.usd.toFixed(2)} / €${monthlyData.autoProfits.silver.eur.toFixed(2)} (فضة)`);
+            // حفظ في localStorage
+            localStorage.setItem('alanhar_daily_profits', JSON.stringify(dailyProfitsRecords));
+            
+            // تحديث العداد
+            updateDailyProfitsCount();
+            
+            console.log("تم حفظ الأرباح اليومية بنجاح. إجمالي السجلات:", dailyProfitsRecords.length);
+        }
+        
+        // مسح سجلات الأرباح اليومية
+        function clearDailyProfits() {
+            if (confirm("هل تريد مسح جميع سجلات الأرباح اليومية؟ هذا الإجراء لا يمكن التراجع عنه. / Tüm günlük kâr kayıtlarını temizlemek istiyor musunuz? Bu işlem geri alınamaz.")) {
+                dailyProfitsRecords = [];
+                localStorage.removeItem('alanhar_daily_profits');
+                updateDailyProfitsCount();
+                
+                // إعادة تعيين عرض التفاصيل
+                document.getElementById('detailed-profits-container').innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        قم بتحديد الفترة الزمنية ثم اضغط على "تحميل تفاصيل الأرباح" / Zaman aralığını seçin ve "Kâr Detaylarını Yükle" butonuna tıklayın.
+                    </div>
+                `;
+                document.getElementById('profit-summary').style.display = 'none';
+                
+                // إعادة تعيين الأرباح التلقائية
+                monthlyData.autoProfits = {
+                    swift: { usd: 0, eur: 0 },
+                    havana: { usd: 0, eur: 0 },
+                    silver: { usd: 0, eur: 0 }
+                };
+                updateAutoProfitsDisplay();
+                
+                alert("تم مسح جميع سجلات الأرباح اليومية بنجاح! / Tüm günlük kâr kayıtları başarıyla temizlendi!");
+            }
         }
         
         // توليد التقرير الشهري المختصر
@@ -2365,6 +2696,19 @@
             
             // التمرير إلى التقرير
             document.getElementById('compact-monthly-report').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // تحديث التقرير الشهري المختصر
+        function updateCompactMonthlyReport() {
+            // تحديث الأرباح التلقائية في التقرير المختصر
+            if (document.getElementById('compact-swift-usd')) {
+                document.getElementById('compact-swift-usd').textContent = `$${monthlyData.autoProfits.swift.usd.toFixed(2)}`;
+                document.getElementById('compact-swift-eur').textContent = `€${monthlyData.autoProfits.swift.eur.toFixed(2)}`;
+                document.getElementById('compact-havala-usd').textContent = `$${monthlyData.autoProfits.havana.usd.toFixed(2)}`;
+                document.getElementById('compact-havala-eur').textContent = `€${monthlyData.autoProfits.havana.eur.toFixed(2)}`;
+                document.getElementById('compact-silver-usd').textContent = `$${monthlyData.autoProfits.silver.usd.toFixed(2)}`;
+                document.getElementById('compact-silver-eur').textContent = `€${monthlyData.autoProfits.silver.eur.toFixed(2)}`;
+            }
         }
         
         // طباعة التقرير الشهري
@@ -2703,13 +3047,16 @@
             }
         }
         
-        // حفظ البيانات
+        // حفظ البيانات اليومية
         function saveData() {
             updateCalculations();
             
             // تأكيد الحفظ
             if (confirm("هل تريد حفظ بيانات اليوم؟ / Bugünün verilerini kaydetmek istiyor musunuz?")) {
-                // إضافة إلى السجلات
+                // حفظ الأرباح اليومية أولاً
+                saveDailyProfits();
+                
+                // إضافة إلى السجلات اليومية الكاملة
                 const record = {
                     date: appData.date,
                     data: { ...appData },
@@ -2727,7 +3074,7 @@
             }
         }
         
-        // توليد التقرير
+        // توليد التقرير اليومي
         function generateReport() {
             updateCalculations();
             
@@ -2873,12 +3220,12 @@
             switchTab('report');
         }
         
-        // طباعة التقرير
+        // طباعة التقرير اليومي
         function printReport() {
             window.print();
         }
         
-        // مسح البيانات
+        // مسح البيانات اليومية
         function resetData() {
             if (confirm("هل تريد مسح جميع بيانات اليوم؟ / Bugünün tüm verilerini temizlemek istiyor musunuz?")) {
                 // مسح حقول الإدخال
@@ -3024,7 +3371,8 @@
                         havana: { usd: 0, eur: 0 },
                         silver: { usd: 0, eur: 0 }
                     },
-                    monthlyExpenses: []
+                    monthlyExpenses: [],
+                    detailedProfits: []
                 };
                 
                 // تحديث الحسابات
@@ -3037,6 +3385,14 @@
                 document.getElementById('auto-havala-eur').textContent = '0.00';
                 document.getElementById('auto-silver-usd').textContent = '0.00';
                 document.getElementById('auto-silver-eur').textContent = '0.00';
+                
+                // إعادة تعيين عرض التفاصيل
+                document.getElementById('detailed-profits-container').innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        قم بتحديد الفترة الزمنية ثم اضغط على "تحميل تفاصيل الأرباح" / Zaman aralığını seçin ve "Kâr Detaylarını Yükle" butonuna tıklayın.
+                    </div>
+                `;
+                document.getElementById('profit-summary').style.display = 'none';
                 
                 // إخفاء التقرير المختصر
                 document.getElementById('compact-monthly-report').style.display = 'none';
