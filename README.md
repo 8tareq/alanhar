@@ -1147,6 +1147,82 @@
             color: #666;
             font-size: 0.9rem;
         }
+
+        /* قسم الفضة الجديد */
+        .silver-box {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border-left: 5px solid #ff9800;
+        }
+        
+        .silver-title {
+            color: #ff8f00;
+        }
+        
+        .silver-icon {
+            background-color: #ff9800;
+        }
+        
+        .silver-value-box {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .real-surplus-box {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 2px solid #4caf50;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .real-surplus-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 10px 0;
+        }
+        
+        /* أنماط التقرير للفضة */
+        .report-silver-section {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px solid #ff9800;
+        }
+        
+        .report-silver-title {
+            color: #ff8f00;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffcc80;
+            display: flex;
+            align-items: center;
+        }
+        
+        .report-silver-title i {
+            margin-left: 10px;
+        }
+        
+        /* أنماط طباعة الفضة */
+        @media print {
+            .report-silver-section {
+                background: #fff8e1 !important;
+                border: 1px solid #ff9800;
+            }
+            
+            .real-surplus-box {
+                background: #e8f5e9 !important;
+                border: 1px solid #4caf50;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1264,6 +1340,53 @@
                         
                         <div id="try-surplus" class="result-box">
                             الفائض / Kar-Zarar: ₺0.00
+                        </div>
+                    </div>
+                    
+                    <!-- الفضة الجديدة (معدلة بالكيلو والإجمالي) -->
+                    <div class="currency-box silver-box">
+                        <div class="currency-title silver-title">
+                            <div class="currency-icon silver-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <div>الفضة (بالكيلو) / Gümüş (kg)</div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="silver-quantity">الكمية (كيلو) / Miktar (kg)</label>
+                            <div class="label-tr">Gümüş miktarı kilogram cinsinden</div>
+                            <input type="number" id="silver-quantity" placeholder="أدخل كمية الفضة بالكيلو / Gümüş miktarını kilogram olarak girin" step="0.001" min="0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="silver-total-input">القيمة الإجمالية ($) / Toplam Değer ($)</label>
+                            <div class="label-tr">Toplam dolar değeri</div>
+                            <input type="number" id="silver-total-input" placeholder="أدخل القيمة الإجمالية بالدولار / Toplam değeri dolar olarak girin" step="0.01" min="0">
+                        </div>
+                        
+                        <div id="silver-value" class="silver-value-box">
+                            القيمة الإجمالية للفضة: $<span id="silver-total-display">0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مربع الفائض الحقيقي -->
+                <div id="real-surplus-box" class="real-surplus-box">
+                    <div style="font-size: 1.2rem; margin-bottom: 10px;">
+                        <i class="fas fa-calculator"></i> الفائض الحقيقي / Gerçek Kar-Zarar
+                    </div>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                        <div style="text-align: center; margin: 10px;">
+                            <div>فائض الدولار / Dolar Kar-Zarar</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #1a2980;" id="display-usd-surplus">$0.00</div>
+                        </div>
+                        <div style="text-align: center; margin: 10px;">
+                            <div>ناقص قيمة الفضة / Eksi Gümüş Değeri</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #ff9800;" id="display-silver-value">$0.00</div>
+                        </div>
+                        <div style="text-align: center; margin: 10px;">
+                            <div>الفائض الحقيقي / Gerçek Kar-Zarar</div>
+                            <div class="real-surplus-value" id="real-surplus">$0.00</div>
                         </div>
                     </div>
                 </div>
@@ -1441,6 +1564,49 @@
                 </div>
             </div>
             
+            <!-- قسم الفضة الجديد في التقرير -->
+            <div class="report-silver-section">
+                <div class="report-silver-title">
+                    <i class="fas fa-gem"></i> بيانات الفضة / Gümüş Verileri
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #ffcc80;">
+                        <div style="font-weight: bold; color: #ff8f00; margin-bottom: 10px;">الكمية (كيلو) / Miktar (kg)</div>
+                        <div style="font-size: 1.5rem; text-align: center;">
+                            <span id="report-silver-quantity">0.00</span> كيلو / kg
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #ffcc80;">
+                        <div style="font-weight: bold; color: #ff8f00; margin-bottom: 10px;">القيمة الإجمالية / Toplam Değer</div>
+                        <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #ff9800;">
+                            $<span id="report-silver-total">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الفائض الحقيقي في التقرير -->
+            <div class="real-surplus-box" style="margin-top: 20px;">
+                <div style="font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-calculator" style="margin-left: 10px;"></i>
+                    <span>الفائض الحقيقي / Gerçek Kar-Zarar</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="text-align: center; padding: 15px; background: rgba(26, 41, 128, 0.1); border-radius: 8px;">
+                        <div style="font-size: 1.1rem; margin-bottom: 10px;">فائض الدولار / Dolar Kar-Zarar</div>
+                        <div style="font-size: 1.8rem; font-weight: bold; color: #1a2980;" id="report-display-usd-surplus">$0.00</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
+                        <div style="font-size: 1.1rem; margin-bottom: 10px;">ناقص قيمة الفضة / Eksi Gümüş Değeri</div>
+                        <div style="font-size: 1.8rem; font-weight: bold; color: #ff9800;" id="report-display-silver-value">$0.00</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 2px solid #4caf50;">
+                        <div style="font-size: 1.1rem; margin-bottom: 10px; font-weight: bold;">الفائض الحقيقي / Gerçek Kar-Zarar</div>
+                        <div class="real-surplus-value" id="report-real-surplus">$0.00</div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="card">
                 <h3 class="card-title">
                     <span><i class="fas fa-coins"></i> الأرباح اليومية / Günlük Kârlar</span>
@@ -1472,11 +1638,11 @@
                         <h4>ربح الفضة / Gümüş Kârı</h4>
                         <div class="profit-display">
                             <span>$</span>
-                            <span id="report-silver-usd">0.00</span>
+                            <span id="report-silver-profit-usd">0.00</span>
                         </div>
                         <div class="profit-display">
                             <span>€</span>
-                            <span id="report-silver-eur">0.00</span>
+                            <span id="report-silver-profit-eur">0.00</span>
                         </div>
                     </div>
                     <div class="profit-item" style="background-color: #e8f5e9;">
@@ -1934,6 +2100,8 @@
                                 <th>فائض الدولار / Dolar Kar-Zarar</th>
                                 <th>فائض اليورو / Euro Kar-Zarar</th>
                                 <th>فائض الليرة / Lira Kar-Zarar</th>
+                                <th>قيمة الفضة / Gümüş Değeri</th>
+                                <th>الفائض الحقيقي / Gerçek Kar-Zarar</th>
                                 <th>إجمالي الأرباح / Toplam Kâr</th>
                                 <th>المصروفات / Giderler</th>
                                 <th class="no-print">الإجراءات / İşlemler</th>
@@ -1942,7 +2110,7 @@
                         <tbody id="history-table-body">
                             <!-- سيتم ملء الجدول ديناميكياً -->
                             <tr id="no-history">
-                                <td colspan="7" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
+                                <td colspan="9" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1968,6 +2136,8 @@
             usd: { debtor: 0, creditor: 0, surplus: 0 },
             eur: { debtor: 0, creditor: 0, surplus: 0 },
             try: { debtor: 0, creditor: 0, surplus: 0 },
+            silver: { quantity: 0, total: 0 }, // تغيير: total بدلاً من price
+            realSurplus: 0, // الفائض الحقيقي
             profits: { 
                 swift: { usd: 0, eur: 0 }, 
                 havana: { usd: 0, eur: 0 }, 
@@ -1976,7 +2146,7 @@
             },
             expenses: [],
             date: new Date().toISOString().split('T')[0],
-            timestamp: new Date().getTime() // إضافة الطابع الزمني
+            timestamp: new Date().getTime()
         };
 
         // بيانات التقرير الشهري
@@ -1992,7 +2162,7 @@
                 silver: { usd: 0, eur: 0 }
             },
             monthlyExpenses: [],
-            detailedProfits: [] // تخزين تفاصيل الأرباح اليومية
+            detailedProfits: []
         };
 
         // سجلات الأيام السابقة
@@ -2010,11 +2180,9 @@
         
         // تهيئة التطبيق
         document.addEventListener('DOMContentLoaded', function() {
-            // تعيين تاريخ اليوم
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('report-date').textContent = `التاريخ: ${formatDate(today)} / Tarih: ${formatDate(today)}`;
             
-            // تعيين تواريخ افتراضية للفترة الشهرية (بداية ونهاية الشهر الحالي)
             const currentDate = new Date();
             const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
             const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
@@ -2028,49 +2196,23 @@
             monthlyData.startDate = startDateStr;
             monthlyData.endDate = endDateStr;
             
-            // تحديث معلومات الفترة الزمنية
             updateDateRangeInfo();
-            
-            // تحميل السجلات السابقة
             loadHistory();
-            
-            // إضافة مصروف جديد
             document.getElementById('add-expense').addEventListener('click', addNewExpense);
-            
-            // إضافة مصروف شهري جديد
             document.getElementById('add-monthly-expense').addEventListener('click', addNewMonthlyExpense);
-            
-            // حفظ البيانات
             document.getElementById('save-data').addEventListener('click', saveData);
-            
-            // توليد التقرير
             document.getElementById('generate-report').addEventListener('click', generateReport);
-            
-            // معاينة التقرير الشهري
             document.getElementById('print-monthly-report').addEventListener('click', printMonthlyReport);
-            
-            // طباعة التقرير
-            document.getElementById('print-report').addEventListener('click', printReport);
-            
-            // حفظ التقرير الشهري
+            document.getElementById('print-report').addEventListener('click', function() {
+                printDailyReport(); // استدعاء الدالة الجديدة
+            });
             document.getElementById('save-monthly-data').addEventListener('click', saveMonthlyData);
-            
-            // مسح البيانات
             document.getElementById('reset-data').addEventListener('click', resetData);
-            
-            // مسح البيانات الشهرية
             document.getElementById('reset-monthly-data').addEventListener('click', resetMonthlyData);
-            
-            // العودة للإدخال
             document.getElementById('back-to-input').addEventListener('click', () => switchTab('input'));
-            
-            // مسح السجلات
             document.getElementById('clear-history').addEventListener('click', clearHistory);
-            
-            // فلترة السجلات حسب التاريخ
             document.getElementById('filter-date').addEventListener('change', filterHistory);
             
-            // تبديل التبويبات
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
@@ -2078,43 +2220,23 @@
                 });
             });
             
-            // إضافة مستمعي الأحداث لحذف المصروفات
             setupRemoveExpenseListeners();
-            
-            // إضافة مستمعي الأحداث لحذف المصروفات الشهرية
             setupRemoveMonthlyExpenseListeners();
-            
-            // تحديث الحسابات عند إدخال البيانات
             setupInputListeners();
-            
-            // تحديث المصروفات عند التحميل
             updateExpensesTotal();
-            
-            // تحديث الحسابات الأولية
             updateCalculations();
-            
-            // تحديث الحسابات الشهرية
             setupMonthlyInputListeners();
-            
-            // تحديث التجميع التلقائي عند تغيير التاريخ
             document.getElementById('monthly-start-date').addEventListener('change', autoCollectProfits);
             document.getElementById('monthly-end-date').addEventListener('change', autoCollectProfits);
-            
-            // عرض عدد سجلات الأرباح اليومية
             updateDailyProfitsCount();
-            
-            // تشغيل التجميع التلقائي عند التحميل
             setTimeout(autoCollectProfits, 500);
         });
         
-        // تحديث عدد سجلات الأرباح اليومية
         function updateDailyProfitsCount() {
             console.log(`عدد عمليات الربح اليومية: ${dailyProfitOperations.length}`);
         }
         
-        // إعداد مستمعي الإدخال للبيانات الشهرية
         function setupMonthlyInputListeners() {
-            // تحديث الفائض الشهري عند إدخال المدين والدائن
             document.getElementById('monthly-usd-debtor').addEventListener('input', updateMonthlyCalculations);
             document.getElementById('monthly-usd-creditor').addEventListener('input', updateMonthlyCalculations);
             document.getElementById('monthly-eur-debtor').addEventListener('input', updateMonthlyCalculations);
@@ -2123,7 +2245,6 @@
             document.getElementById('monthly-try-creditor').addEventListener('input', updateMonthlyCalculations);
         }
         
-        // تحديث معلومات الفترة الزمنية
         function updateDateRangeInfo() {
             const startDate = monthlyData.startDate;
             const endDate = monthlyData.endDate;
@@ -2138,7 +2259,6 @@
                     Seçilen Dönem: ${startFormatted} - ${endFormatted}
                 `;
                 
-                // تحديث تواريخ الأرباح التلقائية
                 document.getElementById('auto-swift-start').textContent = formatDateShort(startDate);
                 document.getElementById('auto-swift-end').textContent = formatDateShort(endDate);
                 document.getElementById('auto-havala-start').textContent = formatDateShort(startDate);
@@ -2148,7 +2268,6 @@
             }
         }
         
-        // تنسيق التاريخ بشكل مختصر
         function formatDateShort(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('ar-EG', {
@@ -2157,9 +2276,7 @@
             });
         }
         
-        // إعداد مستمعي الإدخال
         function setupInputListeners() {
-            // تحديث الفائض عند إدخال المدين والدائن
             document.querySelectorAll('input[type="number"]').forEach(input => {
                 input.addEventListener('input', updateCalculations);
             });
@@ -2169,7 +2286,6 @@
             });
         }
         
-        // إعداد مستمعي الأحداث لحذف المصروفات
         function setupRemoveExpenseListeners() {
             document.querySelectorAll('.remove-expense-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -2179,7 +2295,6 @@
             });
         }
         
-        // إعداد مستمعي الأحداث لحذف المصروفات الشهرية
         function setupRemoveMonthlyExpenseListeners() {
             document.querySelectorAll('.remove-monthly-expense-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -2189,7 +2304,6 @@
             });
         }
         
-        // حذف مصروف
         function removeExpense(expenseId) {
             const expenseItem = document.getElementById(`expense-item-${expenseId}`);
             if (expenseItem) {
@@ -2199,7 +2313,6 @@
             }
         }
         
-        // حذف مصروف شهري
         function removeMonthlyExpense(expenseId) {
             const expenseItem = document.getElementById(`monthly-expense-item-${expenseId}`);
             if (expenseItem) {
@@ -2208,44 +2321,38 @@
             }
         }
         
-        // تحديث الحسابات الشهرية
         function updateMonthlyCalculations() {
-            // تحديث فائض الدولار الشهري (المدين - الدائن)
             const usdDebtor = parseFloat(document.getElementById('monthly-usd-debtor').value) || 0;
             const usdCreditor = parseFloat(document.getElementById('monthly-usd-creditor').value) || 0;
             const usdSurplus = usdDebtor - usdCreditor;
             monthlyData.usd = { debtor: usdDebtor, creditor: usdCreditor, surplus: usdSurplus };
             
             const usdSurplusElement = document.getElementById('monthly-usd-surplus');
-            usdSurplusElement.textContent = `الفائض الشهري / Aylık Kar-Zarar: $${usdSurplus.toFixed(2)}`;
+            usdSurplusElement.textContent = `الفائض الشهري / Aylık Kar-Zarar: $${formatNumberWithCommas(usdSurplus.toFixed(2))}`;
             usdSurplusElement.className = 'result-box ' + (usdSurplus >= 0 ? 'monthly-positive' : 'monthly-negative');
             
-            // تحديث فائض اليورو الشهري
             const eurDebtor = parseFloat(document.getElementById('monthly-eur-debtor').value) || 0;
             const eurCreditor = parseFloat(document.getElementById('monthly-eur-creditor').value) || 0;
             const eurSurplus = eurDebtor - eurCreditor;
             monthlyData.eur = { debtor: eurDebtor, creditor: eurCreditor, surplus: eurSurplus };
             
             const eurSurplusElement = document.getElementById('monthly-eur-surplus');
-            eurSurplusElement.textContent = `الفائض الشهري / Aylık Kar-Zarar: €${eurSurplus.toFixed(2)}`;
+            eurSurplusElement.textContent = `الفائض الشهري / Aylık Kar-Zarar: €${formatNumberWithCommas(eurSurplus.toFixed(2))}`;
             eurSurplusElement.className = 'result-box ' + (eurSurplus >= 0 ? 'monthly-positive' : 'monthly-negative');
             
-            // تحديث فائض الليرة الشهري
             const tryDebtor = parseFloat(document.getElementById('monthly-try-debtor').value) || 0;
             const tryCreditor = parseFloat(document.getElementById('monthly-try-creditor').value) || 0;
             const trySurplus = tryDebtor - tryCreditor;
             monthlyData.try = { debtor: tryDebtor, creditor: tryCreditor, surplus: trySurplus };
             
             const trySurplusElement = document.getElementById('monthly-try-surplus');
-            trySurplusElement.textContent = `الفائض الشهري / Aylık Kar-Zarar: ₺${trySurplus.toFixed(2)}`;
+            trySurplusElement.textContent = `الفائض الشهري / Aylık Kar-Zarar: ₺${formatNumberWithCommas(trySurplus.toFixed(2))}`;
             trySurplusElement.className = 'result-box ' + (trySurplus >= 0 ? 'monthly-positive' : 'monthly-negative');
         }
         
-        // تحديث المصروفات الشهرية
         function updateMonthlyExpenses() {
             monthlyData.monthlyExpenses = [];
             
-            // جمع جميع المصروفات الشهرية
             for (let i = 1; i <= monthlyExpenseCounter; i++) {
                 const typeSelect = document.getElementById(`monthly-expense-name-${i}`);
                 const amountInput = document.getElementById(`monthly-expense-amount-${i}`);
@@ -2274,16 +2381,16 @@
             }
         }
         
-        // تحديث الحسابات
+        // التعديل الرئيسي: تحديث الحسابات للفضة بالكيلو والإجمالي
         function updateCalculations() {
-            // تحديث فائض الدولار (المدين - الدائن)
+            // تحديث فائض الدولار
             const usdDebtor = parseFloat(document.getElementById('usd-debtor').value) || 0;
             const usdCreditor = parseFloat(document.getElementById('usd-creditor').value) || 0;
             const usdSurplus = usdDebtor - usdCreditor;
             appData.usd = { debtor: usdDebtor, creditor: usdCreditor, surplus: usdSurplus };
             
             const usdSurplusElement = document.getElementById('usd-surplus');
-            usdSurplusElement.textContent = `الفائض / Kar-Zarar: $${usdSurplus.toFixed(2)}`;
+            usdSurplusElement.textContent = `الفائض / Kar-Zarar: $${formatNumberWithCommas(usdSurplus.toFixed(2))}`;
             usdSurplusElement.className = 'result-box ' + (usdSurplus >= 0 ? 'positive' : 'negative');
             
             // تحديث فائض اليورو
@@ -2293,7 +2400,7 @@
             appData.eur = { debtor: eurDebtor, creditor: eurCreditor, surplus: eurSurplus };
             
             const eurSurplusElement = document.getElementById('eur-surplus');
-            eurSurplusElement.textContent = `الفائض / Kar-Zarar: €${eurSurplus.toFixed(2)}`;
+            eurSurplusElement.textContent = `الفائض / Kar-Zarar: €${formatNumberWithCommas(eurSurplus.toFixed(2))}`;
             eurSurplusElement.className = 'result-box ' + (eurSurplus >= 0 ? 'positive' : 'negative');
             
             // تحديث فائض الليرة
@@ -2303,8 +2410,24 @@
             appData.try = { debtor: tryDebtor, creditor: tryCreditor, surplus: trySurplus };
             
             const trySurplusElement = document.getElementById('try-surplus');
-            trySurplusElement.textContent = `الفائض / Kar-Zarar: ₺${trySurplus.toFixed(2)}`;
+            trySurplusElement.textContent = `الفائض / Kar-Zarar: ₺${formatNumberWithCommas(trySurplus.toFixed(2))}`;
             trySurplusElement.className = 'result-box ' + (trySurplus >= 0 ? 'positive' : 'negative');
+            
+            // تحديث بيانات الفضة (معدل)
+            const silverQuantity = parseFloat(document.getElementById('silver-quantity').value) || 0;
+            const silverTotal = parseFloat(document.getElementById('silver-total-input').value) || 0;
+            appData.silver = { quantity: silverQuantity, total: silverTotal }; // total بدلاً من price
+            
+            // عرض القيمة الإجمالية للفضة
+            document.getElementById('silver-total-display').textContent = formatNumberWithCommas(silverTotal.toFixed(2));
+            
+            // تحديث الفائض الحقيقي (فائض الدولار - قيمة الفضة)
+            appData.realSurplus = usdSurplus - silverTotal;
+            
+            // تحديث عرض الفائض الحقيقي
+            document.getElementById('display-usd-surplus').textContent = `$${formatNumberWithCommas(usdSurplus.toFixed(2))}`;
+            document.getElementById('display-silver-value').textContent = `$${formatNumberWithCommas(silverTotal.toFixed(2))}`;
+            document.getElementById('real-surplus').textContent = `$${formatNumberWithCommas(appData.realSurplus.toFixed(2))}`;
             
             // تحديث الأرباح بالدولار واليورو
             const swiftProfitUSD = parseFloat(document.getElementById('swift-profit-usd').value) || 0;
@@ -2325,14 +2448,13 @@
             };
             
             // تحديث عرض إجمالي الربح
-            document.getElementById('total-profit-usd').textContent = totalProfitUSD.toFixed(2);
-            document.getElementById('total-profit-eur').textContent = totalProfitEUR.toFixed(2);
+            document.getElementById('total-profit-usd').textContent = formatNumberWithCommas(totalProfitUSD.toFixed(2));
+            document.getElementById('total-profit-eur').textContent = formatNumberWithCommas(totalProfitEUR.toFixed(2));
             
             // تحديث المصروفات
             updateExpensesTotal();
         }
         
-        // تحديث إجمالي المصروفات حسب العملة
         function updateExpensesTotal() {
             let totalExpenseUSD = 0;
             let totalExpenseEUR = 0;
@@ -2340,7 +2462,6 @@
             
             appData.expenses = [];
             
-            // جمع جميع المصروفات حسب العملة
             for (let i = 1; i <= expenseCounter; i++) {
                 const nameInput = document.getElementById(`expense-name-${i}`);
                 const amountInput = document.getElementById(`expense-amount-${i}`);
@@ -2354,7 +2475,6 @@
                     if (name && amount > 0) {
                         appData.expenses.push({ name, amount, currency });
                         
-                        // جمع المصروفات حسب العملة
                         if (currency === 'USD') totalExpenseUSD += amount;
                         else if (currency === 'EUR') totalExpenseEUR += amount;
                         else if (currency === 'TRY') totalExpenseTRY += amount;
@@ -2362,7 +2482,6 @@
                 }
             }
             
-            // عرض إجماليات المصروفات حسب العملة
             const totalExpenseContainer = document.getElementById('total-expense');
             totalExpenseContainer.innerHTML = '';
             
@@ -2371,7 +2490,7 @@
                     totalExpenseContainer.innerHTML += `
                         <div class="expense-total-box">
                             <div>إجمالي مصروفات الدولار / Toplam Dolar Giderler</div>
-                            <div class="expense-currency">$${totalExpenseUSD.toFixed(2)}</div>
+                            <div class="expense-currency">$${formatNumberWithCommas(totalExpenseUSD.toFixed(2))}</div>
                         </div>
                     `;
                 }
@@ -2380,7 +2499,7 @@
                     totalExpenseContainer.innerHTML += `
                         <div class="expense-total-box">
                             <div>إجمالي مصروفات اليورو / Toplam Euro Giderler</div>
-                            <div class="expense-currency">€${totalExpenseEUR.toFixed(2)}</div>
+                            <div class="expense-currency">€${formatNumberWithCommas(totalExpenseEUR.toFixed(2))}</div>
                         </div>
                     `;
                 }
@@ -2389,7 +2508,7 @@
                     totalExpenseContainer.innerHTML += `
                         <div class="expense-total-box">
                             <div>إجمالي مصروفات الليرة / Toplam Lira Giderler</div>
-                            <div class="expense-currency">₺${totalExpenseTRY.toFixed(2)}</div>
+                            <div class="expense-currency">₺${formatNumberWithCommas(totalExpenseTRY.toFixed(2))}</div>
                         </div>
                     `;
                 }
@@ -2403,7 +2522,6 @@
             }
         }
         
-        // التجميع التلقائي للأرباح
         function autoCollectProfits() {
             const startDate = document.getElementById('monthly-start-date').value;
             const endDate = document.getElementById('monthly-end-date').value;
@@ -2415,10 +2533,8 @@
             monthlyData.startDate = startDate;
             monthlyData.endDate = endDate;
             
-            // تحديث معلومات الفترة الزمنية
             updateDateRangeInfo();
             
-            // فلترة عمليات الربح حسب الفترة الزمنية
             const filteredOperations = dailyProfitOperations.filter(operation => {
                 const operationDate = operation.date;
                 return operationDate >= startDate && operationDate <= endDate;
@@ -2436,7 +2552,6 @@
                 document.getElementById('profit-summary').style.display = 'none';
                 document.getElementById('auto-collect-stats').innerHTML = '';
                 
-                // إعادة تعيين الأرباح التلقائية
                 monthlyData.autoProfits = {
                     swift: { usd: 0, eur: 0 },
                     havana: { usd: 0, eur: 0 },
@@ -2447,20 +2562,16 @@
                 return;
             }
             
-            // ترتيب العمليات حسب التاريخ والوقت (من الأقدم للأحدث)
             filteredOperations.sort((a, b) => a.timestamp - b.timestamp);
             
-            // حساب الإجماليات
             let totalSwiftUSD = 0, totalSwiftEUR = 0;
             let totalHavanaUSD = 0, totalHavanaEUR = 0;
             let totalSilverUSD = 0, totalSilverEUR = 0;
             let grandTotalUSD = 0, grandTotalEUR = 0;
             
-            // بناء عرض تفاصيل الأرباح
             let detailsHtml = '';
             let operationsByDate = {};
             
-            // تجميع العمليات حسب التاريخ
             filteredOperations.forEach((operation, index) => {
                 const date = operation.date;
                 if (!operationsByDate[date]) {
@@ -2469,7 +2580,6 @@
                 operationsByDate[date].push(operation);
             });
             
-            // عرض العمليات حسب التاريخ
             Object.keys(operationsByDate).sort().forEach(date => {
                 const dateOperations = operationsByDate[date];
                 let dateTotalUSD = 0;
@@ -2497,7 +2607,6 @@
                     dateTotalEUR += opSwiftEUR + opHavanaEUR + opSilverEUR;
                 });
                 
-                // تحديث الإجماليات الكلية
                 totalSwiftUSD += dateSwiftUSD;
                 totalSwiftEUR += dateSwiftEUR;
                 totalHavanaUSD += dateHavanaUSD;
@@ -2516,23 +2625,23 @@
                     <div class="day-profit-item">
                         <div class="day-profit-header">
                             <div class="day-profit-date">${formatDate(date)} (${dateOperations.length} عملية)</div>
-                            <div class="day-profit-total">$${dateTotalUSD.toFixed(2)} / €${dateTotalEUR.toFixed(2)}</div>
+                            <div class="day-profit-total">$${formatNumberWithCommas(dateTotalUSD.toFixed(2))} / €${formatNumberWithCommas(dateTotalEUR.toFixed(2))}</div>
                         </div>
                         <div class="day-profit-details">
                             <div class="profit-type-item">
                                 <div class="profit-type-title">ربح Swift</div>
-                                <div>$${dateSwiftUSD.toFixed(2)}</div>
-                                <div>€${dateSwiftEUR.toFixed(2)}</div>
+                                <div>$${formatNumberWithCommas(dateSwiftUSD.toFixed(2))}</div>
+                                <div>€${formatNumberWithCommas(dateSwiftEUR.toFixed(2))}</div>
                             </div>
                             <div class="profit-type-item">
                                 <div class="profit-type-title">ربح Havala</div>
-                                <div>$${dateHavanaUSD.toFixed(2)}</div>
-                                <div>€${dateHavanaEUR.toFixed(2)}</div>
+                                <div>$${formatNumberWithCommas(dateHavanaUSD.toFixed(2))}</div>
+                                <div>€${formatNumberWithCommas(dateHavanaEUR.toFixed(2))}</div>
                             </div>
                             <div class="profit-type-item">
                                 <div class="profit-type-title">ربح الفضة</div>
-                                <div>$${dateSilverUSD.toFixed(2)}</div>
-                                <div>€${dateSilverEUR.toFixed(2)}</div>
+                                <div>$${formatNumberWithCommas(dateSilverUSD.toFixed(2))}</div>
+                                <div>€${formatNumberWithCommas(dateSilverEUR.toFixed(2))}</div>
                             </div>
                         </div>
                     </div>
@@ -2541,9 +2650,8 @@
             
             document.getElementById('detailed-profits-container').innerHTML = detailsHtml;
             
-            // تحديث مربع الملخص
-            document.getElementById('total-monthly-profit-usd').textContent = `$${grandTotalUSD.toFixed(2)}`;
-            document.getElementById('total-monthly-profit-eur').textContent = `€${grandTotalEUR.toFixed(2)}`;
+            document.getElementById('total-monthly-profit-usd').textContent = `$${formatNumberWithCommas(grandTotalUSD.toFixed(2))}`;
+            document.getElementById('total-monthly-profit-eur').textContent = `€${formatNumberWithCommas(grandTotalEUR.toFixed(2))}`;
             
             const uniqueDates = Object.keys(operationsByDate).length;
             document.getElementById('profit-days-count').textContent = uniqueDates;
@@ -2554,7 +2662,6 @@
             
             document.getElementById('profit-summary').style.display = 'block';
             
-            // تخزين البيانات للمراجعة لاحقاً
             monthlyData.detailedProfits = filteredOperations;
             monthlyData.autoProfits = {
                 swift: { usd: totalSwiftUSD, eur: totalSwiftEUR },
@@ -2562,14 +2669,10 @@
                 silver: { usd: totalSilverUSD, eur: totalSilverEUR }
             };
             
-            // تحديث قسم الأرباح التلقائية
             updateAutoProfitsDisplay();
-            
-            // تحديث إحصائيات التجميع التلقائي
             updateAutoCollectStats(filteredOperations.length, uniqueDates, grandTotalUSD, grandTotalEUR);
         }
         
-        // تحديث إحصائيات التجميع التلقائي
         function updateAutoCollectStats(operationsCount, daysCount, totalUSD, totalEUR) {
             const statsHtml = `
                 <div class="collect-stat-item">
@@ -2582,35 +2685,31 @@
                 </div>
                 <div class="collect-stat-item">
                     <div class="collect-stat-label">إجمالي USD / Toplam USD</div>
-                    <div class="collect-stat-value">$${totalUSD.toFixed(2)}</div>
+                    <div class="collect-stat-value">$${formatNumberWithCommas(totalUSD.toFixed(2))}</div>
                 </div>
                 <div class="collect-stat-item">
                     <div class="collect-stat-label">إجمالي EUR / Toplam EUR</div>
-                    <div class="collect-stat-value">€${totalEUR.toFixed(2)}</div>
+                    <div class="collect-stat-value">€${formatNumberWithCommas(totalEUR.toFixed(2))}</div>
                 </div>
             `;
             
             document.getElementById('auto-collect-stats').innerHTML = statsHtml;
         }
         
-        // تحديث عرض الأرباح التلقائية
         function updateAutoProfitsDisplay() {
-            document.getElementById('auto-swift-usd').textContent = monthlyData.autoProfits.swift.usd.toFixed(2);
-            document.getElementById('auto-swift-eur').textContent = monthlyData.autoProfits.swift.eur.toFixed(2);
-            document.getElementById('auto-havala-usd').textContent = monthlyData.autoProfits.havana.usd.toFixed(2);
-            document.getElementById('auto-havala-eur').textContent = monthlyData.autoProfits.havana.eur.toFixed(2);
-            document.getElementById('auto-silver-usd').textContent = monthlyData.autoProfits.silver.usd.toFixed(2);
-            document.getElementById('auto-silver-eur').textContent = monthlyData.autoProfits.silver.eur.toFixed(2);
+            document.getElementById('auto-swift-usd').textContent = formatNumberWithCommas(monthlyData.autoProfits.swift.usd.toFixed(2));
+            document.getElementById('auto-swift-eur').textContent = formatNumberWithCommas(monthlyData.autoProfits.swift.eur.toFixed(2));
+            document.getElementById('auto-havala-usd').textContent = formatNumberWithCommas(monthlyData.autoProfits.havana.usd.toFixed(2));
+            document.getElementById('auto-havala-eur').textContent = formatNumberWithCommas(monthlyData.autoProfits.havana.eur.toFixed(2));
+            document.getElementById('auto-silver-usd').textContent = formatNumberWithCommas(monthlyData.autoProfits.silver.usd.toFixed(2));
+            document.getElementById('auto-silver-eur').textContent = formatNumberWithCommas(monthlyData.autoProfits.silver.eur.toFixed(2));
             
-            // تحديث التقرير المختصر
             updateCompactMonthlyReport();
         }
         
-        // حفظ بيانات الأرباح اليومية (كل عملية حفظ)
         function saveDailyProfits() {
             const today = new Date().toISOString().split('T')[0];
             
-            // الحصول على قيم الأرباح الحالية
             const swiftProfitUSD = parseFloat(document.getElementById('swift-profit-usd').value) || 0;
             const swiftProfitEUR = parseFloat(document.getElementById('swift-profit-eur').value) || 0;
             const havanaProfitUSD = parseFloat(document.getElementById('havala-profit-usd').value) || 0;
@@ -2625,7 +2724,6 @@
                 return;
             }
             
-            // إنشاء سجل عملية الربح
             const profitOperation = {
                 date: today,
                 timestamp: new Date().getTime(),
@@ -2640,64 +2738,48 @@
                 }
             };
             
-            // إضافة العملية إلى السجلات
             dailyProfitOperations.push(profitOperation);
-            
-            // حفظ في localStorage
             localStorage.setItem('alanhar_daily_profit_operations', JSON.stringify(dailyProfitOperations));
-            
-            // تحديث العداد
             updateDailyProfitsCount();
-            
             console.log("تم حفظ عملية الربح بنجاح. إجمالي العمليات:", dailyProfitOperations.length);
             
-            // تحديث التجميع التلقائي إذا كان المستخدم في قسم التقرير الشهري
             if (document.getElementById('monthly').classList.contains('active')) {
                 autoCollectProfits();
             }
         }
         
-        // توليد التقرير الشهري المختصر
         function generateMonthlyReport() {
-            // تحديث جميع الحسابات أولاً
             updateMonthlyCalculations();
             updateMonthlyExpenses();
-            
-            // إظهار التقرير المختصر
             document.getElementById('compact-monthly-report').style.display = 'block';
             
-            // تحديث معلومات الفترة الزمنية
             const startFormatted = formatDate(monthlyData.startDate);
             const endFormatted = formatDate(monthlyData.endDate);
             document.getElementById('compact-date-range').textContent = `الفترة: من ${startFormatted} إلى ${endFormatted}`;
             
-            // تحديث بيانات العملات
-            document.getElementById('compact-usd-debtor').textContent = `$${monthlyData.usd.debtor.toFixed(2)}`;
-            document.getElementById('compact-usd-creditor').textContent = `$${monthlyData.usd.creditor.toFixed(2)}`;
-            document.getElementById('compact-usd-surplus').textContent = `$${monthlyData.usd.surplus.toFixed(2)}`;
+            document.getElementById('compact-usd-debtor').textContent = `$${formatNumberWithCommas(monthlyData.usd.debtor.toFixed(2))}`;
+            document.getElementById('compact-usd-creditor').textContent = `$${formatNumberWithCommas(monthlyData.usd.creditor.toFixed(2))}`;
+            document.getElementById('compact-usd-surplus').textContent = `$${formatNumberWithCommas(monthlyData.usd.surplus.toFixed(2))}`;
             
-            document.getElementById('compact-eur-debtor').textContent = `€${monthlyData.eur.debtor.toFixed(2)}`;
-            document.getElementById('compact-eur-creditor').textContent = `€${monthlyData.eur.creditor.toFixed(2)}`;
-            document.getElementById('compact-eur-surplus').textContent = `€${monthlyData.eur.surplus.toFixed(2)}`;
+            document.getElementById('compact-eur-debtor').textContent = `€${formatNumberWithCommas(monthlyData.eur.debtor.toFixed(2))}`;
+            document.getElementById('compact-eur-creditor').textContent = `€${formatNumberWithCommas(monthlyData.eur.creditor.toFixed(2))}`;
+            document.getElementById('compact-eur-surplus').textContent = `€${formatNumberWithCommas(monthlyData.eur.surplus.toFixed(2))}`;
             
-            document.getElementById('compact-try-debtor').textContent = `₺${monthlyData.try.debtor.toFixed(2)}`;
-            document.getElementById('compact-try-creditor').textContent = `₺${monthlyData.try.creditor.toFixed(2)}`;
-            document.getElementById('compact-try-surplus').textContent = `₺${monthlyData.try.surplus.toFixed(2)}`;
+            document.getElementById('compact-try-debtor').textContent = `₺${formatNumberWithCommas(monthlyData.try.debtor.toFixed(2))}`;
+            document.getElementById('compact-try-creditor').textContent = `₺${formatNumberWithCommas(monthlyData.try.creditor.toFixed(2))}`;
+            document.getElementById('compact-try-surplus').textContent = `₺${formatNumberWithCommas(monthlyData.try.surplus.toFixed(2))}`;
             
-            // تحديث الأرباح التلقائية
-            document.getElementById('compact-swift-usd').textContent = `$${monthlyData.autoProfits.swift.usd.toFixed(2)}`;
-            document.getElementById('compact-swift-eur').textContent = `€${monthlyData.autoProfits.swift.eur.toFixed(2)}`;
-            document.getElementById('compact-havala-usd').textContent = `$${monthlyData.autoProfits.havana.usd.toFixed(2)}`;
-            document.getElementById('compact-havala-eur').textContent = `€${monthlyData.autoProfits.havana.eur.toFixed(2)}`;
-            document.getElementById('compact-silver-usd').textContent = `$${monthlyData.autoProfits.silver.usd.toFixed(2)}`;
-            document.getElementById('compact-silver-eur').textContent = `€${monthlyData.autoProfits.silver.eur.toFixed(2)}`;
+            document.getElementById('compact-swift-usd').textContent = `$${formatNumberWithCommas(monthlyData.autoProfits.swift.usd.toFixed(2))}`;
+            document.getElementById('compact-swift-eur').textContent = `€${formatNumberWithCommas(monthlyData.autoProfits.swift.eur.toFixed(2))}`;
+            document.getElementById('compact-havala-usd').textContent = `$${formatNumberWithCommas(monthlyData.autoProfits.havana.usd.toFixed(2))}`;
+            document.getElementById('compact-havala-eur').textContent = `€${formatNumberWithCommas(monthlyData.autoProfits.havana.eur.toFixed(2))}`;
+            document.getElementById('compact-silver-usd').textContent = `$${formatNumberWithCommas(monthlyData.autoProfits.silver.usd.toFixed(2))}`;
+            document.getElementById('compact-silver-eur').textContent = `€${formatNumberWithCommas(monthlyData.autoProfits.silver.eur.toFixed(2))}`;
             
-            // تحديث المصروفات
             const expensesList = document.getElementById('compact-expenses-list');
             expensesList.innerHTML = '';
             
             if (monthlyData.monthlyExpenses.length > 0) {
-                // تجميع المصروفات حسب العملة
                 const expensesByCurrency = {
                     USD: [],
                     EUR: [],
@@ -2710,7 +2792,6 @@
                     }
                 });
                 
-                // عرض المصروفات حسب العملة
                 ['USD', 'EUR', 'TRY'].forEach(currency => {
                     if (expensesByCurrency[currency].length > 0) {
                         const currencyBox = document.createElement('div');
@@ -2727,7 +2808,7 @@
                             expensesHtml += `
                                 <div class="compact-currency-row">
                                     <span>${expense.name}</span>
-                                    <span>${currencySymbol}${expense.amount.toFixed(2)}</span>
+                                    <span>${currencySymbol}${formatNumberWithCommas(expense.amount.toFixed(2))}</span>
                                 </div>
                             `;
                             total += expense.amount;
@@ -2736,7 +2817,7 @@
                         expensesHtml += `
                             <div class="compact-currency-row compact-total-row">
                                 <span>الإجمالي / Toplam</span>
-                                <span>${currencySymbol}${total.toFixed(2)}</span>
+                                <span>${currencySymbol}${formatNumberWithCommas(total.toFixed(2))}</span>
                             </div>
                         `;
                         
@@ -2752,42 +2833,36 @@
                 `;
             }
             
-            // تحديث تاريخ الإنشاء
             const now = new Date();
             const creationDate = formatDate(now.toISOString().split('T')[0]);
             document.getElementById('compact-creation-date').textContent = creationDate;
             document.getElementById('compact-creation-date-tr').textContent = creationDate;
             
-            // التمرير إلى التقرير
             document.getElementById('compact-monthly-report').scrollIntoView({ behavior: 'smooth' });
         }
         
-        // تحديث التقرير الشهري المختصر
         function updateCompactMonthlyReport() {
-            // تحديث الأرباح التلقائية في التقرير المختصر
             if (document.getElementById('compact-swift-usd')) {
-                document.getElementById('compact-swift-usd').textContent = `$${monthlyData.autoProfits.swift.usd.toFixed(2)}`;
-                document.getElementById('compact-swift-eur').textContent = `€${monthlyData.autoProfits.swift.eur.toFixed(2)}`;
-                document.getElementById('compact-havala-usd').textContent = `$${monthlyData.autoProfits.havana.usd.toFixed(2)}`;
-                document.getElementById('compact-havala-eur').textContent = `€${monthlyData.autoProfits.havana.eur.toFixed(2)}`;
-                document.getElementById('compact-silver-usd').textContent = `$${monthlyData.autoProfits.silver.usd.toFixed(2)}`;
-                document.getElementById('compact-silver-eur').textContent = `€${monthlyData.autoProfits.silver.eur.toFixed(2)}`;
+                document.getElementById('compact-swift-usd').textContent = `$${formatNumberWithCommas(monthlyData.autoProfits.swift.usd.toFixed(2))}`;
+                document.getElementById('compact-swift-eur').textContent = `€${formatNumberWithCommas(monthlyData.autoProfits.swift.eur.toFixed(2))}`;
+                document.getElementById('compact-havala-usd').textContent = `$${formatNumberWithCommas(monthlyData.autoProfits.havana.usd.toFixed(2))}`;
+                document.getElementById('compact-havala-eur').textContent = `€${formatNumberWithCommas(monthlyData.autoProfits.havana.eur.toFixed(2))}`;
+                document.getElementById('compact-silver-usd').textContent = `$${formatNumberWithCommas(monthlyData.autoProfits.silver.usd.toFixed(2))}`;
+                document.getElementById('compact-silver-eur').textContent = `€${formatNumberWithCommas(monthlyData.autoProfits.silver.eur.toFixed(2))}`;
             }
         }
         
-        // طباعة التقرير الشهري
+        // إصلاح زر طباعة التقرير الشهري
         function printMonthlyReport() {
-            // أولاً نولد التقرير
             generateMonthlyReport();
             
-            // ثم نفتح نافذة الطباعة بعد تأخير بسيط لضمان تحميل المحتوى
             setTimeout(() => {
-                const printContent = document.getElementById('compact-monthly-report').outerHTML;
+                const printContent = document.getElementById('compact-monthly-report').innerHTML;
                 const originalContent = document.body.innerHTML;
                 
                 document.body.innerHTML = `
                     <!DOCTYPE html>
-                    <html dir="rtl">
+                    <html dir="rtl" lang="ar">
                     <head>
                         <title>تقرير شهري مختصر - نظام ALANHAR</title>
                         <meta charset="UTF-8">
@@ -2799,6 +2874,7 @@
                                 color: #333;
                                 direction: rtl;
                                 font-size: 12pt;
+                                background: white;
                             }
                             .compact-monthly-report {
                                 background: white;
@@ -2837,7 +2913,6 @@
                                 border-radius: 8px;
                                 border: 1px solid;
                                 page-break-inside: avoid;
-                                break-inside: avoid;
                             }
                             .compact-section-title {
                                 font-size: 1.2rem;
@@ -2883,7 +2958,6 @@
                                 background: white;
                                 border: 1px solid #ddd;
                                 page-break-inside: avoid;
-                                break-inside: avoid;
                             }
                             .compact-grid-title {
                                 font-weight: bold;
@@ -2938,40 +3012,186 @@
                             @media print {
                                 body {
                                     padding: 10px;
+                                    font-size: 10pt;
                                 }
                                 .compact-monthly-report {
                                     box-shadow: none;
                                     border: none;
+                                    page-break-before: always;
+                                }
+                                .no-print {
+                                    display: none !important;
+                                }
+                            }
+                            .print-actions {
+                                text-align: center;
+                                margin-top: 20px;
+                                padding-top: 20px;
+                                border-top: 1px solid #ddd;
+                            }
+                            .print-btn {
+                                padding: 10px 20px;
+                                background: #8e24aa;
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                font-size: 1rem;
+                                cursor: pointer;
+                                margin: 0 10px;
+                            }
+                            .close-btn {
+                                padding: 10px 20px;
+                                background: #666;
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                font-size: 1rem;
+                                cursor: pointer;
+                                margin: 0 10px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="compact-monthly-report">
+                            ${printContent}
+                        </div>
+                        <div class="print-actions no-print">
+                            <button class="print-btn" onclick="window.print()">
+                                <i class="fas fa-print"></i> طباعة التقرير
+                            </button>
+                            <button class="close-btn" onclick="window.close()">
+                                <i class="fas fa-times"></i> إغلاق النافذة
+                            </button>
+                        </div>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                        <script>
+                            window.onload = function() {
+                                setTimeout(function() {
+                                    window.print();
+                                }, 500);
+                            };
+                        <\/script>
+                    </body>
+                    </html>
+                `;
+                
+                setTimeout(() => {
+                    window.print();
+                    
+                    setTimeout(() => {
+                        document.body.innerHTML = originalContent;
+                        window.location.reload();
+                    }, 1000);
+                }, 1000);
+            }, 500);
+        }
+        
+        // دالة جديدة لطباعة التقرير اليومي
+        function printDailyReport() {
+            generateReport();
+            
+            setTimeout(() => {
+                const reportContent = document.getElementById('report').innerHTML;
+                const originalContent = document.body.innerHTML;
+                
+                document.body.innerHTML = `
+                    <!DOCTYPE html>
+                    <html dir="rtl" lang="ar">
+                    <head>
+                        <title>تقرير يومي - نظام ALANHAR</title>
+                        <meta charset="UTF-8">
+                        <style>
+                            body {
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                margin: 0;
+                                padding: 20px;
+                                color: #333;
+                                direction: rtl;
+                                font-size: 12pt;
+                                background: white;
+                            }
+                            .no-print {
+                                display: none !important;
+                            }
+                            .card {
+                                background: white;
+                                border-radius: 8px;
+                                padding: 15px;
+                                margin-bottom: 15px;
+                                border: 1px solid #ddd;
+                            }
+                            .report-header {
+                                text-align: center;
+                                margin-bottom: 20px;
+                                padding-bottom: 15px;
+                                border-bottom: 2px solid #1a2980;
+                            }
+                            .report-header h2 {
+                                color: #1a2980;
+                                font-size: 1.5rem;
+                                margin-bottom: 10px;
+                            }
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin-top: 15px;
+                                font-size: 10pt;
+                            }
+                            th {
+                                background-color: #1a2980;
+                                color: white;
+                                padding: 8px;
+                                text-align: right;
+                            }
+                            td {
+                                padding: 6px 8px;
+                                border-bottom: 1px solid #eee;
+                            }
+                            tr:nth-child(even) {
+                                background-color: #f8f9fa;
+                            }
+                            @media print {
+                                body {
+                                    padding: 10px;
+                                    font-size: 10pt;
+                                }
+                                .card {
+                                    box-shadow: none;
+                                    border: 1px solid #ccc;
                                 }
                             }
                         </style>
                     </head>
                     <body>
-                        ${printContent}
-                        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
-                            <button onclick="window.print()" style="padding: 10px 20px; background: #8e24aa; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; margin-right: 10px;">
+                        ${reportContent}
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button onclick="window.print()" style="padding: 10px 20px; background: #4caf50; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">
                                 <i class="fas fa-print"></i> طباعة التقرير
-                            </button>
-                            <button onclick="window.close()" style="padding: 10px 20px; background: #666; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">
-                                <i class="fas fa-times"></i> إغلاق النافذة
                             </button>
                         </div>
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                        <script>
+                            window.onload = function() {
+                                setTimeout(function() {
+                                    window.print();
+                                }, 500);
+                            };
+                        <\/script>
                     </body>
                     </html>
                 `;
                 
-                window.print();
-                
-                // إعادة المحتوى الأصلي بعد الطباعة
                 setTimeout(() => {
-                    document.body.innerHTML = originalContent;
-                    location.reload();
+                    window.print();
+                    
+                    setTimeout(() => {
+                        document.body.innerHTML = originalContent;
+                        window.location.reload();
+                    }, 1000);
                 }, 500);
             }, 500);
         }
         
-        // إضافة مصروف جديد
         function addNewExpense() {
             expenseCounter++;
             
@@ -3006,21 +3226,17 @@
             
             expenseContainer.appendChild(expenseItem);
             
-            // إضافة مستمعي الأحداث للحقول الجديدة
             document.getElementById(`expense-name-${expenseCounter}`).addEventListener('input', updateExpensesTotal);
             document.getElementById(`expense-amount-${expenseCounter}`).addEventListener('input', updateExpensesTotal);
             document.getElementById(`expense-currency-${expenseCounter}`).addEventListener('change', updateExpensesTotal);
             
-            // إضافة مستمع للأحداث لحذف المصروف
             document.querySelector(`.remove-expense-btn[data-id="${expenseCounter}"]`).addEventListener('click', function() {
                 removeExpense(expenseCounter);
             });
             
-            // تحديث الحسابات
             updateExpensesTotal();
         }
         
-        // إضافة مصروف شهري جديد
         function addNewMonthlyExpense() {
             monthlyExpenseCounter++;
             
@@ -3063,20 +3279,16 @@
             
             expenseContainer.appendChild(expenseItem);
             
-            // إضافة مستمع للأحداث لحذف المصروف
             document.querySelector(`.remove-monthly-expense-btn[data-id="${monthlyExpenseCounter}"]`).addEventListener('click', function() {
                 removeMonthlyExpense(monthlyExpenseCounter);
             });
         }
         
-        // حفظ التقرير الشهري
         function saveMonthlyData() {
-            // تحديث جميع الحسابات أولاً
             updateMonthlyCalculations();
             updateMonthlyExpenses();
             
             if (monthlyData.startDate && monthlyData.endDate) {
-                // إنشاء كائن للتقرير الشهري
                 const monthlyReport = {
                     startDate: monthlyData.startDate,
                     endDate: monthlyData.endDate,
@@ -3088,39 +3300,31 @@
                     timestamp: new Date().toISOString()
                 };
                 
-                // التحقق مما إذا كان التقرير موجوداً بالفعل لهذه الفترة
                 const existingIndex = monthlyRecords.findIndex(record => 
                     record.startDate === monthlyData.startDate && 
                     record.endDate === monthlyData.endDate
                 );
                 
                 if (existingIndex !== -1) {
-                    // تحديث التقرير الموجود
                     monthlyRecords[existingIndex] = monthlyReport;
                     alert("تم تحديث التقرير الشهري بنجاح! / Aylık rapor başarıyla güncellendi!");
                 } else {
-                    // إضافة تقرير جديد
                     monthlyRecords.push(monthlyReport);
                     alert("تم حفظ التقرير الشهري بنجاح! / Aylık rapor başarıyla kaydedildi!");
                 }
                 
-                // حفظ في localStorage
                 localStorage.setItem('alanhar_monthly', JSON.stringify(monthlyRecords));
             } else {
                 alert("يرجى تحديد تاريخ البداية والنهاية أولاً. / Lütfen önce başlangıç ve bitiş tarihlerini seçin.");
             }
         }
         
-        // حفظ البيانات اليومية
         function saveData() {
             updateCalculations();
             
-            // تأكيد الحفظ
             if (confirm("هل تريد حفظ بيانات اليوم؟ / Bugünün verilerini kaydetmek istiyor musunuz?")) {
-                // حفظ الأرباح اليومية أولاً (كل عملية حفظ)
                 saveDailyProfits();
                 
-                // إضافة إلى السجلات اليومية الكاملة
                 const record = {
                     date: appData.date,
                     timestamp: new Date().getTime(),
@@ -3132,35 +3336,30 @@
                 
                 alert("تم حفظ بيانات اليوم بنجاح! / Bugünün verileri başarıyla kaydedildi!");
                 loadHistory();
-                
-                // مسح البيانات بعد الحفظ
                 resetData();
             }
         }
         
-        // توليد التقرير اليومي
         function generateReport() {
             updateCalculations();
             
-            // تحديث عرض التقرير
             const usdSurplusElement = document.getElementById('report-usd-surplus');
-            usdSurplusElement.textContent = `$${appData.usd.surplus.toFixed(2)}`;
+            usdSurplusElement.textContent = `$${formatNumberWithCommas(appData.usd.surplus.toFixed(2))}`;
             
             const eurSurplusElement = document.getElementById('report-eur-surplus');
-            eurSurplusElement.textContent = `€${appData.eur.surplus.toFixed(2)}`;
+            eurSurplusElement.textContent = `€${formatNumberWithCommas(appData.eur.surplus.toFixed(2))}`;
             
             const trySurplusElement = document.getElementById('report-try-surplus');
-            trySurplusElement.textContent = `₺${appData.try.surplus.toFixed(2)}`;
+            trySurplusElement.textContent = `₺${formatNumberWithCommas(appData.try.surplus.toFixed(2))}`;
             
-            // تحديث جدول التقرير الرئيسي
             const reportTableBody = document.getElementById('report-table-body');
             reportTableBody.innerHTML = `
                 <tr>
                     <td>الدولار الأمريكي (USD) / Amerikan Doları</td>
-                    <td>$${appData.usd.debtor.toFixed(2)}</td>
-                    <td>$${appData.usd.creditor.toFixed(2)}</td>
+                    <td>$${formatNumberWithCommas(appData.usd.debtor.toFixed(2))}</td>
+                    <td>$${formatNumberWithCommas(appData.usd.creditor.toFixed(2))}</td>
                     <td style="color: ${appData.usd.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        $${appData.usd.surplus.toFixed(2)}
+                        $${formatNumberWithCommas(appData.usd.surplus.toFixed(2))}
                     </td>
                     <td>
                         <span style="color: ${appData.usd.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
@@ -3170,10 +3369,10 @@
                 </tr>
                 <tr>
                     <td>اليورو الأوروبي (EUR) / Euro</td>
-                    <td>€${appData.eur.debtor.toFixed(2)}</td>
-                    <td>€${appData.eur.creditor.toFixed(2)}</td>
+                    <td>€${formatNumberWithCommas(appData.eur.debtor.toFixed(2))}</td>
+                    <td>€${formatNumberWithCommas(appData.eur.creditor.toFixed(2))}</td>
                     <td style="color: ${appData.eur.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        €${appData.eur.surplus.toFixed(2)}
+                        €${formatNumberWithCommas(appData.eur.surplus.toFixed(2))}
                     </td>
                     <td>
                         <span style="color: ${appData.eur.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
@@ -3183,10 +3382,10 @@
                 </tr>
                 <tr>
                     <td>الليرة التركية (TRY) / Türk Lirası</td>
-                    <td>₺${appData.try.debtor.toFixed(2)}</td>
-                    <td>₺${appData.try.creditor.toFixed(2)}</td>
+                    <td>₺${formatNumberWithCommas(appData.try.debtor.toFixed(2))}</td>
+                    <td>₺${formatNumberWithCommas(appData.try.creditor.toFixed(2))}</td>
                     <td style="color: ${appData.try.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        ₺${appData.try.surplus.toFixed(2)}
+                        ₺${formatNumberWithCommas(appData.try.surplus.toFixed(2))}
                     </td>
                     <td>
                         <span style="color: ${appData.try.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
@@ -3196,15 +3395,24 @@
                 </tr>
             `;
             
+            // تحديث بيانات الفضة في التقرير (معدل)
+            document.getElementById('report-silver-quantity').textContent = formatNumberWithCommas(appData.silver.quantity.toFixed(3)); // 3 منازل عشرية للكيلو
+            document.getElementById('report-silver-total').textContent = formatNumberWithCommas(appData.silver.total.toFixed(2));
+            
+            // تحديث الفائض الحقيقي في التقرير
+            document.getElementById('report-display-usd-surplus').textContent = `$${formatNumberWithCommas(appData.usd.surplus.toFixed(2))}`;
+            document.getElementById('report-display-silver-value').textContent = `$${formatNumberWithCommas(appData.silver.total.toFixed(2))}`;
+            document.getElementById('report-real-surplus').textContent = `$${formatNumberWithCommas(appData.realSurplus.toFixed(2))}`;
+            
             // تحديث الأرباح في التقرير
-            document.getElementById('report-swift-usd').textContent = appData.profits.swift.usd.toFixed(2);
-            document.getElementById('report-swift-eur').textContent = appData.profits.swift.eur.toFixed(2);
-            document.getElementById('report-havala-usd').textContent = appData.profits.havana.usd.toFixed(2);
-            document.getElementById('report-havala-eur').textContent = appData.profits.havana.eur.toFixed(2);
-            document.getElementById('report-silver-usd').textContent = appData.profits.silver.usd.toFixed(2);
-            document.getElementById('report-silver-eur').textContent = appData.profits.silver.eur.toFixed(2);
-            document.getElementById('report-total-profit-usd').textContent = appData.profits.total.usd.toFixed(2);
-            document.getElementById('report-total-profit-eur').textContent = appData.profits.total.eur.toFixed(2);
+            document.getElementById('report-swift-usd').textContent = formatNumberWithCommas(appData.profits.swift.usd.toFixed(2));
+            document.getElementById('report-swift-eur').textContent = formatNumberWithCommas(appData.profits.swift.eur.toFixed(2));
+            document.getElementById('report-havala-usd').textContent = formatNumberWithCommas(appData.profits.havana.usd.toFixed(2));
+            document.getElementById('report-havala-eur').textContent = formatNumberWithCommas(appData.profits.havana.eur.toFixed(2));
+            document.getElementById('report-silver-profit-usd').textContent = formatNumberWithCommas(appData.profits.silver.usd.toFixed(2));
+            document.getElementById('report-silver-profit-eur').textContent = formatNumberWithCommas(appData.profits.silver.eur.toFixed(2));
+            document.getElementById('report-total-profit-usd').textContent = formatNumberWithCommas(appData.profits.total.usd.toFixed(2));
+            document.getElementById('report-total-profit-eur').textContent = formatNumberWithCommas(appData.profits.total.eur.toFixed(2));
             
             // تحديث المصروفات في التقرير
             const expensesReportBody = document.getElementById('expenses-report-body');
@@ -3218,18 +3426,16 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${expense.name}</td>
-                    <td>${expense.amount.toFixed(2)}</td>
+                    <td>${formatNumberWithCommas(expense.amount.toFixed(2))}</td>
                     <td>${expense.currency === 'USD' ? '$' : expense.currency === 'EUR' ? '€' : '₺'}</td>
                 `;
                 expensesReportBody.appendChild(row);
                 
-                // جمع المصروفات حسب العملة
                 if (expense.currency === 'USD') totalExpenseUSD += expense.amount;
                 else if (expense.currency === 'EUR') totalExpenseEUR += expense.amount;
                 else if (expense.currency === 'TRY') totalExpenseTRY += expense.amount;
             });
             
-            // إذا لم توجد مصروفات
             if (appData.expenses.length === 0) {
                 expensesReportBody.innerHTML = `
                     <tr>
@@ -3240,7 +3446,6 @@
                 `;
             }
             
-            // عرض إجماليات المصروفات حسب العملة في التقرير
             const reportExpenseTotalContainer = document.getElementById('report-expense-total');
             reportExpenseTotalContainer.innerHTML = '';
             
@@ -3249,7 +3454,7 @@
                     reportExpenseTotalContainer.innerHTML += `
                         <div class="expense-total-box">
                             <div>إجمالي مصروفات الدولار / Toplam Dolar Giderler</div>
-                            <div class="expense-currency">$${totalExpenseUSD.toFixed(2)}</div>
+                            <div class="expense-currency">$${formatNumberWithCommas(totalExpenseUSD.toFixed(2))}</div>
                         </div>
                     `;
                 }
@@ -3258,7 +3463,7 @@
                     reportExpenseTotalContainer.innerHTML += `
                         <div class="expense-total-box">
                             <div>إجمالي مصروفات اليورو / Toplam Euro Giderler</div>
-                            <div class="expense-currency">€${totalExpenseEUR.toFixed(2)}</div>
+                            <div class="expense-currency">€${formatNumberWithCommas(totalExpenseEUR.toFixed(2))}</div>
                         </div>
                     `;
                 }
@@ -3267,7 +3472,7 @@
                     reportExpenseTotalContainer.innerHTML += `
                         <div class="expense-total-box">
                             <div>إجمالي مصروفات الليرة / Toplam Lira Giderler</div>
-                            <div class="expense-currency">₺${totalExpenseTRY.toFixed(2)}</div>
+                            <div class="expense-currency">₺${formatNumberWithCommas(totalExpenseTRY.toFixed(2))}</div>
                         </div>
                     `;
                 }
@@ -3280,30 +3485,38 @@
                 `;
             }
             
-            // التبديل إلى تبويب التقرير
             switchTab('report');
         }
         
-        // طباعة التقرير اليومي
-        function printReport() {
-            window.print();
+        // وظيفة لإضافة فواصل الآلاف للأرقام
+        function formatNumberWithCommas(number) {
+            // تحويل الرقم إلى سلسلة نصية
+            let numStr = number.toString();
+            
+            // فصل العدد الصحيح عن الكسور
+            let parts = numStr.split('.');
+            let integerPart = parts[0];
+            let decimalPart = parts.length > 1 ? '.' + parts[1] : '';
+            
+            // إضافة فواصل كل 3 أرقام
+            let formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            
+            // إرجاع العدد مع الكسور
+            return formattedInteger + decimalPart;
         }
         
-        // مسح البيانات اليومية
         function resetData() {
             if (confirm("هل تريد مسح جميع بيانات اليوم؟ / Bugünün tüm verilerini temizlemek istiyor musunuz?")) {
-                // مسح حقول الإدخال
                 document.querySelectorAll('input[type="number"], input[type="text"]').forEach(input => {
-                    if (input.id.includes('profit') || input.id.includes('debtor') || input.id.includes('creditor')) {
+                    if (input.id.includes('profit') || input.id.includes('debtor') || input.id.includes('creditor') || 
+                        input.id.includes('silver-quantity') || input.id.includes('silver-total-input')) {
                         input.value = '';
                     }
                 });
                 
-                // إعادة تعيين المصروفات
                 const expensesList = document.getElementById('expenses-list');
                 expensesList.innerHTML = '';
                 
-                // إضافة مصروف افتراضي واحد
                 expenseCounter = 1;
                 const expenseItem = document.createElement('div');
                 expenseItem.className = 'expense-item';
@@ -3334,15 +3547,15 @@
                 `;
                 expensesList.appendChild(expenseItem);
                 
-                // إعادة إعداد مستمعي الأحداث
                 setupRemoveExpenseListeners();
                 setupInputListeners();
                 
-                // إعادة تعيين البيانات
                 appData = {
                     usd: { debtor: 0, creditor: 0, surplus: 0 },
                     eur: { debtor: 0, creditor: 0, surplus: 0 },
                     try: { debtor: 0, creditor: 0, surplus: 0 },
+                    silver: { quantity: 0, total: 0 },
+                    realSurplus: 0,
                     profits: { 
                         swift: { usd: 0, eur: 0 }, 
                         havana: { usd: 0, eur: 0 }, 
@@ -3354,10 +3567,8 @@
                     timestamp: new Date().getTime()
                 };
                 
-                // تحديث الحسابات
                 updateCalculations();
                 
-                // تحديث التقرير إذا كان مفتوحاً
                 if (document.getElementById('report').classList.contains('active')) {
                     generateReport();
                 }
@@ -3366,10 +3577,8 @@
             }
         }
         
-        // مسح البيانات الشهرية
         function resetMonthlyData() {
             if (confirm("هل تريد مسح جميع بيانات التقرير الشهري؟ / Tüm aylık rapor verilerini temizlemek istiyor musunuz?")) {
-                // إعادة تعيين المدين والدائن الشهري
                 document.getElementById('monthly-usd-debtor').value = '';
                 document.getElementById('monthly-usd-creditor').value = '';
                 document.getElementById('monthly-eur-debtor').value = '';
@@ -3377,11 +3586,9 @@
                 document.getElementById('monthly-try-debtor').value = '';
                 document.getElementById('monthly-try-creditor').value = '';
                 
-                // إعادة تعيين المصروفات الشهرية
                 const expensesList = document.getElementById('monthly-expenses-list');
                 expensesList.innerHTML = '';
                 
-                // إضافة مصروف شهري افتراضي واحد
                 monthlyExpenseCounter = 1;
                 const expenseItem = document.createElement('div');
                 expenseItem.className = 'expense-item monthly-expense-item';
@@ -3420,11 +3627,9 @@
                 `;
                 expensesList.appendChild(expenseItem);
                 
-                // إعادة إعداد مستمعي الأحداث
                 setupRemoveMonthlyExpenseListeners();
                 setupMonthlyInputListeners();
                 
-                // إعادة تعيين بيانات التقرير الشهري
                 monthlyData = {
                     startDate: monthlyData.startDate,
                     endDate: monthlyData.endDate,
@@ -3440,10 +3645,8 @@
                     detailedProfits: []
                 };
                 
-                // تحديث الحسابات
                 updateMonthlyCalculations();
                 
-                // إعادة تعيين عرض البيانات التلقائية
                 document.getElementById('auto-swift-usd').textContent = '0.00';
                 document.getElementById('auto-swift-eur').textContent = '0.00';
                 document.getElementById('auto-havala-usd').textContent = '0.00';
@@ -3451,7 +3654,6 @@
                 document.getElementById('auto-silver-usd').textContent = '0.00';
                 document.getElementById('auto-silver-eur').textContent = '0.00';
                 
-                // إعادة تعيين عرض التفاصيل
                 document.getElementById('detailed-profits-container').innerHTML = `
                     <div style="text-align: center; padding: 20px; color: #666;">
                         قم بتحديد الفترة الزمنية لعرض الأرباح المجمعة / Zaman aralığını seçerek toplanan kârları görüntüleyin.
@@ -3459,14 +3661,12 @@
                 `;
                 document.getElementById('profit-summary').style.display = 'none';
                 
-                // إخفاء التقرير المختصر
                 document.getElementById('compact-monthly-report').style.display = 'none';
                 
                 alert("تم مسح جميع بيانات التقرير الشهري بنجاح! / Tüm aylık rapor verileri başarıyla temizlendi!");
             }
         }
         
-        // تحميل السجلات السابقة
         function loadHistory() {
             const historyTableBody = document.getElementById('history-table-body');
             const noHistoryRow = document.getElementById('no-history');
@@ -3479,14 +3679,12 @@
             noHistoryRow.style.display = 'none';
             historyTableBody.innerHTML = '';
             
-            // عرض السجلات بترتيب تاريخي (الأحدث أولاً)
             const sortedRecords = [...historyRecords].sort((a, b) => b.timestamp - a.timestamp);
             
             sortedRecords.forEach((record, index) => {
                 const originalIndex = historyRecords.indexOf(record);
                 const row = document.createElement('tr');
                 
-                // حساب إجمالي المصروفات بالدولار
                 let totalExpenseUSD = 0;
                 let totalExpenseEUR = 0;
                 let totalExpenseTRY = 0;
@@ -3497,31 +3695,33 @@
                     else if (expense.currency === 'TRY') totalExpenseTRY += expense.amount;
                 });
                 
-                // عرض المصروفات بالعملات المختلفة
                 let expenseDisplay = '';
-                if (totalExpenseUSD > 0) expenseDisplay += `$${totalExpenseUSD.toFixed(2)} `;
-                if (totalExpenseEUR > 0) expenseDisplay += `€${totalExpenseEUR.toFixed(2)} `;
-                if (totalExpenseTRY > 0) expenseDisplay += `₺${totalExpenseTRY.toFixed(2)}`;
+                if (totalExpenseUSD > 0) expenseDisplay += `$${formatNumberWithCommas(totalExpenseUSD.toFixed(2))} `;
+                if (totalExpenseEUR > 0) expenseDisplay += `€${formatNumberWithCommas(totalExpenseEUR.toFixed(2))} `;
+                if (totalExpenseTRY > 0) expenseDisplay += `₺${formatNumberWithCommas(totalExpenseTRY.toFixed(2))}`;
                 if (!expenseDisplay) expenseDisplay = '-';
                 
-                // حساب إجمالي الأرباح بالدولار واليورو
                 const totalProfitUSD = record.data.profits.total.usd;
                 const totalProfitEUR = record.data.profits.total.eur;
-                let totalProfitDisplay = `$${totalProfitUSD.toFixed(2)}`;
+                let totalProfitDisplay = `$${formatNumberWithCommas(totalProfitUSD.toFixed(2))}`;
                 if (totalProfitEUR > 0) {
-                    totalProfitDisplay += ` / €${totalProfitEUR.toFixed(2)}`;
+                    totalProfitDisplay += ` / €${formatNumberWithCommas(totalProfitEUR.toFixed(2))}`;
                 }
                 
                 row.innerHTML = `
                     <td>${formatDate(record.date)}</td>
                     <td style="color: ${record.data.usd.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        $${record.data.usd.surplus.toFixed(2)}
+                        $${formatNumberWithCommas(record.data.usd.surplus.toFixed(2))}
                     </td>
                     <td style="color: ${record.data.eur.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        €${record.data.eur.surplus.toFixed(2)}
+                        €${formatNumberWithCommas(record.data.eur.surplus.toFixed(2))}
                     </td>
                     <td style="color: ${record.data.try.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        ₺${record.data.try.surplus.toFixed(2)}
+                        ₺${formatNumberWithCommas(record.data.try.surplus.toFixed(2))}
+                    </td>
+                    <td>$${formatNumberWithCommas(record.data.silver.total.toFixed(2))}</td>
+                    <td style="color: ${record.data.realSurplus >= 0 ? '#2e7d32' : '#d32f2f'}; font-weight: bold;">
+                        $${formatNumberWithCommas(record.data.realSurplus.toFixed(2))}
                     </td>
                     <td>${totalProfitDisplay}</td>
                     <td>${expenseDisplay}</td>
@@ -3538,11 +3738,9 @@
             });
         }
         
-        // عرض سجل محدد
         function viewRecord(index) {
             const record = historyRecords[index];
             
-            // تحميل البيانات في نموذج الإدخال
             document.getElementById('usd-debtor').value = record.data.usd.debtor;
             document.getElementById('usd-creditor').value = record.data.usd.creditor;
             document.getElementById('eur-debtor').value = record.data.eur.debtor;
@@ -3550,7 +3748,10 @@
             document.getElementById('try-debtor').value = record.data.try.debtor;
             document.getElementById('try-creditor').value = record.data.try.creditor;
             
-            // تحميل الأرباح
+            // تحميل بيانات الفضة المعدلة
+            document.getElementById('silver-quantity').value = record.data.silver.quantity;
+            document.getElementById('silver-total-input').value = record.data.silver.total;
+            
             document.getElementById('swift-profit-usd').value = record.data.profits.swift.usd;
             document.getElementById('swift-profit-eur').value = record.data.profits.swift.eur;
             document.getElementById('havala-profit-usd').value = record.data.profits.havana.usd;
@@ -3558,16 +3759,12 @@
             document.getElementById('silver-profit-usd').value = record.data.profits.silver.usd;
             document.getElementById('silver-profit-eur').value = record.data.profits.silver.eur;
             
-            // تحديث الحسابات
             updateCalculations();
-            
-            // التبديل إلى تبويب الإدخال
             switchTab('input');
             
             alert("تم تحميل بيانات السجل المحدد. يمكنك تعديلها وتوليد تقرير جديد. / Seçilen kayıt verileri yüklendi. Düzenleyebilir ve yeni rapor oluşturabilirsiniz.");
         }
         
-        // حذف سجل
         function deleteRecord(index) {
             if (confirm("هل تريد حذف هذا السجل؟ / Bu kaydı silmek istiyor musunuz?")) {
                 historyRecords.splice(index, 1);
@@ -3577,7 +3774,6 @@
             }
         }
         
-        // فلترة السجلات حسب التاريخ
         function filterHistory() {
             const filterDate = document.getElementById('filter-date').value;
             
@@ -3592,7 +3788,7 @@
             
             if (filteredRecords.length === 0) {
                 noHistoryRow.style.display = '';
-                noHistoryRow.innerHTML = `<td colspan="7" style="text-align: center; padding: 30px;">لا توجد سجلات للتاريخ ${formatDate(filterDate)} / ${formatDate(filterDate)} tarihi için kayıt bulunamadı.</td>`;
+                noHistoryRow.innerHTML = `<td colspan="9" style="text-align: center; padding: 30px;">لا توجد سجلات للتاريخ ${formatDate(filterDate)} / ${formatDate(filterDate)} tarihi için kayıt bulunamadı.</td>`;
                 return;
             }
             
@@ -3603,7 +3799,6 @@
                 const originalIndex = historyRecords.indexOf(record);
                 const row = document.createElement('tr');
                 
-                // حساب إجمالي المصروفات بالدولار
                 let totalExpenseUSD = 0;
                 let totalExpenseEUR = 0;
                 let totalExpenseTRY = 0;
@@ -3614,31 +3809,33 @@
                     else if (expense.currency === 'TRY') totalExpenseTRY += expense.amount;
                 });
                 
-                // عرض المصروفات بالعملات المختلفة
                 let expenseDisplay = '';
-                if (totalExpenseUSD > 0) expenseDisplay += `$${totalExpenseUSD.toFixed(2)} `;
-                if (totalExpenseEUR > 0) expenseDisplay += `€${totalExpenseEUR.toFixed(2)} `;
-                if (totalExpenseTRY > 0) expenseDisplay += `₺${totalExpenseTRY.toFixed(2)}`;
+                if (totalExpenseUSD > 0) expenseDisplay += `$${formatNumberWithCommas(totalExpenseUSD.toFixed(2))} `;
+                if (totalExpenseEUR > 0) expenseDisplay += `€${formatNumberWithCommas(totalExpenseEUR.toFixed(2))} `;
+                if (totalExpenseTRY > 0) expenseDisplay += `₺${formatNumberWithCommas(totalExpenseTRY.toFixed(2))}`;
                 if (!expenseDisplay) expenseDisplay = '-';
                 
-                // حساب إجمالي الأرباح بالدولار واليورو
                 const totalProfitUSD = record.data.profits.total.usd;
                 const totalProfitEUR = record.data.profits.total.eur;
-                let totalProfitDisplay = `$${totalProfitUSD.toFixed(2)}`;
+                let totalProfitDisplay = `$${formatNumberWithCommas(totalProfitUSD.toFixed(2))}`;
                 if (totalProfitEUR > 0) {
-                    totalProfitDisplay += ` / €${totalProfitEUR.toFixed(2)}`;
+                    totalProfitDisplay += ` / €${formatNumberWithCommas(totalProfitEUR.toFixed(2))}`;
                 }
                 
                 row.innerHTML = `
                     <td>${formatDate(record.date)}</td>
                     <td style="color: ${record.data.usd.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        $${record.data.usd.surplus.toFixed(2)}
+                        $${formatNumberWithCommas(record.data.usd.surplus.toFixed(2))}
                     </td>
                     <td style="color: ${record.data.eur.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        €${record.data.eur.surplus.toFixed(2)}
+                        €${formatNumberWithCommas(record.data.eur.surplus.toFixed(2))}
                     </td>
                     <td style="color: ${record.data.try.surplus >= 0 ? '#1a2980' : '#d32f2f'}; font-weight: bold;">
-                        ₺${record.data.try.surplus.toFixed(2)}
+                        ₺${formatNumberWithCommas(record.data.try.surplus.toFixed(2))}
+                    </td>
+                    <td>$${formatNumberWithCommas(record.data.silver.total.toFixed(2))}</td>
+                    <td style="color: ${record.data.realSurplus >= 0 ? '#2e7d32' : '#d32f2f'}; font-weight: bold;">
+                        $${formatNumberWithCommas(record.data.realSurplus.toFixed(2))}
                     </td>
                     <td>${totalProfitDisplay}</td>
                     <td>${expenseDisplay}</td>
@@ -3655,7 +3852,6 @@
             });
         }
         
-        // مسح جميع السجلات
         function clearHistory() {
             if (confirm("هل تريد مسح جميع السجلات السابقة؟ لا يمكن التراجع عن هذا الإجراء. / Tüm önceki kayıtları temizlemek istiyor musunuz? Bu işlem geri alınamaz.")) {
                 historyRecords = [];
@@ -3665,40 +3861,29 @@
             }
         }
         
-        // تبديل التبويبات
         function switchTab(tabId) {
-            // إخفاء جميع الأقسام
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
             
-            // إزالة النشاط من جميع التبويبات
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // إظهار القسم المحدد
             document.getElementById(tabId).classList.add('active');
-            
-            // تفعيل التبويب المحدد
             document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
             
-            // إذا كان التبويب هو التقرير، قم بتوليد التقرير تلقائياً
             if (tabId === 'report') {
                 generateReport();
             }
             
-            // إذا كان التبويب هو التقرير الشهري، قم بتحديث تواريخ الفترة الزمنية
             if (tabId === 'monthly') {
                 updateDateRangeInfo();
-                // إخفاء التقرير المختصر عند التبديل إلى التبويب
                 document.getElementById('compact-monthly-report').style.display = 'none';
-                // تشغيل التجميع التلقائي
                 setTimeout(autoCollectProfits, 100);
             }
         }
         
-        // تنسيق التاريخ
         function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('ar-EG', {
