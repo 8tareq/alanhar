@@ -225,7 +225,7 @@
             font-weight: normal;
         }
         
-        .input-group input, .input-group select {
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #ddd;
@@ -234,7 +234,12 @@
             transition: border 0.3s;
         }
         
-        .input-group input:focus, .input-group select:focus {
+        .input-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: #1a2980;
             box-shadow: 0 0 0 2px rgba(26, 41, 128, 0.1);
@@ -1172,6 +1177,48 @@
             margin-top: 10px;
         }
         
+        /* قسم المصروفات بالدولار بجانب الفضة */
+        .usd-expense-box {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-left: 5px solid #4caf50;
+        }
+        
+        .usd-expense-title {
+            color: #2e7d32;
+        }
+        
+        .usd-expense-icon {
+            background-color: #4caf50;
+        }
+        
+        .usd-expense-value-box {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            border: 2px solid #4caf50;
+        }
+        
+        /* زر إضافة مصروف جديد */
+        .add-usd-expense-btn {
+            background-color: #e8f5e9;
+            border: 2px dashed #4caf50;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .add-usd-expense-btn:hover {
+            background-color: #c8e6c9;
+        }
+        
         .real-surplus-box {
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
             border: 2px solid #4caf50;
@@ -1368,23 +1415,64 @@
                             القيمة الإجمالية للفضة: $<span id="silver-total-display">0.00</span>
                         </div>
                     </div>
+                    
+                    <!-- مصروفات الدولار -->
+                    <div class="currency-box usd-expense-box">
+                        <div class="currency-title usd-expense-title">
+                            <div class="currency-icon usd-expense-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <div>مصروفات الدولار / Dolar Giderleri</div>
+                        </div>
+                        
+                        <div id="usd-expenses-container">
+                            <!-- مصروفات الدولار ستظهر هنا ديناميكياً -->
+                            <div class="usd-expense-item" id="usd-expense-item-1">
+                                <div class="input-group">
+                                    <label for="usd-expense-name-1">وصف المصروف / Gider Açıklaması</label>
+                                    <input type="text" id="usd-expense-name-1" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="usd-expense-amount-1">القيمة ($) / Tutar ($)</label>
+                                    <input type="number" id="usd-expense-amount-1" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0">
+                                </div>
+                                
+                                <button class="btn btn-reset remove-usd-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="1">
+                                    <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="add-usd-expense-btn no-print" id="add-usd-expense">
+                            <i class="fas fa-plus-circle"></i> إضافة مصروف بالدولار / Yeni Dolar Gideri Ekle
+                        </div>
+                        
+                        <div id="total-usd-expense" class="usd-expense-value-box">
+                            إجمالي مصروفات الدولار: $<span id="usd-expense-total-display">0.00</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- مربع الفائض الحقيقي -->
+                <!-- مربع الفائض الحقيقي المعدل -->
                 <div id="real-surplus-box" class="real-surplus-box">
                     <div style="font-size: 1.2rem; margin-bottom: 10px;">
                         <i class="fas fa-calculator"></i> الفائض الحقيقي / Gerçek Kar-Zarar
                     </div>
-                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-                        <div style="text-align: center; margin: 10px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="text-align: center; padding: 10px; background: rgba(26, 41, 128, 0.1); border-radius: 8px;">
                             <div>فائض الدولار / Dolar Kar-Zarar</div>
                             <div style="font-size: 1.5rem; font-weight: bold; color: #1a2980;" id="display-usd-surplus">$0.00</div>
                         </div>
-                        <div style="text-align: center; margin: 10px;">
+                        <div style="text-align: center; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
                             <div>ناقص قيمة الفضة / Eksi Gümüş Değeri</div>
                             <div style="font-size: 1.5rem; font-weight: bold; color: #ff9800;" id="display-silver-value">$0.00</div>
                         </div>
-                        <div style="text-align: center; margin: 10px;">
+                        <div style="text-align: center; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
+                            <div>ناقص مصروفات الدولار / Eksi Dolar Giderleri</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #4caf50;" id="display-usd-expense">$0.00</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(46, 125, 50, 0.2); border-radius: 8px; border: 2px solid #4caf50;">
                             <div>الفائض الحقيقي / Gerçek Kar-Zarar</div>
                             <div class="real-surplus-value" id="real-surplus">$0.00</div>
                         </div>
@@ -1564,22 +1652,41 @@
                 </div>
             </div>
             
-            <!-- قسم الفضة في التقرير -->
+            <!-- قسم الفضة والمصروفات بالدولار في التقرير -->
             <div class="report-silver-section">
                 <div class="report-silver-title">
-                    <i class="fas fa-gem"></i> بيانات الفضة / Gümüş Verileri
+                    <i class="fas fa-gem"></i> بيانات الفضة والمصروفات / Gümüş ve Gider Verileri
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                     <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #ffcc80;">
-                        <div style="font-weight: bold; color: #ff8f00; margin-bottom: 10px;">الكمية (كيلو) / Miktar (kg)</div>
-                        <div style="font-size: 1.5rem; text-align: center;">
-                            <span id="report-silver-quantity">0.00</span> كيلو / kg
+                        <div style="font-weight: bold; color: #ff8f00; margin-bottom: 10px;">الفضة / Gümüş</div>
+                        <div style="margin-bottom: 15px;">
+                            <div>الكمية (كيلو) / Miktar (kg)</div>
+                            <div style="font-size: 1.3rem; text-align: center; font-weight: bold;">
+                                <span id="report-silver-quantity">0.00</span> كيلو / kg
+                            </div>
+                        </div>
+                        <div>
+                            <div>القيمة الإجمالية / Toplam Değer</div>
+                            <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #ff9800;">
+                                $<span id="report-silver-total">0.00</span>
+                            </div>
                         </div>
                     </div>
-                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #ffcc80;">
-                        <div style="font-weight: bold; color: #ff8f00; margin-bottom: 10px;">القيمة الإجمالية / Toplam Değer</div>
-                        <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #ff9800;">
-                            $<span id="report-silver-total">0.00</span>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #a5d6a7;">
+                        <div style="font-weight: bold; color: #2e7d32; margin-bottom: 10px;">مصروفات الدولار / Dolar Giderleri</div>
+                        <div id="report-usd-expenses-list" style="max-height: 200px; overflow-y: auto;">
+                            <!-- مصروفات الدولار ستظهر هنا -->
+                            <div style="text-align: center; padding: 20px; color: #666;">
+                                لا توجد مصروفات مسجلة / Kayıtlı gider yok
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #c8e6c9;">
+                            <div>الإجمالي / Toplam</div>
+                            <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #4caf50;">
+                                $<span id="report-usd-expense-total">0.00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1591,7 +1698,7 @@
                     <i class="fas fa-calculator" style="margin-left: 10px;"></i>
                     <span>الفائض الحقيقي / Gerçek Kar-Zarar</span>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                     <div style="text-align: center; padding: 15px; background: rgba(26, 41, 128, 0.1); border-radius: 8px;">
                         <div style="font-size: 1.1rem; margin-bottom: 10px;">فائض الدولار / Dolar Kar-Zarar</div>
                         <div style="font-size: 1.8rem; font-weight: bold; color: #1a2980;" id="report-display-usd-surplus">$0.00</div>
@@ -1600,7 +1707,11 @@
                         <div style="font-size: 1.1rem; margin-bottom: 10px;">ناقص قيمة الفضة / Eksi Gümüş Değeri</div>
                         <div style="font-size: 1.8rem; font-weight: bold; color: #ff9800;" id="report-display-silver-value">$0.00</div>
                     </div>
-                    <div style="text-align: center; padding: 15px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 2px solid #4caf50;">
+                    <div style="text-align: center; padding: 15px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
+                        <div style="font-size: 1.1rem; margin-bottom: 10px;">ناقص مصروفات الدولار / Eksi Dolar Giderleri</div>
+                        <div style="font-size: 1.8rem; font-weight: bold; color: #4caf50;" id="report-display-usd-expense">$0.00</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(46, 125, 50, 0.2); border-radius: 8px; border: 2px solid #4caf50;">
                         <div style="font-size: 1.1rem; margin-bottom: 10px; font-weight: bold;">الفائض الحقيقي / Gerçek Kar-Zarar</div>
                         <div class="real-surplus-value" id="report-real-surplus">$0.00</div>
                     </div>
@@ -2101,6 +2212,7 @@
                                 <th>فائض اليورو / Euro Kar-Zarar</th>
                                 <th>فائض الليرة / Lira Kar-Zarar</th>
                                 <th>قيمة الفضة / Gümüş Değeri</th>
+                                <th>مصروفات الدولار / Dolar Giderleri</th>
                                 <th>الفائض الحقيقي / Gerçek Kar-Zarar</th>
                                 <th>إجمالي الأرباح / Toplam Kâr</th>
                                 <th>المصروفات / Giderler</th>
@@ -2110,7 +2222,7 @@
                         <tbody id="history-table-body">
                             <!-- سيتم ملء الجدول ديناميكياً -->
                             <tr id="no-history">
-                                <td colspan="9" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
+                                <td colspan="10" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -2137,6 +2249,8 @@
             eur: { debtor: 0, creditor: 0, surplus: 0 },
             try: { debtor: 0, creditor: 0, surplus: 0 },
             silver: { quantity: 0, total: 0 },
+            usdExpenses: [], // مصروفات الدولار الجديدة
+            usdExpenseTotal: 0, // إجمالي مصروفات الدولار
             realSurplus: 0,
             profits: { 
                 swift: { usd: 0, eur: 0 }, 
@@ -2177,6 +2291,7 @@
         // عداد المصروفات
         let expenseCounter = 1;
         let monthlyExpenseCounter = 1;
+        let usdExpenseCounter = 1;
         
         // تهيئة التطبيق
         document.addEventListener('DOMContentLoaded', function() {
@@ -2205,12 +2320,16 @@
             monthlyData.endDate = endDateStr;
             
             updateDateRangeInfo();
+            
+            // إضافة مصروف دولار افتراضي
+            setupUsdExpenseInputListeners(1);
         }
         
         function setupEventListeners() {
             // أزرار الإضافة
             document.getElementById('add-expense').addEventListener('click', addNewExpense);
             document.getElementById('add-monthly-expense').addEventListener('click', addNewMonthlyExpense);
+            document.getElementById('add-usd-expense').addEventListener('click', addNewUsdExpense);
             
             // أزرار الحفظ
             document.getElementById('save-data').addEventListener('click', saveData);
@@ -2273,6 +2392,11 @@
             for (let i = 1; i <= expenseCounter; i++) {
                 setupExpenseInputListeners(i);
             }
+            
+            // مصروفات الدولار
+            for (let i = 1; i <= usdExpenseCounter; i++) {
+                setupUsdExpenseInputListeners(i);
+            }
         }
         
         function setupMonthlyInputListeners() {
@@ -2298,6 +2422,14 @@
             if (nameInput) nameInput.addEventListener('input', updateExpensesTotal);
             if (amountInput) amountInput.addEventListener('input', updateExpensesTotal);
             if (currencySelect) currencySelect.addEventListener('change', updateExpensesTotal);
+        }
+        
+        function setupUsdExpenseInputListeners(id) {
+            const nameInput = document.getElementById(`usd-expense-name-${id}`);
+            const amountInput = document.getElementById(`usd-expense-amount-${id}`);
+            
+            if (nameInput) nameInput.addEventListener('input', updateUsdExpensesTotal);
+            if (amountInput) amountInput.addEventListener('input', updateUsdExpensesTotal);
         }
         
         function updateDateRangeInfo() {
@@ -2355,10 +2487,12 @@
             document.getElementById('silver-total-display').textContent = formatNumber(silverTotal);
             
             // فائض حقيقي
-            appData.realSurplus = usdSurplus - silverTotal;
+            updateUsdExpensesTotal(); // تحديث مصروفات الدولار أولاً
+            appData.realSurplus = usdSurplus - silverTotal - appData.usdExpenseTotal;
             
             document.getElementById('display-usd-surplus').textContent = `$${formatNumber(usdSurplus)}`;
             document.getElementById('display-silver-value').textContent = `$${formatNumber(silverTotal)}`;
+            document.getElementById('display-usd-expense').textContent = `$${formatNumber(appData.usdExpenseTotal)}`;
             document.getElementById('real-surplus').textContent = `$${formatNumber(appData.realSurplus)}`;
             
             // أرباح
@@ -2490,6 +2624,32 @@
                     </div>
                 `;
             }
+        }
+        
+        function updateUsdExpensesTotal() {
+            let totalUsdExpense = 0;
+            
+            appData.usdExpenses = [];
+            
+            for (let i = 1; i <= usdExpenseCounter; i++) {
+                const nameInput = document.getElementById(`usd-expense-name-${i}`);
+                const amountInput = document.getElementById(`usd-expense-amount-${i}`);
+                
+                if (nameInput && amountInput) {
+                    const name = nameInput.value;
+                    const amount = parseFloat(amountInput.value) || 0;
+                    
+                    if (name && amount > 0) {
+                        appData.usdExpenses.push({ name, amount });
+                        totalUsdExpense += amount;
+                    }
+                }
+            }
+            
+            appData.usdExpenseTotal = totalUsdExpense;
+            
+            document.getElementById('usd-expense-total-display').textContent = formatNumber(totalUsdExpense);
+            document.getElementById('display-usd-expense').textContent = `$${formatNumber(totalUsdExpense)}`;
         }
         
         function autoCollectProfits() {
@@ -2881,6 +3041,53 @@
             }
         }
         
+        function addNewUsdExpense() {
+            usdExpenseCounter++;
+            
+            const container = document.getElementById('usd-expenses-container');
+            if (!container) return;
+            
+            const expenseItem = document.createElement('div');
+            expenseItem.className = 'usd-expense-item';
+            expenseItem.id = `usd-expense-item-${usdExpenseCounter}`;
+            expenseItem.innerHTML = `
+                <div class="input-group">
+                    <label for="usd-expense-name-${usdExpenseCounter}">وصف المصروف / Gider Açıklaması</label>
+                    <input type="text" id="usd-expense-name-${usdExpenseCounter}" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
+                </div>
+                
+                <div class="input-group">
+                    <label for="usd-expense-amount-${usdExpenseCounter}">القيمة ($) / Tutar ($)</label>
+                    <input type="number" id="usd-expense-amount-${usdExpenseCounter}" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0">
+                </div>
+                
+                <button class="btn btn-reset remove-usd-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="${usdExpenseCounter}">
+                    <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                </button>
+            `;
+            
+            container.appendChild(expenseItem);
+            
+            setupUsdExpenseInputListeners(usdExpenseCounter);
+            
+            const removeBtn = expenseItem.querySelector('.remove-usd-expense-btn');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function() {
+                    removeUsdExpense(usdExpenseCounter);
+                });
+            }
+            
+            updateUsdExpensesTotal();
+        }
+        
+        function removeUsdExpense(id) {
+            const item = document.getElementById(`usd-expense-item-${id}`);
+            if (item) {
+                item.remove();
+                updateUsdExpensesTotal();
+            }
+        }
+        
         function addNewMonthlyExpense() {
             monthlyExpenseCounter++;
             
@@ -3041,6 +3248,7 @@
             
             document.getElementById('report-display-usd-surplus').textContent = `$${formatNumber(appData.usd.surplus)}`;
             document.getElementById('report-display-silver-value').textContent = `$${formatNumber(appData.silver.total)}`;
+            document.getElementById('report-display-usd-expense').textContent = `$${formatNumber(appData.usdExpenseTotal)}`;
             document.getElementById('report-real-surplus').textContent = `$${formatNumber(appData.realSurplus)}`;
             
             document.getElementById('report-swift-usd').textContent = formatNumber(appData.profits.swift.usd);
@@ -3052,9 +3260,42 @@
             document.getElementById('report-total-profit-usd').textContent = formatNumber(appData.profits.total.usd);
             document.getElementById('report-total-profit-eur').textContent = formatNumber(appData.profits.total.eur);
             
+            updateReportUsdExpenses();
             updateReportExpenses();
             
             switchTab('report');
+        }
+        
+        function updateReportUsdExpenses() {
+            const container = document.getElementById('report-usd-expenses-list');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            if (appData.usdExpenses.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        لا توجد مصروفات مسجلة / Kayıtlı gider yok
+                    </div>
+                `;
+                document.getElementById('report-usd-expense-total').textContent = '0.00';
+                return;
+            }
+            
+            appData.usdExpenses.forEach(expense => {
+                const expenseDiv = document.createElement('div');
+                expenseDiv.style.display = 'flex';
+                expenseDiv.style.justifyContent = 'space-between';
+                expenseDiv.style.padding = '8px 0';
+                expenseDiv.style.borderBottom = '1px solid #eee';
+                expenseDiv.innerHTML = `
+                    <span>${expense.name}</span>
+                    <span style="font-weight: bold; color: #4caf50;">$${formatNumber(expense.amount)}</span>
+                `;
+                container.appendChild(expenseDiv);
+            });
+            
+            document.getElementById('report-usd-expense-total').textContent = formatNumber(appData.usdExpenseTotal);
         }
         
         function updateReportExpenses() {
@@ -3151,11 +3392,40 @@
                     addNewExpense();
                 }
                 
+                const usdExpensesContainer = document.getElementById('usd-expenses-container');
+                if (usdExpensesContainer) {
+                    usdExpensesContainer.innerHTML = '';
+                    usdExpenseCounter = 1;
+                    
+                    const expenseItem = document.createElement('div');
+                    expenseItem.className = 'usd-expense-item';
+                    expenseItem.id = `usd-expense-item-1`;
+                    expenseItem.innerHTML = `
+                        <div class="input-group">
+                            <label for="usd-expense-name-1">وصف المصروف / Gider Açıklaması</label>
+                            <input type="text" id="usd-expense-name-1" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="usd-expense-amount-1">القيمة ($) / Tutar ($)</label>
+                            <input type="number" id="usd-expense-amount-1" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0">
+                        </div>
+                        
+                        <button class="btn btn-reset remove-usd-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="1">
+                            <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                        </button>
+                    `;
+                    usdExpensesContainer.appendChild(expenseItem);
+                    setupUsdExpenseInputListeners(1);
+                }
+                
                 appData = {
                     usd: { debtor: 0, creditor: 0, surplus: 0 },
                     eur: { debtor: 0, creditor: 0, surplus: 0 },
                     try: { debtor: 0, creditor: 0, surplus: 0 },
                     silver: { quantity: 0, total: 0 },
+                    usdExpenses: [],
+                    usdExpenseTotal: 0,
                     realSurplus: 0,
                     profits: { 
                         swift: { usd: 0, eur: 0 }, 
@@ -3257,6 +3527,16 @@
                 if (totalExpenseTRY > 0) expenseDisplay += `₺${formatNumber(totalExpenseTRY)}`;
                 if (!expenseDisplay) expenseDisplay = '-';
                 
+                // حساب إجمالي مصروفات الدولار
+                let usdExpenseTotal = 0;
+                if (record.data.usdExpenses) {
+                    record.data.usdExpenses.forEach(expense => {
+                        usdExpenseTotal += expense.amount || 0;
+                    });
+                } else {
+                    usdExpenseTotal = record.data.usdExpenseTotal || 0;
+                }
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${formatDate(record.date)}</td>
@@ -3270,6 +3550,7 @@
                         ₺${formatNumber(record.data.try.surplus)}
                     </td>
                     <td>$${formatNumber(record.data.silver.total)}</td>
+                    <td>$${formatNumber(usdExpenseTotal)}</td>
                     <td style="color: ${record.data.realSurplus >= 0 ? '#2e7d32' : '#d32f2f'}; font-weight: bold;">
                         $${formatNumber(record.data.realSurplus)}
                     </td>
@@ -3309,6 +3590,44 @@
             document.getElementById('silver-profit-usd').value = record.data.profits.silver.usd;
             document.getElementById('silver-profit-eur').value = record.data.profits.silver.eur;
             
+            // تحميل مصروفات الدولار
+            const usdExpensesContainer = document.getElementById('usd-expenses-container');
+            if (usdExpensesContainer && record.data.usdExpenses) {
+                usdExpensesContainer.innerHTML = '';
+                usdExpenseCounter = 0;
+                
+                record.data.usdExpenses.forEach((expense, i) => {
+                    usdExpenseCounter++;
+                    const expenseItem = document.createElement('div');
+                    expenseItem.className = 'usd-expense-item';
+                    expenseItem.id = `usd-expense-item-${usdExpenseCounter}`;
+                    expenseItem.innerHTML = `
+                        <div class="input-group">
+                            <label for="usd-expense-name-${usdExpenseCounter}">وصف المصروف / Gider Açıklaması</label>
+                            <input type="text" id="usd-expense-name-${usdExpenseCounter}" placeholder="مثال: إيجار المحل / Örnek: Dükkan kirası" value="${expense.name || ''}">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="usd-expense-amount-${usdExpenseCounter}">القيمة ($) / Tutar ($)</label>
+                            <input type="number" id="usd-expense-amount-${usdExpenseCounter}" placeholder="أدخل قيمة المصروف / Gider tutarını girin" step="0.01" min="0" value="${expense.amount || 0}">
+                        </div>
+                        
+                        <button class="btn btn-reset remove-usd-expense-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;" data-id="${usdExpenseCounter}">
+                            <i class="fas fa-trash"></i> حذف هذا المصروف / Bu Gideri Sil
+                        </button>
+                    `;
+                    usdExpensesContainer.appendChild(expenseItem);
+                    setupUsdExpenseInputListeners(usdExpenseCounter);
+                    
+                    const removeBtn = expenseItem.querySelector('.remove-usd-expense-btn');
+                    if (removeBtn) {
+                        removeBtn.addEventListener('click', function() {
+                            removeUsdExpense(usdExpenseCounter);
+                        });
+                    }
+                });
+            }
+            
             updateCalculations();
             switchTab('input');
             
@@ -3344,7 +3663,7 @@
                 if (noHistoryRow) {
                     noHistoryRow.style.display = '';
                     noHistoryRow.innerHTML = `
-                        <td colspan="9" style="text-align: center; padding: 30px;">
+                        <td colspan="10" style="text-align: center; padding: 30px;">
                             لا توجد سجلات للتاريخ ${formatDate(filterDate)} / 
                             ${formatDate(filterDate)} tarihi için kayıt bulunamadı.
                         </td>
@@ -3374,6 +3693,16 @@
                 if (totalExpenseTRY > 0) expenseDisplay += `₺${formatNumber(totalExpenseTRY)}`;
                 if (!expenseDisplay) expenseDisplay = '-';
                 
+                // حساب إجمالي مصروفات الدولار
+                let usdExpenseTotal = 0;
+                if (record.data.usdExpenses) {
+                    record.data.usdExpenses.forEach(expense => {
+                        usdExpenseTotal += expense.amount || 0;
+                    });
+                } else {
+                    usdExpenseTotal = record.data.usdExpenseTotal || 0;
+                }
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${formatDate(record.date)}</td>
@@ -3387,6 +3716,7 @@
                         ₺${formatNumber(record.data.try.surplus)}
                     </td>
                     <td>$${formatNumber(record.data.silver.total)}</td>
+                    <td>$${formatNumber(usdExpenseTotal)}</td>
                     <td style="color: ${record.data.realSurplus >= 0 ? '#2e7d32' : '#d32f2f'}; font-weight: bold;">
                         $${formatNumber(record.data.realSurplus)}
                     </td>
