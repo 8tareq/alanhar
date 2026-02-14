@@ -1153,7 +1153,7 @@
             font-size: 0.9rem;
         }
 
-        /* قسم الفضة الجديد */
+        /* قسم الفضة */
         .silver-box {
             background: linear-gradient(135deg, #fff8e1, #ffecb3);
             border-left: 5px solid #ff9800;
@@ -1175,6 +1175,31 @@
             font-weight: bold;
             font-size: 1.2rem;
             margin-top: 10px;
+        }
+        
+        /* قسم النحاس الجديد */
+        .copper-box {
+            background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+            border-left: 5px solid #009688;
+        }
+        
+        .copper-title {
+            color: #00695c;
+        }
+        
+        .copper-icon {
+            background-color: #009688;
+        }
+        
+        .copper-value-box {
+            background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            border: 2px solid #009688;
         }
         
         /* قسم المصروفات بالدولار بجانب الفضة */
@@ -1235,13 +1260,22 @@
             margin: 10px 0;
         }
         
-        /* أنماط التقرير للفضة */
-        .report-silver-section {
-            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+        /* أنماط التقرير للفضة والنحاس */
+        .report-silver-section, .report-copper-section {
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 25px;
-            border: 2px solid #ff9800;
+            border: 2px solid;
+        }
+        
+        .report-silver-section {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border-color: #ff9800;
+        }
+        
+        .report-copper-section {
+            background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+            border-color: #009688;
         }
         
         .report-silver-title {
@@ -1254,15 +1288,30 @@
             align-items: center;
         }
         
-        .report-silver-title i {
+        .report-copper-title {
+            color: #00695c;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #80cbc4;
+            display: flex;
+            align-items: center;
+        }
+        
+        .report-silver-title i, .report-copper-title i {
             margin-left: 10px;
         }
         
-        /* أنماط طباعة الفضة */
+        /* أنماط الطباعة */
         @media print {
             .report-silver-section {
                 background: #fff8e1 !important;
                 border: 1px solid #ff9800;
+            }
+            
+            .report-copper-section {
+                background: #e0f2f1 !important;
+                border: 1px solid #009688;
             }
             
             .real-surplus-box {
@@ -1416,6 +1465,32 @@
                         </div>
                     </div>
                     
+                    <!-- النحاس -->
+                    <div class="currency-box copper-box">
+                        <div class="currency-title copper-title">
+                            <div class="currency-icon copper-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <div>النحاس (بالكيلو) / Bakır (kg)</div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="copper-quantity">الكمية (كيلو) / Miktar (kg)</label>
+                            <div class="label-tr">Bakır miktarı kilogram cinsinden</div>
+                            <input type="number" id="copper-quantity" placeholder="أدخل كمية النحاس بالكيلو / Bakır miktarını kilogram olarak girin" step="0.001" min="0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="copper-total-input">القيمة الإجمالية ($) / Toplam Değer ($)</label>
+                            <div class="label-tr">Toplam dolar değeri</div>
+                            <input type="number" id="copper-total-input" placeholder="أدخل القيمة الإجمالية بالدولار / Toplam değeri dolar olarak girin" step="0.01" min="0">
+                        </div>
+                        
+                        <div id="copper-value" class="copper-value-box">
+                            القيمة الإجمالية للنحاس: $<span id="copper-total-display">0.00</span>
+                        </div>
+                    </div>
+                    
                     <!-- مصروفات الدولار -->
                     <div class="currency-box usd-expense-box">
                         <div class="currency-title usd-expense-title">
@@ -1454,7 +1529,7 @@
                     </div>
                 </div>
                 
-                <!-- مربع الفائض الحقيقي المعدل -->
+                <!-- مربع الفائض الحقيقي المعدل مع الفضة والنحاس -->
                 <div id="real-surplus-box" class="real-surplus-box">
                     <div style="font-size: 1.2rem; margin-bottom: 10px;">
                         <i class="fas fa-calculator"></i> الفائض الحقيقي / Gerçek Kar-Zarar
@@ -1467,6 +1542,10 @@
                         <div style="text-align: center; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
                             <div>ناقص قيمة الفضة / Eksi Gümüş Değeri</div>
                             <div style="font-size: 1.5rem; font-weight: bold; color: #ff9800;" id="display-silver-value">$0.00</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(0, 150, 136, 0.1); border-radius: 8px;">
+                            <div>ناقص قيمة النحاس / Eksi Bakır Değeri</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #009688;" id="display-copper-value">$0.00</div>
                         </div>
                         <div style="text-align: center; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
                             <div>ناقص مصروفات الدولار / Eksi Dolar Giderleri</div>
@@ -1536,6 +1615,42 @@
                             <span class="profit-currency-label">€</span>
                             <div class="profit-amount">
                                 <input type="number" id="silver-profit-eur" placeholder="أدخل ربح الفضة باليورو" class="profit-input" step="0.01" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profit-item">
+                        <div class="input-group">
+                            <label>ربح النحاس / Bakır Kârı</label>
+                        </div>
+                        <div class="profit-currency-row">
+                            <span class="profit-currency-label">$</span>
+                            <div class="profit-amount">
+                                <input type="number" id="copper-profit-usd" placeholder="أدخل ربح النحاس بالدولار" class="profit-input" step="0.01" min="0">
+                            </div>
+                        </div>
+                        <div class="profit-currency-row">
+                            <span class="profit-currency-label">€</span>
+                            <div class="profit-amount">
+                                <input type="number" id="copper-profit-eur" placeholder="أدخل ربح النحاس باليورو" class="profit-input" step="0.01" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profit-item">
+                        <div class="input-group">
+                            <label>أرباح خارجية / Dış Kârlar</label>
+                        </div>
+                        <div class="profit-currency-row">
+                            <span class="profit-currency-label">$</span>
+                            <div class="profit-amount">
+                                <input type="number" id="external-profit-usd" placeholder="أدخل الأرباح الخارجية بالدولار" class="profit-input" step="0.01" min="0">
+                            </div>
+                        </div>
+                        <div class="profit-currency-row">
+                            <span class="profit-currency-label">€</span>
+                            <div class="profit-amount">
+                                <input type="number" id="external-profit-eur" placeholder="أدخل الأرباح الخارجية باليورو" class="profit-input" step="0.01" min="0">
                             </div>
                         </div>
                     </div>
@@ -1652,10 +1767,10 @@
                 </div>
             </div>
             
-            <!-- قسم الفضة والمصروفات بالدولار في التقرير -->
+            <!-- قسم الفضة في التقرير -->
             <div class="report-silver-section">
                 <div class="report-silver-title">
-                    <i class="fas fa-gem"></i> بيانات الفضة والمصروفات / Gümüş ve Gider Verileri
+                    <i class="fas fa-gem"></i> بيانات الفضة / Gümüş Verileri
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                     <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #ffcc80;">
@@ -1673,26 +1788,51 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #a5d6a7;">
-                        <div style="font-weight: bold; color: #2e7d32; margin-bottom: 10px;">مصروفات الدولار / Dolar Giderleri</div>
-                        <div id="report-usd-expenses-list" style="max-height: 200px; overflow-y: auto;">
-                            <!-- مصروفات الدولار ستظهر هنا -->
-                            <div style="text-align: center; padding: 20px; color: #666;">
-                                لا توجد مصروفات مسجلة / Kayıtlı gider yok
+                </div>
+            </div>
+            
+            <!-- قسم النحاس في التقرير -->
+            <div class="report-copper-section">
+                <div class="report-copper-title">
+                    <i class="fas fa-cubes"></i> بيانات النحاس / Bakır Verileri
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #80cbc4;">
+                        <div style="font-weight: bold; color: #00695c; margin-bottom: 10px;">النحاس / Bakır</div>
+                        <div style="margin-bottom: 15px;">
+                            <div>الكمية (كيلو) / Miktar (kg)</div>
+                            <div style="font-size: 1.3rem; text-align: center; font-weight: bold;">
+                                <span id="report-copper-quantity">0.00</span> كيلو / kg
                             </div>
                         </div>
-                        <div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #c8e6c9;">
-                            <div>الإجمالي / Toplam</div>
-                            <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #4caf50;">
-                                $<span id="report-usd-expense-total">0.00</span>
+                        <div>
+                            <div>القيمة الإجمالية / Toplam Değer</div>
+                            <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #009688;">
+                                $<span id="report-copper-total">0.00</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- قسم الفائض الحقيقي في التقرير -->
+            <!-- قسم مصروفات الدولار في التقرير -->
+            <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 2px solid #4caf50;">
+                <div style="font-weight: bold; color: #2e7d32; margin-bottom: 10px;">مصروفات الدولار / Dolar Giderleri</div>
+                <div id="report-usd-expenses-list" style="max-height: 200px; overflow-y: auto;">
+                    <!-- مصروفات الدولار ستظهر هنا -->
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        لا توجد مصروفات مسجلة / Kayıtlı gider yok
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #c8e6c9;">
+                    <div>الإجمالي / Toplam</div>
+                    <div style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #4caf50;">
+                        $<span id="report-usd-expense-total">0.00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الفائض الحقيقي في التقرير مع الفضة والنحاس -->
             <div class="real-surplus-box" style="margin-top: 20px;">
                 <div style="font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-calculator" style="margin-left: 10px;"></i>
@@ -1706,6 +1846,10 @@
                     <div style="text-align: center; padding: 15px; background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
                         <div style="font-size: 1.1rem; margin-bottom: 10px;">ناقص قيمة الفضة / Eksi Gümüş Değeri</div>
                         <div style="font-size: 1.8rem; font-weight: bold; color: #ff9800;" id="report-display-silver-value">$0.00</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(0, 150, 136, 0.1); border-radius: 8px;">
+                        <div style="font-size: 1.1rem; margin-bottom: 10px;">ناقص قيمة النحاس / Eksi Bakır Değeri</div>
+                        <div style="font-size: 1.8rem; font-weight: bold; color: #009688;" id="report-display-copper-value">$0.00</div>
                     </div>
                     <div style="text-align: center; padding: 15px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
                         <div style="font-size: 1.1rem; margin-bottom: 10px;">ناقص مصروفات الدولار / Eksi Dolar Giderleri</div>
@@ -1754,6 +1898,28 @@
                         <div class="profit-display">
                             <span>€</span>
                             <span id="report-silver-profit-eur">0.00</span>
+                        </div>
+                    </div>
+                    <div class="profit-item">
+                        <h4>ربح النحاس / Bakır Kârı</h4>
+                        <div class="profit-display">
+                            <span>$</span>
+                            <span id="report-copper-profit-usd">0.00</span>
+                        </div>
+                        <div class="profit-display">
+                            <span>€</span>
+                            <span id="report-copper-profit-eur">0.00</span>
+                        </div>
+                    </div>
+                    <div class="profit-item">
+                        <h4>أرباح خارجية / Dış Kârlar</h4>
+                        <div class="profit-display">
+                            <span>$</span>
+                            <span id="report-external-profit-usd">0.00</span>
+                        </div>
+                        <div class="profit-display">
+                            <span>€</span>
+                            <span id="report-external-profit-eur">0.00</span>
                         </div>
                     </div>
                     <div class="profit-item" style="background-color: #e8f5e9;">
@@ -1814,7 +1980,7 @@
             
             <div class="monthly-warning no-print">
                 <i class="fas fa-calendar-alt"></i>
-                <strong>ملاحظة / Not:</strong> أدخل بيانات المدين والدائن يدوياً، وسيتم جمع أرباح Swift والفضة والحوالة تلقائياً من السجلات السابقة. المصاريف والأرباح التلقائية للمعلومية فقط ولا تزيد أو تنقص من الفائض. / Borçlu ve Alacaklı verilerini elle girin, Swift, Gümüş ve Havale kârları otomatik olarak önceki kayıtlardan toplanacaktır. Giderler ve otomatik kârlar sadece bilgi amaçlıdır ve kar-zarardan eklenmez veya çıkarılmaz.
+                <strong>ملاحظة / Not:</strong> أدخل بيانات المدين والدائن يدوياً، وسيتم جمع الأرباح تلقائياً من السجلات السابقة. المصاريف والأرباح التلقائية للمعلومية فقط ولا تزيد أو تنقص من الفائض. / Borçlu ve Alacaklı verilerini elle girin, kârlar otomatik olarak önceki kayıtlardan toplanacaktır. Giderler ve otomatik kârlar sadece bilgi amaçlıdır ve kar-zarardan eklenmez veya çıkarılmaz.
             </div>
             
             <!-- قسم التجميع التلقائي للأرباح -->
@@ -1824,8 +1990,8 @@
                 </div>
                 
                 <div class="auto-collect-info">
-                    <p><strong>تفسير:</strong> سيتم تجميع جميع عمليات الربح (Swift، Havala، الفضة) تلقائياً عند اختيار الفترة الزمنية. كل عملية حفظ يومية يتم تجميعها مع العمليات السابقة.</p>
-                    <p><strong>Açıklama:</strong> Tüm kâr işlemleri (Swift, Havale, Gümüş) otomatik olarak zaman aralığı seçildiğinde toplanacaktır. Her günlük kayıt işlemi, önceki işlemlerle toplanır.</p>
+                    <p><strong>تفسير:</strong> سيتم تجميع جميع عمليات الربح (Swift، Havala، الفضة، النحاس، الأرباح الخارجية) تلقائياً عند اختيار الفترة الزمنية.</p>
+                    <p><strong>Açıklama:</strong> Tüm kâr işlemleri (Swift, Havale, Gümüş, Bakır, Dış Kârlar) otomatik olarak zaman aralığı seçildiğinde toplanacaktır.</p>
                 </div>
                 
                 <div class="date-range-selector">
@@ -2011,6 +2177,34 @@
                             <span id="auto-silver-eur">0.00</span>
                         </div>
                     </div>
+                    <div class="profit-item monthly-profit-item">
+                        <h4>ربح النحاس المجمع / Toplanan Bakır Kârı</h4>
+                        <div class="summary-row">
+                            <span>من <span id="auto-copper-start">--</span> إلى <span id="auto-copper-end">--</span></span>
+                        </div>
+                        <div class="profit-display monthly-profit-display">
+                            <span>$</span>
+                            <span id="auto-copper-usd">0.00</span>
+                        </div>
+                        <div class="profit-display monthly-profit-display">
+                            <span>€</span>
+                            <span id="auto-copper-eur">0.00</span>
+                        </div>
+                    </div>
+                    <div class="profit-item monthly-profit-item">
+                        <h4>الأرباح الخارجية المجمعة / Toplanan Dış Kârlar</h4>
+                        <div class="summary-row">
+                            <span>من <span id="auto-external-start">--</span> إلى <span id="auto-external-end">--</span></span>
+                        </div>
+                        <div class="profit-display monthly-profit-display">
+                            <span>$</span>
+                            <span id="auto-external-usd">0.00</span>
+                        </div>
+                        <div class="profit-display monthly-profit-display">
+                            <span>€</span>
+                            <span id="auto-external-eur">0.00</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -2147,6 +2341,16 @@
                                 <div class="compact-value" id="compact-silver-usd">$0.00</div>
                                 <div class="compact-value" id="compact-silver-eur">€0.00</div>
                             </div>
+                            <div class="compact-grid-item">
+                                <div class="compact-grid-title">ربح النحاس / Bakır Kârı</div>
+                                <div class="compact-value" id="compact-copper-usd">$0.00</div>
+                                <div class="compact-value" id="compact-copper-eur">€0.00</div>
+                            </div>
+                            <div class="compact-grid-item">
+                                <div class="compact-grid-title">أرباح خارجية / Dış Kârlar</div>
+                                <div class="compact-value" id="compact-external-usd">$0.00</div>
+                                <div class="compact-value" id="compact-external-eur">€0.00</div>
+                            </div>
                         </div>
                     </div>
                     
@@ -2212,6 +2416,7 @@
                                 <th>فائض اليورو / Euro Kar-Zarar</th>
                                 <th>فائض الليرة / Lira Kar-Zarar</th>
                                 <th>قيمة الفضة / Gümüş Değeri</th>
+                                <th>قيمة النحاس / Bakır Değeri</th>
                                 <th>مصروفات الدولار / Dolar Giderleri</th>
                                 <th>الفائض الحقيقي / Gerçek Kar-Zarar</th>
                                 <th>إجمالي الأرباح / Toplam Kâr</th>
@@ -2222,7 +2427,7 @@
                         <tbody id="history-table-body">
                             <!-- سيتم ملء الجدول ديناميكياً -->
                             <tr id="no-history">
-                                <td colspan="10" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
+                                <td colspan="11" style="text-align: center; padding: 30px;">لا توجد سجلات سابقة. ابدأ بإدخال بيانات اليوم. / Önceki kayıt yok. Bugünün verilerini girmeye başlayın.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -2249,13 +2454,16 @@
             eur: { debtor: 0, creditor: 0, surplus: 0 },
             try: { debtor: 0, creditor: 0, surplus: 0 },
             silver: { quantity: 0, total: 0 },
-            usdExpenses: [], // مصروفات الدولار الجديدة
-            usdExpenseTotal: 0, // إجمالي مصروفات الدولار
+            copper: { quantity: 0, total: 0 },
+            usdExpenses: [],
+            usdExpenseTotal: 0,
             realSurplus: 0,
             profits: { 
                 swift: { usd: 0, eur: 0 }, 
                 havana: { usd: 0, eur: 0 }, 
                 silver: { usd: 0, eur: 0 },
+                copper: { usd: 0, eur: 0 },
+                external: { usd: 0, eur: 0 },
                 total: { usd: 0, eur: 0 }
             },
             expenses: [],
@@ -2273,7 +2481,9 @@
             autoProfits: {
                 swift: { usd: 0, eur: 0 },
                 havana: { usd: 0, eur: 0 },
-                silver: { usd: 0, eur: 0 }
+                silver: { usd: 0, eur: 0 },
+                copper: { usd: 0, eur: 0 },
+                external: { usd: 0, eur: 0 }
             },
             monthlyExpenses: [],
             detailedProfits: []
@@ -2376,9 +2586,12 @@
                 'eur-debtor', 'eur-creditor',
                 'try-debtor', 'try-creditor',
                 'silver-quantity', 'silver-total-input',
+                'copper-quantity', 'copper-total-input',
                 'swift-profit-usd', 'swift-profit-eur',
                 'havala-profit-usd', 'havala-profit-eur',
-                'silver-profit-usd', 'silver-profit-eur'
+                'silver-profit-usd', 'silver-profit-eur',
+                'copper-profit-usd', 'copper-profit-eur',
+                'external-profit-usd', 'external-profit-eur'
             ];
             
             inputs.forEach(id => {
@@ -2486,12 +2699,20 @@
             
             document.getElementById('silver-total-display').textContent = formatNumber(silverTotal);
             
+            // نحاس
+            const copperQuantity = parseFloat(document.getElementById('copper-quantity').value) || 0;
+            const copperTotal = parseFloat(document.getElementById('copper-total-input').value) || 0;
+            appData.copper = { quantity: copperQuantity, total: copperTotal };
+            
+            document.getElementById('copper-total-display').textContent = formatNumber(copperTotal);
+            
             // فائض حقيقي
             updateUsdExpensesTotal(); // تحديث مصروفات الدولار أولاً
-            appData.realSurplus = usdSurplus - silverTotal - appData.usdExpenseTotal;
+            appData.realSurplus = usdSurplus - silverTotal - copperTotal - appData.usdExpenseTotal;
             
             document.getElementById('display-usd-surplus').textContent = `$${formatNumber(usdSurplus)}`;
             document.getElementById('display-silver-value').textContent = `$${formatNumber(silverTotal)}`;
+            document.getElementById('display-copper-value').textContent = `$${formatNumber(copperTotal)}`;
             document.getElementById('display-usd-expense').textContent = `$${formatNumber(appData.usdExpenseTotal)}`;
             document.getElementById('real-surplus').textContent = `$${formatNumber(appData.realSurplus)}`;
             
@@ -2502,14 +2723,20 @@
             const havanaProfitEUR = parseFloat(document.getElementById('havala-profit-eur').value) || 0;
             const silverProfitUSD = parseFloat(document.getElementById('silver-profit-usd').value) || 0;
             const silverProfitEUR = parseFloat(document.getElementById('silver-profit-eur').value) || 0;
+            const copperProfitUSD = parseFloat(document.getElementById('copper-profit-usd').value) || 0;
+            const copperProfitEUR = parseFloat(document.getElementById('copper-profit-eur').value) || 0;
+            const externalProfitUSD = parseFloat(document.getElementById('external-profit-usd').value) || 0;
+            const externalProfitEUR = parseFloat(document.getElementById('external-profit-eur').value) || 0;
             
-            const totalProfitUSD = swiftProfitUSD + havanaProfitUSD + silverProfitUSD;
-            const totalProfitEUR = swiftProfitEUR + havanaProfitEUR + silverProfitEUR;
+            const totalProfitUSD = swiftProfitUSD + havanaProfitUSD + silverProfitUSD + copperProfitUSD + externalProfitUSD;
+            const totalProfitEUR = swiftProfitEUR + havanaProfitEUR + silverProfitEUR + copperProfitEUR + externalProfitEUR;
             
             appData.profits = { 
                 swift: { usd: swiftProfitUSD, eur: swiftProfitEUR }, 
                 havana: { usd: havanaProfitUSD, eur: havanaProfitEUR }, 
                 silver: { usd: silverProfitUSD, eur: silverProfitEUR },
+                copper: { usd: copperProfitUSD, eur: copperProfitEUR },
+                external: { usd: externalProfitUSD, eur: externalProfitEUR },
                 total: { usd: totalProfitUSD, eur: totalProfitEUR }
             };
             
@@ -2682,7 +2909,9 @@
                 monthlyData.autoProfits = {
                     swift: { usd: 0, eur: 0 },
                     havana: { usd: 0, eur: 0 },
-                    silver: { usd: 0, eur: 0 }
+                    silver: { usd: 0, eur: 0 },
+                    copper: { usd: 0, eur: 0 },
+                    external: { usd: 0, eur: 0 }
                 };
                 
                 updateAutoProfitsDisplay();
@@ -2692,6 +2921,8 @@
             let totalSwiftUSD = 0, totalSwiftEUR = 0;
             let totalHavanaUSD = 0, totalHavanaEUR = 0;
             let totalSilverUSD = 0, totalSilverEUR = 0;
+            let totalCopperUSD = 0, totalCopperEUR = 0;
+            let totalExternalUSD = 0, totalExternalEUR = 0;
             let grandTotalUSD = 0, grandTotalEUR = 0;
             
             let detailsHtml = '';
@@ -2710,6 +2941,8 @@
                 let dateSwiftUSD = 0, dateSwiftEUR = 0;
                 let dateHavanaUSD = 0, dateHavanaEUR = 0;
                 let dateSilverUSD = 0, dateSilverEUR = 0;
+                let dateCopperUSD = 0, dateCopperEUR = 0;
+                let dateExternalUSD = 0, dateExternalEUR = 0;
                 
                 dateOperations.forEach(operation => {
                     dateSwiftUSD += operation.profits.swift.usd || 0;
@@ -2718,6 +2951,10 @@
                     dateHavanaEUR += operation.profits.havana.eur || 0;
                     dateSilverUSD += operation.profits.silver.usd || 0;
                     dateSilverEUR += operation.profits.silver.eur || 0;
+                    dateCopperUSD += operation.profits.copper?.usd || 0;
+                    dateCopperEUR += operation.profits.copper?.eur || 0;
+                    dateExternalUSD += operation.profits.external?.usd || 0;
+                    dateExternalEUR += operation.profits.external?.eur || 0;
                 });
                 
                 totalSwiftUSD += dateSwiftUSD;
@@ -2726,9 +2963,13 @@
                 totalHavanaEUR += dateHavanaEUR;
                 totalSilverUSD += dateSilverUSD;
                 totalSilverEUR += dateSilverEUR;
+                totalCopperUSD += dateCopperUSD;
+                totalCopperEUR += dateCopperEUR;
+                totalExternalUSD += dateExternalUSD;
+                totalExternalEUR += dateExternalEUR;
                 
-                dateTotalUSD = dateSwiftUSD + dateHavanaUSD + dateSilverUSD;
-                dateTotalEUR = dateSwiftEUR + dateHavanaEUR + dateSilverEUR;
+                dateTotalUSD = dateSwiftUSD + dateHavanaUSD + dateSilverUSD + dateCopperUSD + dateExternalUSD;
+                dateTotalEUR = dateSwiftEUR + dateHavanaEUR + dateSilverEUR + dateCopperEUR + dateExternalEUR;
                 grandTotalUSD += dateTotalUSD;
                 grandTotalEUR += dateTotalEUR;
                 
@@ -2754,6 +2995,16 @@
                                 <div>$${formatNumber(dateSilverUSD)}</div>
                                 <div>€${formatNumber(dateSilverEUR)}</div>
                             </div>
+                            <div class="profit-type-item">
+                                <div class="profit-type-title">ربح النحاس</div>
+                                <div>$${formatNumber(dateCopperUSD)}</div>
+                                <div>€${formatNumber(dateCopperEUR)}</div>
+                            </div>
+                            <div class="profit-type-item">
+                                <div class="profit-type-title">أرباح خارجية</div>
+                                <div>$${formatNumber(dateExternalUSD)}</div>
+                                <div>€${formatNumber(dateExternalEUR)}</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -2777,7 +3028,9 @@
             monthlyData.autoProfits = {
                 swift: { usd: totalSwiftUSD, eur: totalSwiftEUR },
                 havana: { usd: totalHavanaUSD, eur: totalHavanaEUR },
-                silver: { usd: totalSilverUSD, eur: totalSilverEUR }
+                silver: { usd: totalSilverUSD, eur: totalSilverEUR },
+                copper: { usd: totalCopperUSD, eur: totalCopperEUR },
+                external: { usd: totalExternalUSD, eur: totalExternalEUR }
             };
             
             updateAutoProfitsDisplay();
@@ -2814,7 +3067,11 @@
                 { id: 'auto-havala-usd', value: monthlyData.autoProfits.havana.usd },
                 { id: 'auto-havala-eur', value: monthlyData.autoProfits.havana.eur },
                 { id: 'auto-silver-usd', value: monthlyData.autoProfits.silver.usd },
-                { id: 'auto-silver-eur', value: monthlyData.autoProfits.silver.eur }
+                { id: 'auto-silver-eur', value: monthlyData.autoProfits.silver.eur },
+                { id: 'auto-copper-usd', value: monthlyData.autoProfits.copper.usd },
+                { id: 'auto-copper-eur', value: monthlyData.autoProfits.copper.eur },
+                { id: 'auto-external-usd', value: monthlyData.autoProfits.external.usd },
+                { id: 'auto-external-eur', value: monthlyData.autoProfits.external.eur }
             ];
             
             elements.forEach(element => {
@@ -2834,6 +3091,10 @@
             const havanaProfitEUR = parseFloat(document.getElementById('havala-profit-eur').value) || 0;
             const silverProfitUSD = parseFloat(document.getElementById('silver-profit-usd').value) || 0;
             const silverProfitEUR = parseFloat(document.getElementById('silver-profit-eur').value) || 0;
+            const copperProfitUSD = parseFloat(document.getElementById('copper-profit-usd').value) || 0;
+            const copperProfitEUR = parseFloat(document.getElementById('copper-profit-eur').value) || 0;
+            const externalProfitUSD = parseFloat(document.getElementById('external-profit-usd').value) || 0;
+            const externalProfitEUR = parseFloat(document.getElementById('external-profit-eur').value) || 0;
             
             const profitOperation = {
                 date: today,
@@ -2841,7 +3102,9 @@
                 profits: {
                     swift: { usd: swiftProfitUSD, eur: swiftProfitEUR },
                     havana: { usd: havanaProfitUSD, eur: havanaProfitEUR },
-                    silver: { usd: silverProfitUSD, eur: silverProfitEUR }
+                    silver: { usd: silverProfitUSD, eur: silverProfitEUR },
+                    copper: { usd: copperProfitUSD, eur: copperProfitEUR },
+                    external: { usd: externalProfitUSD, eur: externalProfitEUR }
                 }
             };
             
@@ -2899,6 +3162,10 @@
             document.getElementById('compact-havala-eur').textContent = `€${formatNumber(monthlyData.autoProfits.havana.eur)}`;
             document.getElementById('compact-silver-usd').textContent = `$${formatNumber(monthlyData.autoProfits.silver.usd)}`;
             document.getElementById('compact-silver-eur').textContent = `€${formatNumber(monthlyData.autoProfits.silver.eur)}`;
+            document.getElementById('compact-copper-usd').textContent = `$${formatNumber(monthlyData.autoProfits.copper.usd)}`;
+            document.getElementById('compact-copper-eur').textContent = `€${formatNumber(monthlyData.autoProfits.copper.eur)}`;
+            document.getElementById('compact-external-usd').textContent = `$${formatNumber(monthlyData.autoProfits.external.usd)}`;
+            document.getElementById('compact-external-eur').textContent = `€${formatNumber(monthlyData.autoProfits.external.eur)}`;
             
             updateCompactExpenses();
             
@@ -2914,7 +3181,11 @@
                 { id: 'compact-havala-usd', value: monthlyData.autoProfits.havana.usd, prefix: '$' },
                 { id: 'compact-havala-eur', value: monthlyData.autoProfits.havana.eur, prefix: '€' },
                 { id: 'compact-silver-usd', value: monthlyData.autoProfits.silver.usd, prefix: '$' },
-                { id: 'compact-silver-eur', value: monthlyData.autoProfits.silver.eur, prefix: '€' }
+                { id: 'compact-silver-eur', value: monthlyData.autoProfits.silver.eur, prefix: '€' },
+                { id: 'compact-copper-usd', value: monthlyData.autoProfits.copper.usd, prefix: '$' },
+                { id: 'compact-copper-eur', value: monthlyData.autoProfits.copper.eur, prefix: '€' },
+                { id: 'compact-external-usd', value: monthlyData.autoProfits.external.usd, prefix: '$' },
+                { id: 'compact-external-eur', value: monthlyData.autoProfits.external.eur, prefix: '€' }
             ];
             
             elements.forEach(element => {
@@ -3170,6 +3441,26 @@
             }
         }
         
+        function updateMonthlyExpenses() {
+            monthlyData.monthlyExpenses = [];
+            
+            for (let i = 1; i <= monthlyExpenseCounter; i++) {
+                const nameSelect = document.getElementById(`monthly-expense-name-${i}`);
+                const amountInput = document.getElementById(`monthly-expense-amount-${i}`);
+                const currencySelect = document.getElementById(`monthly-expense-currency-${i}`);
+                
+                if (nameSelect && amountInput && currencySelect) {
+                    const name = nameSelect.options[nameSelect.selectedIndex].text;
+                    const amount = parseFloat(amountInput.value) || 0;
+                    const currency = currencySelect.value;
+                    
+                    if (amount > 0) {
+                        monthlyData.monthlyExpenses.push({ name, amount, currency });
+                    }
+                }
+            }
+        }
+        
         function saveData() {
             updateCalculations();
             
@@ -3246,8 +3537,12 @@
             document.getElementById('report-silver-quantity').textContent = formatNumber(appData.silver.quantity, 3);
             document.getElementById('report-silver-total').textContent = formatNumber(appData.silver.total);
             
+            document.getElementById('report-copper-quantity').textContent = formatNumber(appData.copper.quantity, 3);
+            document.getElementById('report-copper-total').textContent = formatNumber(appData.copper.total);
+            
             document.getElementById('report-display-usd-surplus').textContent = `$${formatNumber(appData.usd.surplus)}`;
             document.getElementById('report-display-silver-value').textContent = `$${formatNumber(appData.silver.total)}`;
+            document.getElementById('report-display-copper-value').textContent = `$${formatNumber(appData.copper.total)}`;
             document.getElementById('report-display-usd-expense').textContent = `$${formatNumber(appData.usdExpenseTotal)}`;
             document.getElementById('report-real-surplus').textContent = `$${formatNumber(appData.realSurplus)}`;
             
@@ -3257,6 +3552,10 @@
             document.getElementById('report-havala-eur').textContent = formatNumber(appData.profits.havana.eur);
             document.getElementById('report-silver-profit-usd').textContent = formatNumber(appData.profits.silver.usd);
             document.getElementById('report-silver-profit-eur').textContent = formatNumber(appData.profits.silver.eur);
+            document.getElementById('report-copper-profit-usd').textContent = formatNumber(appData.profits.copper.usd);
+            document.getElementById('report-copper-profit-eur').textContent = formatNumber(appData.profits.copper.eur);
+            document.getElementById('report-external-profit-usd').textContent = formatNumber(appData.profits.external.usd);
+            document.getElementById('report-external-profit-eur').textContent = formatNumber(appData.profits.external.eur);
             document.getElementById('report-total-profit-usd').textContent = formatNumber(appData.profits.total.usd);
             document.getElementById('report-total-profit-eur').textContent = formatNumber(appData.profits.total.eur);
             
@@ -3375,9 +3674,12 @@
                     'eur-debtor', 'eur-creditor',
                     'try-debtor', 'try-creditor',
                     'silver-quantity', 'silver-total-input',
+                    'copper-quantity', 'copper-total-input',
                     'swift-profit-usd', 'swift-profit-eur',
                     'havala-profit-usd', 'havala-profit-eur',
-                    'silver-profit-usd', 'silver-profit-eur'
+                    'silver-profit-usd', 'silver-profit-eur',
+                    'copper-profit-usd', 'copper-profit-eur',
+                    'external-profit-usd', 'external-profit-eur'
                 ];
                 
                 inputs.forEach(id => {
@@ -3424,6 +3726,7 @@
                     eur: { debtor: 0, creditor: 0, surplus: 0 },
                     try: { debtor: 0, creditor: 0, surplus: 0 },
                     silver: { quantity: 0, total: 0 },
+                    copper: { quantity: 0, total: 0 },
                     usdExpenses: [],
                     usdExpenseTotal: 0,
                     realSurplus: 0,
@@ -3431,6 +3734,8 @@
                         swift: { usd: 0, eur: 0 }, 
                         havana: { usd: 0, eur: 0 }, 
                         silver: { usd: 0, eur: 0 },
+                        copper: { usd: 0, eur: 0 },
+                        external: { usd: 0, eur: 0 },
                         total: { usd: 0, eur: 0 }
                     },
                     expenses: [],
@@ -3472,7 +3777,9 @@
                     autoProfits: {
                         swift: { usd: 0, eur: 0 },
                         havana: { usd: 0, eur: 0 },
-                        silver: { usd: 0, eur: 0 }
+                        silver: { usd: 0, eur: 0 },
+                        copper: { usd: 0, eur: 0 },
+                        external: { usd: 0, eur: 0 }
                     },
                     monthlyExpenses: [],
                     detailedProfits: []
@@ -3550,6 +3857,7 @@
                         ₺${formatNumber(record.data.try.surplus)}
                     </td>
                     <td>$${formatNumber(record.data.silver.total)}</td>
+                    <td>$${formatNumber(record.data.copper.total || 0)}</td>
                     <td>$${formatNumber(usdExpenseTotal)}</td>
                     <td style="color: ${record.data.realSurplus >= 0 ? '#2e7d32' : '#d32f2f'}; font-weight: bold;">
                         $${formatNumber(record.data.realSurplus)}
@@ -3582,6 +3890,8 @@
             document.getElementById('try-creditor').value = record.data.try.creditor;
             document.getElementById('silver-quantity').value = record.data.silver.quantity;
             document.getElementById('silver-total-input').value = record.data.silver.total;
+            document.getElementById('copper-quantity').value = record.data.copper.quantity || 0;
+            document.getElementById('copper-total-input').value = record.data.copper.total || 0;
             
             document.getElementById('swift-profit-usd').value = record.data.profits.swift.usd;
             document.getElementById('swift-profit-eur').value = record.data.profits.swift.eur;
@@ -3589,6 +3899,10 @@
             document.getElementById('havala-profit-eur').value = record.data.profits.havana.eur;
             document.getElementById('silver-profit-usd').value = record.data.profits.silver.usd;
             document.getElementById('silver-profit-eur').value = record.data.profits.silver.eur;
+            document.getElementById('copper-profit-usd').value = record.data.profits.copper?.usd || 0;
+            document.getElementById('copper-profit-eur').value = record.data.profits.copper?.eur || 0;
+            document.getElementById('external-profit-usd').value = record.data.profits.external?.usd || 0;
+            document.getElementById('external-profit-eur').value = record.data.profits.external?.eur || 0;
             
             // تحميل مصروفات الدولار
             const usdExpensesContainer = document.getElementById('usd-expenses-container');
@@ -3663,7 +3977,7 @@
                 if (noHistoryRow) {
                     noHistoryRow.style.display = '';
                     noHistoryRow.innerHTML = `
-                        <td colspan="10" style="text-align: center; padding: 30px;">
+                        <td colspan="11" style="text-align: center; padding: 30px;">
                             لا توجد سجلات للتاريخ ${formatDate(filterDate)} / 
                             ${formatDate(filterDate)} tarihi için kayıt bulunamadı.
                         </td>
@@ -3716,6 +4030,7 @@
                         ₺${formatNumber(record.data.try.surplus)}
                     </td>
                     <td>$${formatNumber(record.data.silver.total)}</td>
+                    <td>$${formatNumber(record.data.copper.total || 0)}</td>
                     <td>$${formatNumber(usdExpenseTotal)}</td>
                     <td style="color: ${record.data.realSurplus >= 0 ? '#2e7d32' : '#d32f2f'}; font-weight: bold;">
                         $${formatNumber(record.data.realSurplus)}
