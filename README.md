@@ -908,7 +908,7 @@
             font-weight: bold;
         }
 
-        /* قسم حساب الصلج */
+        /* قسم حساب Saljoğ */
         .saljog-box {
             background: linear-gradient(135deg, #b3e5fc, #81d4fa);
             border-left: 5px solid #0288d1;
@@ -1165,7 +1165,7 @@
 
             <div class="info-box">
                 <p><strong>تفسير:</strong> الفائض = المدين (الخروج) - الدائن (الدخول). إذا كانت النتيجة موجبة فهذا ربح (أزرق)، وإذا كانت سالبة فهذا خسارة (أحمر).</p>
-                <p><strong>الفائض الحقيقي = فائض الدولار - مجموع حساب الصلج</strong></p>
+                <p><strong>الفائض الحقيقي = فائض الدولار - مجموع حساب saljog</strong></p>
                 <p><strong>Açıklama:</strong> Gerçek Kar/Zarar = Dolar Kar/Zarar - Saljoğ Toplam</p>
             </div>
 
@@ -1249,29 +1249,29 @@
                 </div>
             </div>
 
-            <!-- قسم حساب الصلج -->
+            <!-- قسم حساب saljog -->
             <div class="card">
                 <h2 class="card-title">
-                    <span><i class="fas fa-wallet"></i> حساب الصلج (Saljoğ) - الرصيد والمصروف والمكسب</span>
+                    <span><i class="fas fa-wallet"></i> حساب Saljoğ (Saljoğ) - الرصيد والمصروف والمكسب</span>
                 </h2>
                 <div class="currency-box saljog-box">
                     <div class="currency-title saljog-title">
                         <div class="currency-icon saljog-icon">
                             <i class="fas fa-wallet"></i>
                         </div>
-                        <div>حساب الصلج (Saljoğ Hesapları)</div>
+                        <div>حساب Saljoğ (Saljoğ Hesapları)</div>
                     </div>
 
                     <div class="input-group">
                         <label for="saljog-amount">الرصيد الأساسي ($) / Temel Bakiye ($)</label>
                         <div class="label-tr">Saljoğ hesabındaki temel para miktarı</div>
-                        <input type="number" id="saljog-amount" placeholder="أدخل رصيد حساب الصلج بالدولار / Saljoğ hesabındaki dolar miktarını girin" step="0.01" min="0">
+                        <input type="number" id="saljog-amount" placeholder="أدخل رصيد حساب Saljoğ بالدولار / Saljoğ hesabındaki dolar miktarını girin" step="0.01" min="0">
                     </div>
 
                     <div class="expense-profit-row">
                         <div class="expense-profit-item">
                             <label for="saljog-expense">المصروف ($) / Gider ($)</label>
-                            <input type="number" id="saljog-expense" placeholder="مصروف من الصلج" step="0.01" min="0">
+                            <input type="number" id="saljog-expense" placeholder="مصروف من Saljoğ" step="0.01" min="0">
                         </div>
                         <div class="expense-profit-item">
                             <label for="saljog-profit">المكسب ($) / Kâr ($)</label>
@@ -1280,15 +1280,15 @@
                     </div>
 
                     <div id="saljog-total" class="item-total-box">
-                        مجموع الصلج: $0.00 (الرصيد - المصروف + المكسب)
+                        مجموع Saljoğ: $0.00 (الرصيد - المصروف + المكسب)
                     </div>
                 </div>
             </div>
 
-            <!-- الفائض الحقيقي (فائض الدولار - مجموع الصلج) -->
+            <!-- الفائض الحقيقي (فائض الدولار - مجموع Saljoğ) -->
             <div class="real-surplus-box">
                 <div style="font-size: 1.2rem; margin-bottom: 15px;">
-                    <i class="fas fa-calculator"></i> الفائض الحقيقي = فائض الدولار - مجموع الصلج
+                    <i class="fas fa-calculator"></i> الفائض الحقيقي = فائض الدولار - مجموع Saljoğ
                 </div>
                 <div class="summary-grid">
                     <div class="summary-card usd">
@@ -1296,7 +1296,7 @@
                         <div class="summary-card-value" id="display-usd-surplus">$0.00</div>
                     </div>
                     <div class="summary-card saljog">
-                        <div class="summary-card-title">مجموع الصلج</div>
+                        <div class="summary-card-title">مجموع Saljoğ</div>
                         <div class="summary-card-value" id="display-saljog-total">$0.00</div>
                     </div>
                     <div class="summary-card total">
@@ -1405,10 +1405,10 @@
                 </div>
             </div>
 
-            <!-- قسم حساب الصلج في التقرير -->
+            <!-- قسم حساب Saljoğ في التقرير -->
             <div class="card" style="background: linear-gradient(135deg, #b3e5fc, #81d4fa);">
                 <h3 class="card-title" style="color: #01579b;">
-                    <span><i class="fas fa-wallet"></i> تقرير حساب الصلج / Saljoğ Raporu</span>
+                    <span><i class="fas fa-wallet"></i> تقرير حساب Saljoğ / Saljoğ Raporu</span>
                 </h3>
                 
                 <div class="summary-grid">
@@ -1425,22 +1425,22 @@
                         <div class="summary-card-value" style="color: #4caf50;" id="report-saljog-profit">$0.00</div>
                     </div>
                     <div class="summary-card total">
-                        <div class="summary-card-title">مجموع الصلج / Saljoğ Toplam</div>
+                        <div class="summary-card-title">مجموع Saljoğ / Saljoğ Toplam</div>
                         <div class="summary-card-value" style="color: #0288d1;" id="report-saljog-total">$0.00</div>
                     </div>
                 </div>
             </div>
 
-            <!-- المجموع الكلي (فائض الدولار - مجموع الصلج) -->
+            <!-- المجموع الكلي (فائض الدولار - مجموع Saljoğ) -->
             <div class="real-surplus-box">
-                <h3 style="margin-bottom: 15px;">الفائض الحقيقي = فائض الدولار - مجموع الصلج / Gerçek Kar-Zarar = Dolar Kar-Zarar - Saljoğ Toplam</h3>
+                <h3 style="margin-bottom: 15px;">الفائض الحقيقي = فائض الدولار - مجموع Saljoğ / Gerçek Kar-Zarar = Dolar Kar-Zarar - Saljoğ Toplam</h3>
                 <div class="summary-grid">
                     <div class="summary-card usd">
                         <div class="summary-card-title">فائض الدولار / Dolar Kar-Zarar</div>
                         <div class="summary-card-value" id="report-display-usd-surplus">$0.00</div>
                     </div>
                     <div class="summary-card saljog">
-                        <div class="summary-card-title">مجموع الصلج / Saljoğ Toplam</div>
+                        <div class="summary-card-title">مجموع Saljoğ / Saljoğ Toplam</div>
                         <div class="summary-card-value" id="report-display-saljog-total">$0.00</div>
                     </div>
                     <div class="summary-card total">
@@ -1856,10 +1856,10 @@
                                 <th>فائض الدولار / Dolar Kar-Zarar</th>
                                 <th>فائض اليورو / Euro Kar-Zarar</th>
                                 <th>فائض الليرة / Lira Kar-Zarar</th>
-                                <th>رصيد الصلج / Saljoğ Bakiyesi</th>
-                                <th>مصروف الصلج / Saljoğ Gider</th>
-                                <th>مكسب الصلج / Saljoğ Kâr</th>
-                                <th>مجموع الصلج / Saljoğ Toplam</th>
+                                <th>رصيد Saljoğ / Saljoğ Bakiyesi</th>
+                                <th>مصروف Saljoğ / Saljoğ Gider</th>
+                                <th>مكسب Saljoğ / Saljoğ Kâr</th>
+                                <th>مجموع Saljoğ / Saljoğ Toplam</th>
                                 <th>الفائض الحقيقي / Gerçek Kar-Zarar</th>
                                 <th>المصروفات / Giderler</th>
                                 <th class="no-print">الإجراءات / İşlemler</th>
@@ -2081,16 +2081,16 @@
             trySurplusElement.textContent = `الفائض / Kar-Zarar: ₺${formatNumber(trySurplus)}`;
             trySurplusElement.className = 'result-box ' + (trySurplus >= 0 ? 'positive' : 'negative');
 
-            // حساب الصلج
+            // حساب Saljoğ
             const saljogAmount = parseFloat(document.getElementById('saljog-amount').value) || 0;
             const saljogExpense = parseFloat(document.getElementById('saljog-expense').value) || 0;
             const saljogProfit = parseFloat(document.getElementById('saljog-profit').value) || 0;
             const saljogTotal = saljogAmount - saljogExpense + saljogProfit;
             appData.saljog = { amount: saljogAmount, expense: saljogExpense, profit: saljogProfit, total: saljogTotal };
 
-            document.getElementById('saljog-total').textContent = `مجموع الصلج: $${formatNumber(saljogTotal)} (الرصيد - المصروف + المكسب)`;
+            document.getElementById('saljog-total').textContent = `مجموع Saljoğ: $${formatNumber(saljogTotal)} (الرصيد - المصروف + المكسب)`;
 
-            // الفائض الحقيقي = فائض الدولار - مجموع الصلج
+            // الفائض الحقيقي = فائض الدولار - مجموع Saljoğ
             appData.realSurplus = usdSurplus - saljogTotal;
 
             // تحديث العرض
@@ -2747,7 +2747,7 @@
                 `;
             }
 
-            // حساب الصلج
+            // حساب Saljoğ
             document.getElementById('report-saljog-amount').textContent = `$${formatNumber(appData.saljog.amount)}`;
             document.getElementById('report-saljog-expense').textContent = `$${formatNumber(appData.saljog.expense)}`;
             document.getElementById('report-saljog-profit').textContent = `$${formatNumber(appData.saljog.profit)}`;
