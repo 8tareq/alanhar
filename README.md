@@ -266,11 +266,11 @@
             </div>
         </div>
 
-        <!-- حساب الصلج (سلجوق) دولار ويورو -->
-        <div class="card"><div class="card-title"><i class="fas fa-wallet"></i> حساب الصلج / Saljoğ Hesabı</div>
+        <!-- حساب الSaljoğ(سلجوق) دولار ويورو -->
+        <div class="card"><div class="card-title"><i class="fas fa-wallet"></i> حساب الSaljoğ/ Saljoğ Hesabı</div>
             <div class="saljog-grid">
-                <div class="saljog-card"><h3><i class="fas fa-dollar-sign"></i> صلج دولار (USD)</h3><div class="input-group"><label>الرصيد الأساسي</label><input type="number" id="saljogUsdAmount" step="0.01"></div><div class="input-group"><label>المصروف / Gider</label><input type="number" id="saljogUsdExpense" step="0.01"></div><div class="input-group"><label>المكسب / Kâr</label><input type="number" id="saljogUsdProfit" step="0.01"></div><div id="saljogUsdTotal" class="total-badge" style="background:#2c7da0;">المجموع: $0.00</div></div>
-                <div class="saljog-card"><h3><i class="fas fa-euro-sign"></i> صلج يورو (EUR)</h3><div class="input-group"><label>الرصيد الأساسي</label><input type="number" id="saljogEurAmount" step="0.01"></div><div class="input-group"><label>المصروف / Gider</label><input type="number" id="saljogEurExpense" step="0.01"></div><div class="input-group"><label>المكسب / Kâr</label><input type="number" id="saljogEurProfit" step="0.01"></div><div id="saljogEurTotal" class="total-badge" style="background:#2c7da0;">المجموع: €0.00</div></div>
+                <div class="saljog-card"><h3><i class="fas fa-dollar-sign"></i> Saljoğدولار (USD)</h3><div class="input-group"><label>الرصيد الأساسي</label><input type="number" id="saljogUsdAmount" step="0.01"></div><div class="input-group"><label>المصروف / Gider</label><input type="number" id="saljogUsdExpense" step="0.01"></div><div class="input-group"><label>المكسب / Kâr</label><input type="number" id="saljogUsdProfit" step="0.01"></div><div id="saljogUsdTotal" class="total-badge" style="background:#2c7da0;">المجموع: $0.00</div></div>
+                <div class="saljog-card"><h3><i class="fas fa-euro-sign"></i> Saljoğيورو (EUR)</h3><div class="input-group"><label>الرصيد الأساسي</label><input type="number" id="saljogEurAmount" step="0.01"></div><div class="input-group"><label>المصروف / Gider</label><input type="number" id="saljogEurExpense" step="0.01"></div><div class="input-group"><label>المكسب / Kâr</label><input type="number" id="saljogEurProfit" step="0.01"></div><div id="saljogEurTotal" class="total-badge" style="background:#2c7da0;">المجموع: €0.00</div></div>
             </div>
         </div>
 
@@ -305,7 +305,7 @@
     <!-- التقرير الشهري -->
     <div id="monthlyTab" class="content-section"><div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> التقرير الشهري - Aylık Rapor</div><div class="input-group" style="max-width: 260px;"><label>اختر الشهر</label><input type="month" id="monthPicker"></div><button id="loadMonthlyReportBtn" class="btn">عرض التقرير</button>
         <div id="monthlySummaryStats" class="profits-dashboard" style="margin-top: 25px;"></div>
-        <div style="margin-top: 25px;"><h3><i class="fas fa-landmark"></i> حساب الصلج (Saljoğ) الشهري</h3><div id="monthlySaljogBox" class="saljog-grid"></div></div>
+        <div style="margin-top: 25px;"><h3><i class="fas fa-landmark"></i> حساب الSaljoğ(Saljoğ) الشهري</h3><div id="monthlySaljogBox" class="saljog-grid"></div></div>
         <div style="margin-top: 30px;"><h3>📊 الأرباح الشهرية (كل صنف بمربع)</h3><div id="monthlyProfitsGrid" class="profits-dashboard"></div><div id="monthlyTotalProfitsBox" class="total-badge"></div></div>
         <div style="margin-top: 30px;"><h3>💰 المصروفات الشهرية (كل بند بمربع)</h3><div id="monthlyExpensesGrid" class="expenses-dashboard"></div><div id="monthlyTotalExpensesBox" class="total-badge"></div></div>
         <div class="no-print" style="margin-top: 30px;"><button id="printMonthlyReportBtn" class="btn btn-success"><i class="fas fa-print"></i> طباعة التقرير الشهري</button></div>
@@ -436,7 +436,7 @@
         let filter = document.getElementById("historyFilterDate")?.value;
         let filtered = filter ? allHistory.filter(r=>r.date===filter) : [...allHistory].reverse();
         if(filtered.length===0){ container.innerHTML = "<div class='card'>لا توجد سجلات</div>"; return; }
-        let html = `<table class="report-table"><thead><tr><th>التاريخ</th><th>فائض دولار</th><th>صلج دولار</th><th>صلج يورو</th><th>الربح الحقيقي</th><th>إجراء</th></tr></thead><tbody>`;
+        let html = `<table class="report-table"><thead><tr><th>التاريخ</th><th>فائض دولار</th><th>Saljoğدولار</th><th>Saljoğيورو</th><th>الربح الحقيقي</th><th>إجراء</th></tr></thead><tbody>`;
         filtered.forEach(rec => {
             let originalIdx = allHistory.findIndex(r=>r.timestamp===rec.timestamp);
             html += `<tr><td>${rec.date}</td><td>$${rec.usd.surplus.toFixed(2)}</td><td>$${rec.saljog.usdTotal.toFixed(2)}</td><td>€${rec.saljog.eurTotal.toFixed(2)}</td><td>$${rec.realSurplus.toFixed(2)}</td><td><button class="editHistoryBtn" data-idx="${originalIdx}" class="btn">تعديل</button> <button class="delHistoryBtn" data-idx="${originalIdx}" style="background:#b91c1c;">حذف</button></td></tr>`;
@@ -484,11 +484,11 @@
                 <p>ملخص حركة الصرافة - ALANHAR</p>
             </div>
             <div class="saljog-grid" style="margin-bottom:25px;">
-                <div class="summary-stat">🇺🇸 فائض الدولار: $${d.usd.surplus.toFixed(2)}</div>
-                <div class="summary-stat">🇪🇺 فائض اليورو: €${d.eur.surplus.toFixed(2)}</div>
-                <div class="summary-stat">📌 صلج دولار: $${d.saljog.usdTotal.toFixed(2)}</div>
-                <div class="summary-stat">📌 صلج يورو: €${d.saljog.eurTotal.toFixed(2)}</div>
-                <div class="summary-stat">⭐ الربح الحقيقي: $${d.realSurplus.toFixed(2)}</div>
+                <div class="summary-stat">🇺🇸 فائض kâr USD: $${d.usd.surplus.toFixed(2)}</div>
+                <div class="summary-stat">🇪🇺 فائض kâr EUR: €${d.eur.surplus.toFixed(2)}</div>
+                <div class="summary-stat">📌 Saljoğ USD: $${d.saljog.usdTotal.toFixed(2)}</div>
+                <div class="summary-stat">📌 Saljoğ EUR: €${d.saljog.eurTotal.toFixed(2)}</div>
+                <div class="summary-stat"> الربح الاخر: $${d.realSurplus.toFixed(2)}</div>
             </div>
             <h3 style="margin-top:20px;">🏆 الأرباح التفصيلية</h3>
             ${profitHtml}
@@ -517,7 +517,7 @@
             rec.expenses.forEach(ex => { if(!aggExpenses[ex.nameAr]) aggExpenses[ex.nameAr] = { nameAr:ex.nameAr, USD:0, EUR:0, TRY:0 }; if(ex.currency==='USD') aggExpenses[ex.nameAr].USD += ex.amount; else if(ex.currency==='EUR') aggExpenses[ex.nameAr].EUR += ex.amount; else aggExpenses[ex.nameAr].TRY += ex.amount; });
         });
         document.getElementById("monthlySummaryStats").innerHTML = `<div class="profit-card">🇺🇸 إجمالي فائض دولار: $${totalUsdSurplus.toFixed(2)}</div><div class="profit-card">🇪🇺 إجمالي فائض يورو: €${totalEurSurplus.toFixed(2)}</div><div class="profit-card">💰 صافي الربح الحقيقي: $${totalReal.toFixed(2)}</div>`;
-        document.getElementById("monthlySaljogBox").innerHTML = `<div class="saljog-card"><h3>صلج دولار USD</h3><div class="total-badge">المجموع الشهري: $${totalSaljogUsd.toFixed(2)}</div></div><div class="saljog-card"><h3>صلج يورو EUR</h3><div class="total-badge">المجموع الشهري: €${totalSaljogEur.toFixed(2)}</div></div>`;
+        document.getElementById("monthlySaljogBox").innerHTML = `<div class="saljog-card"><h3>Saljoğدولار USD</h3><div class="total-badge">المجموع الشهري: $${totalSaljogUsd.toFixed(2)}</div></div><div class="saljog-card"><h3>Saljoğيورو EUR</h3><div class="total-badge">المجموع الشهري: €${totalSaljogEur.toFixed(2)}</div></div>`;
         let profitsHtml = ""; for(let cat of profitCategories){ let u=aggProfits[cat.id].usd, e=aggProfits[cat.id].eur; profitsHtml += `<div class="profit-card"><h4>${cat.nameAr}</h4><div>USD: $${u.toFixed(2)} | EUR: €${e.toFixed(2)}</div></div>`; }
         document.getElementById("monthlyProfitsGrid").innerHTML = profitsHtml;
         let totalPUSD = Object.values(aggProfits).reduce((s,p)=>s+p.usd,0); let totalPEUR = Object.values(aggProfits).reduce((s,p)=>s+p.eur,0);
